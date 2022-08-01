@@ -8,12 +8,13 @@ import prompts from "prompts"
 import path from "path"
 import packageJson from "./package.json" assert {type: 'json'}
 import {createPackageJson} from "./helpers/createPackage.js"
+import { existsSync, fstat } from "fs"
 
 let projectPath = ""
 
 const program = new Commander.Command(packageJson.name)
     .version(packageJson.version)
-    .arguments('<project-directory>')
+    .arguments('[project-directory]')
     .usage("<project-directory>")
     .action(name => {
         projectPath = name
@@ -29,37 +30,51 @@ async function run() {
     }
 
     if (!projectPath) {
-        //add prompts
+        projectPath = await prompts({
+            type: 'text',
+            name: 'projectPath',
+            message: 'Please add a project path',
+            initial: 'my-dapp',
+        }).then(data => data.projectPath)
+        console.log(projectPath)
     }
 
 
- if (!projectPath) {
-        //exit non 0
- }
+    if (!projectPath) {
+            //exit non 0
+    }
 
-    const resolvedProjectPath = path.resolve(projectPath);
+    let resolvedProjectPath = path.resolve(projectPath);
+    let dirExists = existsSync(resolvedProjectPath)
+    
+    while (dirExists) {
+        projectPath = await prompts({
+            type: 'text',
+            name: 'projectPath',
+            message: 'Please use a different project path',
+            initial: 'my-dapp',
+        }).then(data => data.projectPath)
+        console.log(projectPath)
+        resolvedProjectPath = path.resolve(projectPath);
+        dirExists = existsSync(resolvedProjectPath)
+        console.log(dirExists)
+    }
     const projectName = path.basename(resolvedProjectPath);
 
-    const res = await prompts({
-        type: 'text',
+    
+
+    const isEthereumProject = await prompts({
+        type: 'select',
         name: 'virtualMachine',
         message: 'For which VM are you building for?',
-        initial: 'ethereum or solana',
         choices: [
-            { title: 'EVM', value: '#ff0000' },
-            { title: 'Solana VM', value: '#00ff00' },
+            { title: 'Solana', value: 'solana' },
+            { title: 'Ethereum', value: 'ethereum' },
         ],
-        validate: (virtualMachine) => {
-            let normalizedVirtualMachine = virtualMachine.toLowerCase()
-            if (normalizedVirtualMachine === 'solana' || normalizedVirtualMachine === 'sol' || normalizedVirtualMachine === 'ethereum' || normalizedVirtualMachine === 'eth') {
-                return true
-            } else {
-                return "Please write solana or ethereum (sol or eth)"
-            }
-        }
-    })
+        initial: 1,
+    }).then(data => data.virtualMachine)
 
-    createPackageJson(true, projectPath, projectName)
+    createPackageJson(isEthereumProject == "ethereum" ? true : false, resolvedProjectPath, projectName)
     
 }
 
