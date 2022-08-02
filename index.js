@@ -8,7 +8,7 @@ import prompts from "prompts"
 import path from "path"
 import packageJson from "./package.json" assert {type: 'json'}
 import {createPackageJson} from "./helpers/createPackage.js"
-import { existsSync, fstat } from "fs"
+import { existsSync, fstat, mkdir } from "fs"
 
 let projectPath = ""
 
@@ -26,7 +26,6 @@ const program = new Commander.Command(packageJson.name)
 async function run() {
     if (typeof projectPath === 'string') {
         projectPath = projectPath.trim()
-
     }
 
     if (!projectPath) {
@@ -46,7 +45,7 @@ async function run() {
 
     let resolvedProjectPath = path.resolve(projectPath);
     let dirExists = existsSync(resolvedProjectPath)
-    
+
     while (dirExists) {
         projectPath = await prompts({
             type: 'text',
@@ -61,19 +60,17 @@ async function run() {
     }
     const projectName = path.basename(resolvedProjectPath);
 
-    
-
     const isEthereumProject = await prompts({
         type: 'select',
         name: 'virtualMachine',
         message: 'For which VM are you building for?',
         choices: [
             { title: 'Solana', value: 'solana' },
-            { title: 'Ethereum', value: 'ethereum' },
         ],
         initial: 1,
     }).then(data => data.virtualMachine)
 
+    mkdir(projectPath)
     createPackageJson(isEthereumProject == "ethereum" ? true : false, resolvedProjectPath, projectName)
     
 }

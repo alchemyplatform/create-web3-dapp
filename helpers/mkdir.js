@@ -1,13 +1,12 @@
 const fs = require('fs')
 const getArgs = require('./getArgs')
 
-const mkdir = () => {
-    const projectInfo = getArgs()
-    try {
-        fs.mkdirSync(projectInfo.projectName)
-    } catch (error) {
-        console.log(error)
-        process.exit(1)
-    }
+const mkdir = (projectPath) => {
+    fs.mkdirSync(projectPath, (err) => {
+        if (err) {
+            console.log("FOLDER ALREADY EXISTS:: ERRHANDLING")
+            return
+        }
+    })
 }
 

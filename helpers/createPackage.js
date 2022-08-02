@@ -13,21 +13,15 @@ export const createPackageJson = async(
 
 ) => {
     try {
-        
-        fs.mkdirSync(projectPath, (err) => {
-            if (err) {
-                console.log("FOLDER ALREADY EXISTS:: ERRHANDLING")
-                createPackageJson(isEthereumProject, null, null)
-                return
-            }
-        })
-        console.log("Downloading files...");
         process.chdir(projectPath)
+        console.log("Downloading files...");
         execSync(`git clone --depth 1 ${"https://github.com/Eversmile12/create-web3-dapp"} .`);
+        let template;
 
-        let template = path.join(process.cwd(), "templates", "nextJS")
+        template = path.join(process.cwd(), "templates", isEthereumProject ? "ethereum" : "solana", "nextJS")
+
         fse.copySync(template, process.cwd())
-
+      
         let packageJson = {
             "name": projectName,
             "version": "0.1.0",
@@ -51,6 +45,9 @@ export const createPackageJson = async(
 
         if (isEthereumProject) {
             packageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
+            packageJson["dependencies"]["@rainbow-me/rainbowkit"] = "^0.4.5";
+  
+            
         }else {
             packageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
             packageJson["dependencies"]["@solana/wallet-adapter-react-ui"] = "^0.9.11";
@@ -59,8 +56,6 @@ export const createPackageJson = async(
         }
        
        
-        
- 
         fs.writeFileSync('package.json', JSON.stringify(packageJson, null, "\t"), err => { if (err) console.log(err) })
         execSync("npm install")
         execSync("npx next build")
