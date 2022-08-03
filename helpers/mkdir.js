@@ -1,7 +1,6 @@
-const fs = require('fs')
-const getArgs = require('./getArgs')
+import fs from "fs"
 
-const mkdir = (projectPath) => {
+export const mkdir = (projectPath) => {
     fs.mkdirSync(projectPath, (err) => {
         if (err) {
             console.log("FOLDER ALREADY EXISTS:: ERRHANDLING")
