@@ -35,8 +35,8 @@ console.log("🔵 Welcome to the create-web3-dapp wizard 🔵")
 console.log("\n")
 let projectPath = "";
 
-const program = new Commander.Command(packageJson.name)
-  .version(packageJson.version)
+const program = new Commander.Command("create-web3-dapp")
+  .version("0.1.0")
   .arguments("[project-directory]")
   .usage("<project-directory>")
   .action((name) => {
