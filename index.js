@@ -1,18 +1,17 @@
 #!/usr/bin/env node
-/* eslint-disable import/no-extraneous-dependencies */
 
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
 import { createPackageJson } from "./helpers/createPackage.js";
-import { existsSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { mkdir } from "./helpers/mkdir.js";
 import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
 import { cloneRepo } from "./helpers/cloneRepo.js";
 import {selfDestroy, setRoot} from "./helpers/selfDestroy.js"
 import chalk from "chalk";
 
-import { readFileSync } from "fs";
+
 const packageJson = JSON.parse(readFileSync("./package.json"));
 console.log(packageJson.name)
 
