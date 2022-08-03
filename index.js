@@ -4,7 +4,6 @@
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
-import packageJson from "./package.json" assert { type: "json" };
 import { createPackageJson } from "./helpers/createPackage.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/mkdir.js";
@@ -12,7 +11,9 @@ import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
 import { cloneRepo } from "./helpers/cloneRepo.js";
 import {selfDestroy, setRoot} from "./helpers/selfDestroy.js"
 import chalk from "chalk";
+import fs from "fs"
 
+const packageJson = JSON.parse(fs.readFileSync('./package.json'));
 
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
@@ -109,7 +110,7 @@ async function run() {
         const wantsBackend = await prompts({
             type: "toggle",
             name: "backend",
-            message: "Do you want to add a backend?",
+            message: "Smart contract development environment?",
             initial: true,
             active: "yes",
             inactive: "no",
@@ -118,13 +119,13 @@ async function run() {
         backendInfo["wantsBackend"] = wantsBackend
 
 
-
+        console.log(isEthereumProject)
         
         if (isEthereumProject) {
             await prompts({
                 type: "select",
                 name: "ethereumBackend",
-                message: "For which VM are you building for?",
+                message: "Choose one:",
                 choices: [
                     { title: "Hardhat", value: "hardhat" },
                     { title: "Foundry", value: "foundry" },

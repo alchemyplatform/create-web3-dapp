@@ -59,6 +59,8 @@ export const createPackageJson = async (isEthereumProject, projectName, backendI
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
           packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
           break;
+        default:
+          break;
       }
      
     }
