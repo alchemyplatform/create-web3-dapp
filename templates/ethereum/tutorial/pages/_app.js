@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import {wagmiClient, chains, WagmiConfig, RainbowKitProvider} from "../helpers/walletSetup"
+import {wagmiClient, chains, WagmiConfig, RainbowKitProvider} from "./utils/walletSetup"
 
 function MyApp({ Component, pageProps }) {
 

@@ -79,7 +79,8 @@ async function run() {
             initial: true,
             active: "yes",
             inactive: "no",
-        }).then((data) => (data.templateFiles == "yes" ? true : false));
+        }).then((data) => (data.templateFiles))
+        ;
 
         // console.log("wantsTemplate", wantsTemplateFiles);
 
@@ -91,6 +92,8 @@ async function run() {
             projectName
         );
         cleanUpFiles();
+
+        console.log(chalk.green("Visit alchemy.com/docs for the complete tutorial"))
     } catch (e) {
         selfDestroy(e)
     }

@@ -17,7 +17,9 @@ export const cloneRepo = (projectPath, isEthereumProject,wantsTemplateFiles) => 
     execSync(
       `git clone --depth 1 ${"https://github.com/Eversmile12/create-web3-dapp"} .`
     );
-    bar1.update(100)
+      bar1.update(100)
+      
+      console.log("WANTS TEMPLATE FILES:: ", wantsTemplateFiles)
     let template = path.join(
       process.cwd(),
       "templates",
