@@ -4,7 +4,6 @@
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
-import packageJson from "./package.json" assert {type:json}
 import { createPackageJson } from "./helpers/createPackage.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/mkdir.js";
@@ -12,6 +11,9 @@ import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
 import { cloneRepo } from "./helpers/cloneRepo.js";
 import {selfDestroy, setRoot} from "./helpers/selfDestroy.js"
 import chalk from "chalk";
+
+import { readFileSync } from "fs";
+const packageJson = JSON.parse(readFileSync("./package.json"));
 
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
