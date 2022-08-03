@@ -4,7 +4,6 @@
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
-import packageJson from "./package.json" assert {type:"json"}
 import { createPackageJson } from "./helpers/createPackage.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/mkdir.js";
