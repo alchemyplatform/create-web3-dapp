@@ -79,17 +79,51 @@ async function run() {
             initial: true,
             active: "yes",
             inactive: "no",
-        }).then((data) => (data.templateFiles))
-        ;
+        }).then((data) => (data.templateFiles));
+
+
+        let backendInfo = {};
+
+        const wantsBackend = await prompts({
+            type: "toggle",
+            name: "backend",
+            message: "Do you want to add a backend?",
+            initial: true,
+            active: "yes",
+            inactive: "no",
+        }).then((data) => (data.backend));
+
+        backendInfo["wantsBackend"] = wantsBackend
+
+
+
+        
+        if (isEthereumProject) {
+            await prompts({
+                type: "select",
+                name: "ethereumBackend",
+                message: "For which VM are you building for?",
+                choices: [
+                    { title: "Hardhat", value: "hardhat" },
+                    { title: "Foundry", value: "foundry" },
+                ],
+                initial: 0,
+            }).then((data) => backendInfo["type"] = data.ethereumBackend );
+            
+        }
+      
+        console.log(backendInfo)
 
         // console.log("wantsTemplate", wantsTemplateFiles);
 
         mkdir(resolvedProjectPath);
-        cloneRepo(resolvedProjectPath, isEthereumProject, wantsTemplateFiles);
+        cloneRepo(resolvedProjectPath, isEthereumProject, wantsTemplateFiles, backendInfo);
         console.log(chalk.green("files copied ✅"))
         createPackageJson(
             isEthereumProject,
-            projectName
+            projectName,
+            wantsBackend,
+            isHardhatBackend
         );
         cleanUpFiles();
 

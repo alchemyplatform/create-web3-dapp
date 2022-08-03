@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 
-export const createPackageJson = async (isEthereumProject, projectName) => {
+export const createPackageJson = async (isEthereumProject, projectName, wantsBackend, isHardhatBackend) => {
   try {
     console.log(chalk.yellow("Generating package.json"));
     const bar1 = new cliProgress.SingleBar(
@@ -33,6 +33,7 @@ export const createPackageJson = async (isEthereumProject, projectName) => {
       },
     };
     bar1.update(100);
+
     if (isEthereumProject) {
       packageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
       packageJson["dependencies"]["@rainbow-me/rainbowkit"] = "^0.4.5";
@@ -42,10 +43,26 @@ export const createPackageJson = async (isEthereumProject, projectName) => {
         "^0.9.11";
       packageJson["dependencies"]["@solana/wallet-adapter-phantom"] = "^0.9.8";
       packageJson["dependencies"]["@solana/wallet-adapter-react"] = "^0.15.8";
-      packageJson["dependencies"]["@solana/wallet-adapter-base"] = "^0.17.0";
+      packageJson["dependencies"]["@solana/wallet-adapter-base"] = "^0.9.9";
       packageJson["dependencies"]["@solana/web3.js"] = "^1.50.1";
     }
-    
+
+    if (backendInfo.wantsBackend) {
+
+      switch (backendInfo.type) {
+        case "hardhat":
+          packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
+          packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
+          break;
+        case "foundry":
+          console.log("It will be soon released - reverting to Hardhat as of now")
+          packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
+          packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
+          break;
+      }
+     
+    }
+
     bar1.update(150);
     fs.writeFileSync(
       "package.json",
@@ -56,6 +73,7 @@ export const createPackageJson = async (isEthereumProject, projectName) => {
     );
     bar1.update(200);
     bar1.stop();
+    
     console.log(chalk.green("Package.json generated"));
     console.log(chalk.yellow("Installing dependencies..."));
     execSync("npm install");
