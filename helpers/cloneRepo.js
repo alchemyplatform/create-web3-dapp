@@ -37,8 +37,9 @@ export const cloneRepo = (projectPath, isEthereumProject, wantsTemplateFiles, ba
         const bar2 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
         bar2.start(100, 0);
         let hardhatTemplate = path.join(process.cwd(), "templates", backendInfo.type ? "hardhat" : "hardhat")
-        fse.copySync(hardhatTemplate, process.cwd());
-        fse.renameSync(path.join(process.cwd(), "hardhat"), path.join(process.cwd(), backend))
+        fse.mkdirSync(path.join(process.cwd(), "backend"))
+        fse.copySync(hardhatTemplate, path.join(process.cwd(), "backend"));
+        // fse.renameSync(path.join(process.cwd(), "hardhat"), path.join(process.cwd(), "backend"))
         bar2.update(100)
         bar2.stop()
         console.log("Finished copying backend files")

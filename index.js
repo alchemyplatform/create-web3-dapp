@@ -12,6 +12,28 @@ import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
 import { cloneRepo } from "./helpers/cloneRepo.js";
 import {selfDestroy, setRoot} from "./helpers/selfDestroy.js"
 import chalk from "chalk";
+
+
+console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMK;        .dNMMMMMMMMMMMMM
+MMMMMMMMMMMMMMWk'        .lXMMMMMMMMMMMM
+MMMMMMMMMMMKdxNW0;        .cKMMMMMMMMMMM
+MMMMMMMMMW0; .cXMK:.        ;0WMMMMMMMMM
+MMMMMMMMWk'    :0WXl'.       ,kWMMMMMMMM
+MMMMMMMNx.      ,0MNKd.       .xNMMMMMMM
+MMMMMMNo.       'OMMMWx'       .oNMMMMMM
+MMMMMXc.       ,OWMMMMWO;........dNMMMMM
+MMMM0:        :0MMMMMMMMN0OO0OOO0XWMMMMM
+MMWO,       .cXMXkxxxxxxxxxxxxxxxxxkKWMM
+MWx'       .oNW0;.                  'xWM
+Nd.       .xNWk'                     .dN
+l.       'kWNx.                       .l
+.       .kWM0'                         .`)
+console.log("\n\n")
+console.log("🔵 Welcome to the create-web3-dapp wizard 🔵")
+console.log("\n")
 let projectPath = "";
 
 const program = new Commander.Command(packageJson.name)
@@ -122,8 +144,7 @@ async function run() {
         createPackageJson(
             isEthereumProject,
             projectName,
-            wantsBackend,
-            isHardhatBackend
+            backendInfo
         );
         cleanUpFiles();
 

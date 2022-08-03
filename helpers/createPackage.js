@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 
-export const createPackageJson = async (isEthereumProject, projectName, wantsBackend, isHardhatBackend) => {
+export const createPackageJson = async (isEthereumProject, projectName, backendInfo) => {
   try {
     console.log(chalk.yellow("Generating package.json"));
     const bar1 = new cliProgress.SingleBar(
@@ -52,7 +52,7 @@ export const createPackageJson = async (isEthereumProject, projectName, wantsBac
       switch (backendInfo.type) {
         case "hardhat":
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
-          packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
+          packageJson["devDependencies"]["hardhat"] = "^2.10.1";
           break;
         case "foundry":
           console.log("It will be soon released - reverting to Hardhat as of now")
@@ -73,7 +73,7 @@ export const createPackageJson = async (isEthereumProject, projectName, wantsBac
     );
     bar1.update(200);
     bar1.stop();
-    
+
     console.log(chalk.green("Package.json generated"));
     console.log(chalk.yellow("Installing dependencies..."));
     execSync("npm install");
