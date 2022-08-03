@@ -14,6 +14,7 @@ import chalk from "chalk";
 
 import { readFileSync } from "fs";
 const packageJson = JSON.parse(readFileSync("./package.json"));
+console.log(packageJson.name)
 
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
@@ -60,7 +61,6 @@ async function run() {
                 message: "Please add a project path",
                 initial: "my-dapp",
             }).then((data) => data.projectPath);
-            console.log(projectPath);
         }
 
         if (!projectPath) {
