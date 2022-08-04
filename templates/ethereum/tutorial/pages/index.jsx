@@ -7,11 +7,14 @@ import { NFTGallery } from "./components/nftGallery";
 import { TransactionsBox } from "./components/transactionsBox";
 import { Panel } from "./components/panels";
 import { Section } from "./layout/section";
+
 export default function Home() {
   const { address, isConnected } = useAccount();
+  /* WARNING:: the API key will be exposed on the browser - ideally you should get your key through server side rendering
+or get the data directly from your APIs */
 
   const settings = {
-    apiKey: "demo",
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
     network: Network.ETH_MAINNET,
   };
 
@@ -35,7 +38,6 @@ export default function Home() {
         </div>
       </header>
       <main className={styles.main}>
-
         <Section>
           <Panel></Panel>
         </Section>
@@ -59,7 +61,6 @@ export default function Home() {
           </p>
           <TransactionsBox alchemy={alchemy} />
         </Section>
-
       </main>
     </div>
   );

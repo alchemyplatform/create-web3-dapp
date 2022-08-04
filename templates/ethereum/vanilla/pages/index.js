@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <div>
       <header className={styles.header_container}>
-        
         <div className={styles.logo_container}>
           <Image
             src={"/logo.svg"}
