@@ -5,13 +5,13 @@ import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
 import { createPackageJson } from "./helpers/createPackage.js";
-import { existsSync } from "fs";
+import { existsSync, fstat } from "fs";
 import { mkdir } from "./helpers/mkdir.js";
 import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
 import { cloneRepo } from "./helpers/cloneRepo.js";
 import { selfDestroy, setRoot } from "./helpers/selfDestroy.js";
 import chalk from "chalk";
-import {createEnv} from "./helpers/createEnv.js"
+import { createEnv } from "./helpers/createEnv.js";
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
@@ -49,24 +49,22 @@ async function run() {
     if (typeof projectPath === "string") {
       projectPath = projectPath.trim();
     }
-
-    if (!projectPath) {
-      projectPath = await prompts({
-        type: "text",
-        name: "projectPath",
-        message: "Please, insert a project name",
-        initial: "my-dapp",
-      }).then((data) => data.projectPath);
-      console.log(projectPath);
-    }
-
-    if (!projectPath) {
-      //exit non 0
-    }
+      while (!projectPath) {
+        projectPath = await prompts({
+          type: "text",
+          name: "projectPath",
+          message: "Please, insert a project name",
+          initial: "my-dapp",
+        }).then((data) => data.projectPath);
+      }
+    
+    projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
+    console.log(projectPath)
 
     let resolvedProjectPath = path.resolve(projectPath);
     let dirExists = existsSync(resolvedProjectPath);
     setRoot(resolvedProjectPath);
+
     while (dirExists) {
       projectPath = await prompts({
         type: "text",
@@ -80,18 +78,66 @@ async function run() {
       dirExists = existsSync(resolvedProjectPath);
       console.log(dirExists);
     }
+
     const projectName = path.basename(resolvedProjectPath);
 
-    const isEthereumProject = await prompts({
+    
+
+    let dappInfo = {
+      chain: null,
+      isTestnet: false,
+      testnet: null,
+      useBackend: false,
+      type: null,
+      wantsTemplateFiles: false,
+    };
+
+    const chain = await prompts({
       type: "select",
-      name: "virtualMachine",
+      name: "chain",
       message: "For which VM are you building for?",
       choices: [
-        { title: "EVM", value: "ethereum" },
+        { title: "Ethereum", value: "ethereum" },
+        { title: "Polygon", value: "polygon" },
+        { title: "Artbitrum", value: "arbitrum" },
+        { title: "Optimism", value: "optimism" },
         { title: "Solana", value: "solana" },
       ],
       initial: 0,
-    }).then((data) => (data.virtualMachine == "ethereum" ? true : false));
+    }).then((data) => data.chain);
+
+    dappInfo.chain = chain;
+
+    if (dappInfo.chain === "ethereum" || dappInfo.chain === "polygon") {
+      const isTestnet = await prompts({
+        type: "toggle",
+        name: "testnet",
+        message: "Do you want to use a testnet?",
+        initial: true,
+        active: "yes",
+        inactive: "no",
+      }).then((data) => data.testnet);
+      dappInfo.isTestnet = isTestnet;
+
+      if (isTestnet && dappInfo.chain === "ethereum") {
+        const testnet = await prompts({
+          type: "select",
+          name: "chain",
+          message: "Which testnet do you want to use?",
+          choices: [
+            { title: "Ethereum", value: "ethereum" },
+            { title: "Polygon", value: "polygon" },
+            { title: "Artbitrum", value: "arbitrum" },
+            { title: "Optimism", value: "optimism" },
+            { title: "Solana", value: "solana" },
+          ],
+          initial: 0,
+        }).then((data) => data.chain);
+        dappInfo.testnet = testnet
+      }  
+    }
+
+    //TODO: Split in components selection
 
     const wantsTemplateFiles = await prompts({
       type: "toggle",
@@ -102,32 +148,44 @@ async function run() {
       inactive: "no",
     }).then((data) => data.templateFiles);
 
-    let backendInfo = {};
-
-    const wantsBackend = await prompts({
+    dappInfo.wantsTemplateFiles = wantsTemplateFiles
+ 
+    const useBackend = await prompts({
       type: "toggle",
-      name: "backend",
-      message: "Do you want to import a Blockchain Development environment?",
+      name: "useBackend",
+      message: "Do you want to import a Blockchain development environment? (Hardhat, Foundry, Anchor",
       initial: true,
       active: "yes",
       inactive: "no",
-    }).then((data) => data.backend);
+    }).then((data) => data.useBackend);
 
-    backendInfo["wantsBackend"] = wantsBackend;
+    dappInfo.useBackend = useBackend;
 
-    if (wantsBackend) {
-      await prompts({
-        type: "select",
-        name: "ethereumBackend",
-        message: "Choose a Blockchain development environment",
-        choices: [
-          { title: "Hardhat", value: "hardhat" },
-          { title: "Foundry", value: "foundry" },
-        ],
-        initial: 0,
-      }).then((data) => (backendInfo["type"] = data.ethereumBackend));
-    }
-
+    if (useBackend) {
+      if (dappInfo.chain == "solana") {
+        await prompts({
+          type: "select",
+          name: "backendType",
+          message: "Choose a Blockchain development environment:",
+          choices: [
+            { title: "Anchor", value: "anchor" },
+          ],
+          initial: 0,
+        }).then((data) => (dappInfo.type = data.backendType));
+      } else {
+        await prompts({
+          type: "select",
+          name: "backendType",
+          message: "Choose a Blockchain development environment:",
+          choices: [
+            { title: "Hardhat", value: "hardhat" },
+            { title: "Foundry", value: "foundry" },
+          ],
+          initial: 0,
+        }).then((data) => (dappInfo.type = data.backendType));
+      }
+      }
+    
     let alchemyAPIKey = await prompts({
       type: "text",
       name: "apiKey",
@@ -135,23 +193,21 @@ async function run() {
       initial: "demo",
     }).then((data) => data.apiKey);
 
-    console.log(alchemyAPIKey);
 
     mkdir(resolvedProjectPath);
+
     cloneRepo(
       resolvedProjectPath,
-      isEthereumProject,
-      wantsTemplateFiles,
-      backendInfo
+      dappInfo
     );
 
-    createPackageJson(isEthereumProject, projectName, backendInfo);
+    createPackageJson(projectName, dappInfo);
 
     createEnv(alchemyAPIKey);
     cleanUpFiles();
 
     console.log(
-      chalk.green("Visit alchemy.com/docs for the complete tutorial")
+      chalk.green("Visit https://docs.alchemy.com/for the complete tutorial")
     );
   } catch (e) {
     selfDestroy(e);

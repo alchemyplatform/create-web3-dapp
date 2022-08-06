@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 
-export const createPackageJson = async (isEthereumProject, projectName, backendInfo) => {
+export const createPackageJson = async ( projectName, {isEthereumProject, wantsBackend, type}) => {
   try {
     console.log(chalk.yellow("Generating package.json"));
     const bar1 = new cliProgress.SingleBar(
@@ -47,9 +47,9 @@ export const createPackageJson = async (isEthereumProject, projectName, backendI
       packageJson["dependencies"]["@solana/web3.js"] = "^1.50.1";
     }
 
-    if (backendInfo.wantsBackend) {
+    if (wantsBackend) {
 
-      switch (backendInfo.type) {
+      switch (type) {
         case "hardhat":
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
           packageJson["devDependencies"]["hardhat"] = "^2.10.1";
