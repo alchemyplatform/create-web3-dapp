@@ -3,7 +3,7 @@
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
-import { createPackageJson } from "./helpers/createPackage.js";
+import { createPackageJson } from "./helpers/utils/createPackage.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/utils/mkdir.js";
 import { cleanUpFiles } from "./helpers/utils/cleanUpFiles.js";
