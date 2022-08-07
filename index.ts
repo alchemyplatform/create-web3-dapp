@@ -12,6 +12,7 @@ import { cloneRepo } from "./helpers/cloneRepo.js";
 import { selfDestroy, setRoot } from "./helpers/selfDestroy.js";
 import chalk from "chalk";
 import { createEnv } from "./helpers/createEnv.js";
+
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
@@ -29,6 +30,7 @@ MWx'       .oNW0;.                  'xWM
 Nd.       .xNWk'                     .dN
 l.       'kWNx.                       .l
 .       .kWM0'                         .`);
+
 console.log("\n");
 console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
 console.log("\n");
@@ -49,17 +51,17 @@ async function run() {
     if (typeof projectPath === "string") {
       projectPath = projectPath.trim();
     }
-      while (!projectPath) {
-        projectPath = await prompts({
-          type: "text",
-          name: "projectPath",
-          message: "Please, insert a project name",
-          initial: "my-dapp",
-        }).then((data) => data.projectPath);
-      }
-    
+    while (!projectPath) {
+      projectPath = await prompts({
+        type: "text",
+        name: "projectPath",
+        message: "Please, insert a project name",
+        initial: "my-dapp",
+      }).then((data) => data.projectPath);
+    }
+
     projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
-    console.log(projectPath)
+    console.log(projectPath);
 
     let resolvedProjectPath = path.resolve(projectPath);
     let dirExists = existsSync(resolvedProjectPath);
@@ -81,14 +83,11 @@ async function run() {
 
     const projectName = path.basename(resolvedProjectPath);
 
-    
-
-    let dappInfo = {
-      chain: null,
+    let dappInfo: dappInfo = {
+      chain: "",
+      isEVM: true,
       isTestnet: false,
-      testnet: null,
       useBackend: false,
-      type: null,
       wantsTemplateFiles: false,
     };
 
@@ -107,6 +106,13 @@ async function run() {
     }).then((data) => data.chain);
 
     dappInfo.chain = chain;
+    dappInfo.isEVM =
+      chain == "ethereum" ||
+      chain == "polygon" ||
+      chain == "arbitrum" ||
+      chain == "optimism"
+        ? true
+        : false;
 
     if (dappInfo.chain === "ethereum" || dappInfo.chain === "polygon") {
       const isTestnet = await prompts({
@@ -119,24 +125,16 @@ async function run() {
       }).then((data) => data.testnet);
       dappInfo.isTestnet = isTestnet;
 
-      if (isTestnet && dappInfo.chain === "ethereum") {
-        const testnet = await prompts({
-          type: "select",
-          name: "chain",
-          message: "Which testnet do you want to use?",
-          choices: [
-            { title: "Ethereum", value: "ethereum" },
-            { title: "Polygon", value: "polygon" },
-            { title: "Artbitrum", value: "arbitrum" },
-            { title: "Optimism", value: "optimism" },
-            { title: "Solana", value: "solana" },
-          ],
-          initial: 0,
-        }).then((data) => data.chain);
-        dappInfo.testnet = testnet
-      }  
+      if (isTestnet) {
+        switch (chain) {
+          case "ethereum":
+            dappInfo.testnet = "goerli";
+            break;
+          case "polygon":
+            dappInfo.testnet = "mumbai";
+        }
+      }
     }
-
     //TODO: Split in components selection
 
     const wantsTemplateFiles = await prompts({
@@ -148,12 +146,13 @@ async function run() {
       inactive: "no",
     }).then((data) => data.templateFiles);
 
-    dappInfo.wantsTemplateFiles = wantsTemplateFiles
- 
+    dappInfo.wantsTemplateFiles = wantsTemplateFiles;
+
     const useBackend = await prompts({
       type: "toggle",
       name: "useBackend",
-      message: "Do you want to import a Blockchain development environment? (Hardhat, Foundry, Anchor",
+      message:
+        "Do you want to import a Blockchain development environment? (Hardhat, Foundry, Anchor",
       initial: true,
       active: "yes",
       inactive: "no",
@@ -162,16 +161,14 @@ async function run() {
     dappInfo.useBackend = useBackend;
 
     if (useBackend) {
-      if (dappInfo.chain == "solana") {
+      if (dappInfo.chain === "solana") {
         await prompts({
           type: "select",
-          name: "backendType",
+          name: "provider",
           message: "Choose a Blockchain development environment:",
-          choices: [
-            { title: "Anchor", value: "anchor" },
-          ],
+          choices: [{ title: "Anchor", value: "anchor" }],
           initial: 0,
-        }).then((data) => (dappInfo.type = data.backendType));
+        }).then((data) => (dappInfo.backendProvider = data.provider));
       } else {
         await prompts({
           type: "select",
@@ -182,10 +179,10 @@ async function run() {
             { title: "Foundry", value: "foundry" },
           ],
           initial: 0,
-        }).then((data) => (dappInfo.type = data.backendType));
+        }).then((data) => (dappInfo.backendProvider = data.backendType));
       }
-      }
-    
+    }
+
     let alchemyAPIKey = await prompts({
       type: "text",
       name: "apiKey",
@@ -193,17 +190,13 @@ async function run() {
       initial: "demo",
     }).then((data) => data.apiKey);
 
-
     mkdir(resolvedProjectPath);
 
-    cloneRepo(
-      resolvedProjectPath,
-      dappInfo
-    );
+    cloneRepo(resolvedProjectPath, dappInfo);
 
     createPackageJson(projectName, dappInfo);
 
-    createEnv(alchemyAPIKey);
+    createEnv(alchemyAPIKey, process.cwd());
     cleanUpFiles();
 
     console.log(

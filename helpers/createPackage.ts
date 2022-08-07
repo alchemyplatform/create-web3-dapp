@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 
-export const createPackageJson = async ( projectName, {isEthereumProject, wantsBackend, type}) => {
+export const createPackageJson = async ( projectName: string, {isEVM, useBackend, backendProvider = ""}) => {
   try {
     console.log(chalk.yellow("Generating package.json"));
     const bar1 = new cliProgress.SingleBar(
@@ -34,7 +34,7 @@ export const createPackageJson = async ( projectName, {isEthereumProject, wantsB
     };
     bar1.update(100);
 
-    if (isEthereumProject) {
+    if (isEVM) {
       packageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
       packageJson["dependencies"]["@rainbow-me/rainbowkit"] = "^0.4.5";
     } else {
@@ -47,9 +47,9 @@ export const createPackageJson = async ( projectName, {isEthereumProject, wantsB
       packageJson["dependencies"]["@solana/web3.js"] = "^1.50.1";
     }
 
-    if (wantsBackend) {
+    if (useBackend) {
 
-      switch (type) {
+      switch (backendProvider) {
         case "hardhat":
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
           packageJson["devDependencies"]["hardhat"] = "^2.10.1";
@@ -68,10 +68,7 @@ export const createPackageJson = async ( projectName, {isEthereumProject, wantsB
     bar1.update(150);
     fs.writeFileSync(
       "package.json",
-      JSON.stringify(packageJson, null, "\t"),
-      (err) => {
-        if (err) console.log(err);
-      }
+      JSON.stringify(packageJson, null, "\t")
     );
     bar1.update(200);
     bar1.stop();

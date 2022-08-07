@@ -17,7 +17,7 @@ export const selfDestroy = (e) => {
     process.exit(1)
 }
 
-process.on('exit', selfDestroy.bind(null))
+
 process.on('SIGINT', selfDestroy.bind(null))
 process.on('SIGUSR1', selfDestroy.bind(null))
 process.on('SIGUSR2', selfDestroy.bind(null))

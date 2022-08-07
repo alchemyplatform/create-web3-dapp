@@ -26,9 +26,9 @@ export const cloneRepo = (
     console.log("\n");
     bar1.update(100);
 
-    console.log(chalk.yellow("Copying project files..."));
+    console.log(chalk.yellow("\nCopying project files..."));
 
-    console.log("\n");
+
 
     
     let template = path.join(
@@ -37,10 +37,7 @@ export const cloneRepo = (
       (dappInfo.chain == "ethereum" || dappInfo.chain == "polygon" || dappInfo.chain == "arbitrum"|| dappInfo.chain == "optimism") ? "ethereum" : "solana",
       dappInfo.wantsTemplateFiles ? "tutorial" : "vanilla"
     );
-
-    console.log("Template: ", template);
-    console.log(dappInfo.chain)
-
+    
     fse.copySync(template, process.cwd());
 
     bar1.update(200);
