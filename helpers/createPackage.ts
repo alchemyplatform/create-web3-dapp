@@ -2,7 +2,7 @@ import fs from "fs";
 import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
-import { selfDestroy } from "./selfDestroy";
+import { selfDestroy } from "./selfDestroy.js";
 
 interface packageData{
   isEVM: boolean,
@@ -55,7 +55,7 @@ export const createPackageJson = async ( projectName: string, {isEVM, useBackend
     }
 
     if (useBackend) {
-
+      
       switch (backendProvider) {
         case "hardhat":
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";

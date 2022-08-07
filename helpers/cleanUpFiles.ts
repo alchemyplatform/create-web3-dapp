@@ -29,4 +29,21 @@ export const cleanUpFiles = () => {
     recursive: true,
     force: true,
   });
+  fs.rmSync(path.join(process.cwd(), "index.ts"), {
+    force: true,
+  });
+
+  fs.rmSync(path.join(process.cwd(), "interfaces"), {
+    recursive: true,
+    force: true,
+  });
+
+  fs.rmSync(path.join(process.cwd(), "tsconfig.json"), {
+    force: true,
+  });
+
+  fs.rmSync(path.join(process.cwd(), "images"), {
+    recursive: true,
+    force: true,
+  });
 };

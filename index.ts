@@ -93,6 +93,7 @@ async function run() {
       isEVM: true,
       isTestnet: false,
       useBackend: false,
+      backendProvider: "",
       wantsTemplateFiles: false,
       apiKeys: {}
     };
@@ -184,7 +185,7 @@ async function run() {
           message: "Choose a Blockchain development environment:",
           choices: [
             { title: "Hardhat", value: "hardhat" },
-            { title: "Foundry", value: "foundry" },
+            { title: "Foundry (not yet supported)", value: "foundry" },
           ],
           initial: 0,
         }).then((data) => (dappInfo.backendProvider = data.backendType));
@@ -198,7 +199,8 @@ async function run() {
       initial: "demo",
     }).then((data) => data.apiKey);
 
-    dappInfo.apiKeys["alchemy_api_key"]= alchemyAPIKey
+    dappInfo.apiKeys["alchemy_api_key"] = alchemyAPIKey
+    dappInfo.apiKeys["private_key"] = "none"
 
     mkdir(resolvedProjectPath);
     cloneRepo(resolvedProjectPath, dappInfo);
