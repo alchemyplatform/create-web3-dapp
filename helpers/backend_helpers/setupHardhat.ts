@@ -1,11 +1,11 @@
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 import path from "path";
-import { createEnv } from "./createEnv.js";
+import { createEnv } from "../utils/createEnv.js";
 import fse from "fs-extra";
-import { dappInfo } from "../interfaces/dappInfo.js";
+import { dappInfo } from "../../interfaces/dappInfo.js";
 import { createWriteStream } from "fs";
-import { generateAlchemyURL } from "./generateAlchemyUrl.js";
+import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 
 export const setUpHardhat = (dappInfo: dappInfo) => {
   const bar2 = new cliProgress.SingleBar(

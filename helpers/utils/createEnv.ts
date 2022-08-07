@@ -1,5 +1,5 @@
 import fs from "fs";
-import { APIKeys } from "../interfaces/dappInfo";
+import { APIKeys } from "../../interfaces/dappInfo";
 import path from "path";
 
 export const createEnv = (apiKeys: APIKeys, projectPath = "./", exposed = true) => {

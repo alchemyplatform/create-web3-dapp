@@ -5,12 +5,12 @@ import prompts from "prompts";
 import path from "path";
 import { createPackageJson } from "./helpers/createPackage.js";
 import { existsSync } from "fs";
-import { mkdir } from "./helpers/mkdir.js";
-import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
-import { cloneRepo } from "./helpers/cloneRepo.js";
-import { selfDestroy, setRoot } from "./helpers/selfDestroy.js";
+import { mkdir } from "./helpers/utils/mkdir.js";
+import { cleanUpFiles } from "./helpers/utils/cleanUpFiles.js";
+import { cloneRepo } from "./helpers/utils/cloneRepo.js";
+import { selfDestroy, setRoot } from "./helpers/utils/selfDestroy.js";
 import chalk from "chalk";
-import { createEnv } from "./helpers/createEnv.js";
+import { createEnv } from "./helpers/utils/createEnv.js";
 import { dappInfo } from "./interfaces/dappInfo.js"
 
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM

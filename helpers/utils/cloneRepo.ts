@@ -4,8 +4,8 @@ import path from "path";
 import fse from "fs-extra";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
-import { setUpHardhat } from "./setupHardhat.js";
-import { dappInfo } from "../interfaces/dappInfo.js";
+import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
+import { dappInfo } from "../../interfaces/dappInfo.js";
 
 export const cloneRepo = (
   projectPath : string,

@@ -7,9 +7,6 @@ export const setRoot = (path: string) => {
 }
 
 export const selfDestroy = () => {
-    // console.log("CURRENT WORKING DIRECTORY::", process.cwd())
-    // console.log("ROOT::", root)
-
     fs.rmSync(root, {
         recursive: true,
         force: true,

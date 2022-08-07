@@ -55,7 +55,7 @@ export const createPackageJson = async ( projectName: string, {isEVM, useBackend
     }
 
     if (useBackend) {
-      
+
       switch (backendProvider) {
         case "hardhat":
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
