@@ -53,11 +53,13 @@ export const createPackageJson = async ( projectName, {isEthereumProject, wantsB
         case "hardhat":
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
           packageJson["devDependencies"]["hardhat"] = "^2.10.1";
+          packageJson["scripts"]["deploy"] = "npx hardhat run backend/scripts/deploy.js";
           break;
         case "foundry":
           console.log("It will be soon released - reverting to Hardhat as of now")
           packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
           packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
+          packageJson["scripts"]["deploy"] = "npx hardhat run backend/scripts/deploy.js";
           break;
         default:
           break;
