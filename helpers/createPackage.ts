@@ -2,8 +2,15 @@ import fs from "fs";
 import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
+import { selfDestroy } from "./selfDestroy";
 
-export const createPackageJson = async ( projectName: string, {isEVM, useBackend, backendProvider = ""}) => {
+interface packageData{
+  isEVM: boolean,
+  useBackend: boolean,
+  backendProvider?: string
+}
+
+export const createPackageJson = async ( projectName: string, {isEVM, useBackend, backendProvider = ""} : packageData) => {
   try {
     console.log(chalk.yellow("Generating package.json"));
     const bar1 = new cliProgress.SingleBar(
@@ -12,7 +19,7 @@ export const createPackageJson = async ( projectName: string, {isEVM, useBackend
     );
     bar1.start(200, 0);
 
-    let packageJson = {
+    const packageJson = {
       name: projectName,
       version: "0.1.0",
       private: true,
@@ -77,5 +84,7 @@ export const createPackageJson = async ( projectName: string, {isEVM, useBackend
     console.log(chalk.yellow("Installing dependencies..."));
     execSync("npm install");
     console.log(chalk.green("Dependencies installed"));
-  } catch (e) {}
+  } catch (e) {
+    selfDestroy()
+  }
 };

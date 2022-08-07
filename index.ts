@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-/* eslint-disable import/no-extraneous-dependencies */
 
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
 import { createPackageJson } from "./helpers/createPackage.js";
-import { existsSync, fstat } from "fs";
+import { existsSync } from "fs";
 import { mkdir } from "./helpers/mkdir.js";
 import { cleanUpFiles } from "./helpers/cleanUpFiles.js";
 import { cloneRepo } from "./helpers/cloneRepo.js";
 import { selfDestroy, setRoot } from "./helpers/selfDestroy.js";
 import chalk from "chalk";
 import { createEnv } from "./helpers/createEnv.js";
+import { dappInfo } from "./interfaces/dappInfo.js"
 
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
@@ -34,20 +34,25 @@ l.       'kWNx.                       .l
 console.log("\n");
 console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
 console.log("\n");
+
 let projectPath = "";
 
+// Gets project name
 const program = new Commander.Command("create-web3-dapp")
   .version("0.1.0")
   .arguments("[project-directory]")
   .usage("<project-directory>")
-  .action((name) => {
+  .action((name: string) => {
     projectPath = name;
   })
   .option("--ts, --typescript", "Initialize as a TypeScript project")
   .parse(process.argv);
 
+// Starts creation process
 async function run() {
   try {
+
+    // Checks if project name is provided
     if (typeof projectPath === "string") {
       projectPath = projectPath.trim();
     }
@@ -60,13 +65,14 @@ async function run() {
       }).then((data) => data.projectPath);
     }
 
+    //Reformat project's name
     projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
-    console.log(projectPath);
 
-    let resolvedProjectPath = path.resolve(projectPath);
-    let dirExists = existsSync(resolvedProjectPath);
+    let resolvedProjectPath: string = path.resolve(projectPath);
+    let dirExists: boolean = existsSync(resolvedProjectPath);
     setRoot(resolvedProjectPath);
 
+    // Check if project
     while (dirExists) {
       projectPath = await prompts({
         type: "text",
@@ -74,8 +80,7 @@ async function run() {
         message:
           "A directory with this name already exists, please use a different name",
         initial: "my-dapp",
-      }).then((data) => data.projectPath);
-      console.log(projectPath);
+      }).then((data) => data.projectPath.trim().replace(/[\W_]+/g, "-"));
       resolvedProjectPath = path.resolve(projectPath);
       dirExists = existsSync(resolvedProjectPath);
       console.log(dirExists);
@@ -83,15 +88,16 @@ async function run() {
 
     const projectName = path.basename(resolvedProjectPath);
 
-    let dappInfo: dappInfo = {
+    const dappInfo: dappInfo = {
       chain: "",
       isEVM: true,
       isTestnet: false,
       useBackend: false,
       wantsTemplateFiles: false,
+      apiKeys: {}
     };
 
-    const chain = await prompts({
+    const chain: string = await prompts({
       type: "select",
       name: "chain",
       message: "For which VM are you building for?",
@@ -106,6 +112,7 @@ async function run() {
     }).then((data) => data.chain);
 
     dappInfo.chain = chain;
+    
     dappInfo.isEVM =
       chain == "ethereum" ||
       chain == "polygon" ||
@@ -115,7 +122,7 @@ async function run() {
         : false;
 
     if (dappInfo.chain === "ethereum" || dappInfo.chain === "polygon") {
-      const isTestnet = await prompts({
+      const isTestnet: boolean = await prompts({
         type: "toggle",
         name: "testnet",
         message: "Do you want to use a testnet?",
@@ -137,7 +144,7 @@ async function run() {
     }
     //TODO: Split in components selection
 
-    const wantsTemplateFiles = await prompts({
+    const wantsTemplateFiles: boolean = await prompts({
       type: "toggle",
       name: "templateFiles",
       message: "Do you want to import the template files?",
@@ -148,7 +155,7 @@ async function run() {
 
     dappInfo.wantsTemplateFiles = wantsTemplateFiles;
 
-    const useBackend = await prompts({
+    const useBackend: boolean = await prompts({
       type: "toggle",
       name: "useBackend",
       message:
@@ -161,6 +168,7 @@ async function run() {
     dappInfo.useBackend = useBackend;
 
     if (useBackend) {
+      // set provider
       if (dappInfo.chain === "solana") {
         await prompts({
           type: "select",
@@ -183,27 +191,26 @@ async function run() {
       }
     }
 
-    let alchemyAPIKey = await prompts({
+    const alchemyAPIKey: string = await prompts({
       type: "text",
       name: "apiKey",
       message: "Insert your Alchemy API Key (if none, 'demo' will be used",
       initial: "demo",
     }).then((data) => data.apiKey);
 
+    dappInfo.apiKeys["alchemy_api_key"]= alchemyAPIKey
+
     mkdir(resolvedProjectPath);
-
     cloneRepo(resolvedProjectPath, dappInfo);
-
     createPackageJson(projectName, dappInfo);
-
-    createEnv(alchemyAPIKey, process.cwd());
+    createEnv(dappInfo.apiKeys, process.cwd());
     cleanUpFiles();
 
     console.log(
       chalk.green("Visit https://docs.alchemy.com/for the complete tutorial")
     );
   } catch (e) {
-    selfDestroy(e);
+    selfDestroy();
   }
 }
 

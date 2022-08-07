@@ -12,4 +12,21 @@ export const cleanUpFiles = () => {
     recursive: true,
     force: true,
   });
+  fs.rmSync(path.join(process.cwd(), "types"), {
+    recursive: true,
+    force: true,
+  });
+  fs.rmSync(path.join(process.cwd(), ".eslintignore"), {
+    force: true,
+  });
+  fs.rmSync(path.join(process.cwd(), ".eslintrc"), {
+    force: true,
+  });
+  fs.rmSync(path.join(process.cwd(), "contributing.md"), {
+    force: true,
+  });
+  fs.rmSync(path.join(process.cwd(), "yarn.lock"), {
+    recursive: true,
+    force: true,
+  });
 };

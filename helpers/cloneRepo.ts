@@ -4,12 +4,12 @@ import path from "path";
 import fse from "fs-extra";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
-import { createEnv } from "./createEnv.js";
 import { setUpHardhat } from "./setupHardhat.js";
+import { dappInfo } from "../interfaces/dappInfo.js";
 
 export const cloneRepo = (
-  projectPath,
-  dappInfo
+  projectPath : string,
+  dappInfo : dappInfo
 ) => {
   try {
     process.chdir(projectPath);
@@ -31,7 +31,7 @@ export const cloneRepo = (
 
 
     
-    let template = path.join(
+    const template = path.join(
       process.cwd(),
       "templates",
       (dappInfo.chain == "ethereum" || dappInfo.chain == "polygon" || dappInfo.chain == "arbitrum"|| dappInfo.chain == "optimism") ? "ethereum" : "solana",
@@ -45,8 +45,9 @@ export const cloneRepo = (
 
     bar1.stop();
 
-    if (dappInfo.wantsBackend) {
-      switch (dappInfo.type) {
+    if (dappInfo.useBackend) {
+      console.log(chalk.yellow(`Copying ${dappInfo.backendProvider} files...`));
+      switch (dappInfo.backendProvider) {
         case "hardhat":
           setUpHardhat(dappInfo)
           break;
@@ -56,10 +57,8 @@ export const cloneRepo = (
         case "Anchor":
           break;
       }
-       
-      setUpHardhat(dappInfo)
     }
   } catch (e) {
-    selfDestroy(e);
+    selfDestroy();
   }
 };

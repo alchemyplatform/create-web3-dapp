@@ -2,11 +2,11 @@ import fs from "fs";
 
 let root = ""
 
-export const setRoot = (path) => {
+export const setRoot = (path: string) => {
     root = path;
 }
 
-export const selfDestroy = (e) => {
+export const selfDestroy = () => {
     // console.log("CURRENT WORKING DIRECTORY::", process.cwd())
     // console.log("ROOT::", root)
 

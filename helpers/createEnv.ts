@@ -1,14 +1,14 @@
 import fs from "fs";
+import { APIKeys } from "../interfaces/dappInfo";
+import path from "path";
 
-export const createEnv = (keys, path) => {
-  let env = {};
+export const createEnv = (apiKeys: APIKeys, projectPath = "./") => {
 
-  if (keys.alchemyKey) {
-    env["NEXT_PUBLIC_ALCHEMY_API_KEY"] = "demo";
-  }
-  if (Object.keys(env).length) {
-    let writeStream = fs.createWriteStream(path.join(path,".env"));
-    for (const [key, value] of Object.entries(env)) {
+  console.log(apiKeys)
+
+  if (Object.keys(apiKeys).length) {
+    const writeStream = fs.createWriteStream(path.join(projectPath, ".env"));
+    for (const [key, value] of Object.entries(apiKeys)) {
       writeStream.write(`NEXT_PUBLIC_${key.toUpperCase()}= ${value}`);
     }
     writeStream.end();
