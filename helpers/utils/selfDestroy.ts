@@ -3,15 +3,15 @@ import fs from "fs";
 let root = "";
 
 export const setRoot = (path: string) => {
-  root = path;
+	root = path;
 };
 
 export const selfDestroy = () => {
-  fs.rmSync(root, {
-    recursive: true,
-    force: true,
-  });
-  process.exit(1);
+	fs.rmSync(root, {
+		recursive: true,
+		force: true,
+	});
+	process.exit(1);
 };
 
 process.on("SIGINT", selfDestroy.bind(null));

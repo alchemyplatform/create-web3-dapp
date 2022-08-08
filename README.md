@@ -58,9 +58,10 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-**ATTENTION**: This project is under beta and not ready for production - using it in product is highly discouraged without prior thorough review. 
+**ATTENTION**: This project is under beta and not ready for production - using it in product is highly discouraged without prior thorough review.
 
 ![product-screenshot]
 
@@ -72,8 +73,8 @@ From the chain to use, through the wallet login system, to the React components 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -81,18 +82,22 @@ To get a local copy up and running follow these simple example steps.
 
 ### **Prerequisites**
 
-* NodeJS
+-   NodeJS
 
 To install node go on the [official Node website](https://nodejs.org/en/download/), and download the LTS package for your Operating System.
 
 To verify if NodeJS has been correctly installed on your system, open your terminal and run:
+
 ```sh
 node -v
 ```
+
 and
+
 ```sh
 npm -v
 ```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## **Quick Start**
@@ -101,61 +106,67 @@ npm -v
 2. Create a new Alchemy application.
 
 3. In your terminal run:
+
 ```sh
   npx create-web3-dapp
-  ```
+```
 
 4. The first time you'll run this command, it will install the package.
 
 5. Once installed, run the following command again - This will start the DApp creation flow.:
+
 ```sh
     npx create-web3-dapp
-   ```
+```
 
 6. Select the dependencies and components you want to include in your web3 application:
-![product-screenshot-2]
+   ![product-screenshot-2]
 
 7. Navigate to the application folder
+
 ```
 cd my-dapp
 ```
+
 8. Run the application
+
 ```sh
 npm run dev
 ```
+
 9. Go to to <a href="localhost:3000">localhost:3000</a>:
-![product-screenshot]
+   ![product-screenshot]
 
 10. Enjoy Web3.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- ROADMAP -->
+
 ## **Roadmap**
 
-- [ ] Style localhost landing page + components
-- [ ] Components selection workflow
-- [ ] Write tests
-- [ ] Implement support for new Blockchain development environments:
-    - [ ] Foundry
-    - [ ] Anchor
-- [ ] Add OpenZeppelin Support
-- [ ] Add collection floor price component
-- [ ] Templates selection workflow
-- [ ] Implement GitHub Actions build on push 
-- [ ] Review contributions .md
-
-
+-   [ ] Style localhost landing page + components
+-   [ ] Components selection workflow
+-   [ ] Write tests
+-   [ ] Implement support for new Blockchain development environments:
+    -   [ ] Foundry
+    -   [ ] Anchor
+-   [ ] Add OpenZeppelin Support
+-   [ ] Add collection floor price component
+-   [ ] Templates selection workflow
+-   [ ] Implement GitHub Actions build on push
+-   [ ] Review contributions .md
 
 See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Open Source
+
 </br>
 
 ### Contributors
+
 <ul>
 <li>Vitto Rivabella - <a href="https://www.linkedin.com/in/vittorio-rivabella/">Linkedin</a> - <a href="https://twitter.com/VittoStack">Twitter</a> - <a href="https://github.com/eversmile12">GitHub</a></li>
 <li>Albert Hu - <a href="https://www.linkedin.com/in/albhu/">Linkedin</a> - <a href="https://twitter.com/thatguyintech">Twitter</a> - <a href="https://github.com/thatguyintech">GitHub</a></li>
@@ -164,6 +175,7 @@ See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) fo
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ### Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -218,17 +230,16 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Your Name - [@twitter_handle](https://twitter.com/vittostack) - vitto@alchemy.com
@@ -237,8 +248,8 @@ Project Link: [https://github.com/eversmile12/create-web3-dapp](https://github.c
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/eversmile12/create-web3-dapp.svg?style=for-the-badge
 [contributors-url]: https://github.com/eversmile12/create-web3-dapp/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/eversmile12/create-web3-dapp.svg?style=for-the-badge
@@ -250,7 +261,5 @@ Project Link: [https://github.com/eversmile12/create-web3-dapp](https://github.c
 [license-shield]: https://img.shields.io/github/license/eversmile12/create-web3-dapp.svg?style=for-the-badge
 [license-url]: https://github.com/eversmile12/create-web3-dapp/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-
-
 [product-screenshot]: images/screenshot.png
 [product-screenshot-2]: images/screenshot_2.png
