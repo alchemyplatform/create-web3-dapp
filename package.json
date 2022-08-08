@@ -1,32 +1,48 @@
 {
-  "name": "create-web3-dapp",
-  "version": "0.0.3b",
-  "private": false,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .ts",
-    "start": "parcel index.html",
-    "build": "parcel build ./dist/index.js"
-  },
-  "bin": {
-    "create-web3-dapp": "./dist/index.js"
-  },
-  "devDependencies": {
-    "@types/node": "^18.6.4",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
-    "eslint": "^8.21.0",
-    "eslint-config-next": "12.2.3"
-  },
-  "type": "module",
-  "dependencies": {
-    "alchemy-sdk": "^2.0.0",
-    "chalk": "^5.0.1",
-    "cli-progress": "^3.11.2",
-    "commander": "^9.4.0",
-    "fs-extra": "^10.1.0",
-    "parcel-bundler": "^1.12.5",
-    "prompts": "^2.4.2",
-    "typescript": "^4.7.4"
-  }
+	"name": "create-web3-dapp",
+	"version": "0.0.3b",
+	"private": false,
+	"keywords": [
+		"create-web3-dapp",
+		"web3",
+		"boilerplate",
+		"nextjs",
+		"react",
+		"wagmi",
+		"alchemy",
+		"hardhat",
+		"foundry",
+		"ethereum",
+		"solana",
+		"anchor",
+		"tailwind",
+		"chakra-ui"
+	],
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint . --ext .ts",
+		"start": "parcel index.html",
+		"build": "parcel build ./dist/index.js"
+	},
+	"bin": {
+		"create-web3-dapp": "./dist/index.js"
+	},
+	"devDependencies": {
+		"@types/node": "^18.6.4",
+		"@typescript-eslint/eslint-plugin": "^5.32.0",
+		"@typescript-eslint/parser": "^5.32.0",
+		"eslint": "^8.21.0",
+		"eslint-config-next": "12.2.3"
+	},
+	"type": "module",
+	"dependencies": {
+		"alchemy-sdk": "^2.0.0",
+		"chalk": "^5.0.1",
+		"cli-progress": "^3.11.2",
+		"commander": "^9.4.0",
+		"fs-extra": "^10.1.0",
+		"parcel-bundler": "^1.12.5",
+		"prompts": "^2.4.2",
+		"typescript": "^4.7.4"
+	}
 }

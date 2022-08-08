@@ -1,23 +1,27 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "dist",
-    "declaration": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true
-  },
-  "include": [
-    "./index.ts",
-    "./helpers/*"
-, "helpers/backend_helpers/setupHardhat.ts", "helpers/utils/cleanUpFiles.ts", "helpers/utils/mkdir.ts", "helpers/utils/generateAlchemyUrl.ts", "helpers/utils/createEnv.ts", "helpers/utils/createReadme.ts", "helpers/utils/cloneRepo.ts"  ],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "es6",
+		"moduleResolution": "node",
+		"noImplicitAny": false,
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "dist",
+		"declaration": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true
+	},
+	"include": [
+		"./index.ts",
+		"./helpers/*",
+		"helpers/backend_helpers/setupHardhat.ts",
+		"helpers/utils/cleanUpFiles.ts",
+		"helpers/utils/mkdir.ts",
+		"helpers/utils/generateAlchemyUrl.ts",
+		"helpers/utils/createEnv.ts",
+		"helpers/utils/createReadme.ts",
+		"helpers/utils/cloneRepo.ts"
+	],
+	"exclude": ["src/**/*.spec.ts", "node_modules"]
 }
