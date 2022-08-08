@@ -13,7 +13,8 @@ import chalk from "chalk";
 import { createEnv } from "./helpers/utils/createEnv.js";
 import { dappInfo } from "./interfaces/dappInfo.js";
 
-console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
+console.log(`
+MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMK;        .dNMMMMMMMMMMMMM
@@ -29,7 +30,8 @@ MMWO,       .cXMXkxxxxxxxxxxxxxxxxxkKWMM
 MWx'       .oNW0;.                  'xWM
 Nd.       .xNWk'                     .dN
 l.       'kWNx.                       .l
-.       .kWM0'                         .`);
+.       .kWM0'                         .
+`);
 
 console.log("\n");
 console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
@@ -207,7 +209,7 @@ async function run() {
     cleanUpFiles();
 
     console.log(
-      chalk.green("Visit https://docs.alchemy.com/for the complete tutorial")
+      chalk.green("Visit https://docs.alchemy.com/ for the complete tutorial")
     );
   } catch (e) {
     selfDestroy();
