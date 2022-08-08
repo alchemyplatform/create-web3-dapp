@@ -1,6 +1,6 @@
 {
   "name": "create-web3-dapp",
-  "version": "0.0.3a",
+  "version": "0.0.3b",
   "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
