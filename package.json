@@ -20,7 +20,7 @@
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "eslint . --ext .ts",
+		"lint": "eslint . --ext .ts && yarn prettier --write .",
 		"start": "parcel index.html",
 		"build": "parcel build ./dist/index.js"
 	},
@@ -32,7 +32,8 @@
 		"@typescript-eslint/eslint-plugin": "^5.32.0",
 		"@typescript-eslint/parser": "^5.32.0",
 		"eslint": "^8.21.0",
-		"eslint-config-next": "12.2.3"
+		"eslint-config-next": "12.2.3",
+		"prettier": "^2.7.1"
 	},
 	"type": "module",
 	"dependencies": {

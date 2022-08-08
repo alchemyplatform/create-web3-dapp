@@ -183,17 +183,23 @@ async function run() {
 					message: "Choose a Blockchain development environment:",
 					choices: [
 						{ title: "Hardhat", value: "hardhat" },
-						{ title: "Foundry (not yet supported)", value: "foundry" },
+						{
+							title: "Foundry (not yet supported)",
+							value: "foundry",
+						},
 					],
 					initial: 0,
-				}).then((data) => (dappInfo.backendProvider = data.backendType));
+				}).then(
+					(data) => (dappInfo.backendProvider = data.backendType)
+				);
 			}
 		}
 
 		const alchemyAPIKey: string = await prompts({
 			type: "text",
 			name: "apiKey",
-			message: "Insert your Alchemy API Key (if none, 'demo' will be used",
+			message:
+				"Insert your Alchemy API Key (if none, 'demo' will be used",
 			initial: "demo",
 		}).then((data) => data.apiKey);
 
@@ -207,7 +213,9 @@ async function run() {
 		cleanUpFiles();
 
 		console.log(
-			chalk.green("Visit https://docs.alchemy.com/for the complete tutorial")
+			chalk.green(
+				"Visit https://docs.alchemy.com/for the complete tutorial"
+			)
 		);
 	} catch (e) {
 		selfDestroy();

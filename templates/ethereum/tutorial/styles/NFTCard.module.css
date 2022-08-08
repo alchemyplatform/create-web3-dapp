@@ -1,23 +1,23 @@
-.card_container{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 30%;
-    background-color: rgb(246, 246, 246);
-    border-radius: 3px;
+.card_container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 30%;
+	background-color: rgb(246, 246, 246);
+	border-radius: 3px;
 }
 
-.text_container{
-    padding: .1rem .8rem;
+.text_container {
+	padding: 0.1rem 0.8rem;
 }
 
-.image_container{
-    width: 100%;
-    height: 60%;
-    margin-bottom: .5rem;
+.image_container {
+	width: 100%;
+	height: 60%;
+	margin-bottom: 0.5rem;
 }
-.image{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }

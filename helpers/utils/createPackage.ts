@@ -51,25 +51,30 @@ export const createPackageJson = async (
 			packageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
 			packageJson["dependencies"]["@solana/wallet-adapter-react-ui"] =
 				"^0.9.11";
-			packageJson["dependencies"]["@solana/wallet-adapter-phantom"] = "^0.9.8";
-			packageJson["dependencies"]["@solana/wallet-adapter-react"] = "^0.15.8";
-			packageJson["dependencies"]["@solana/wallet-adapter-base"] = "^0.9.9";
+			packageJson["dependencies"]["@solana/wallet-adapter-phantom"] =
+				"^0.9.8";
+			packageJson["dependencies"]["@solana/wallet-adapter-react"] =
+				"^0.15.8";
+			packageJson["dependencies"]["@solana/wallet-adapter-base"] =
+				"^0.9.9";
 			packageJson["dependencies"]["@solana/web3.js"] = "^1.50.1";
 		}
 
 		if (useBackend) {
 			switch (backendProvider) {
 				case "hardhat":
-					packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] =
-						"^1.0.2";
+					packageJson["devDependencies"][
+						"@nomicfoundation/hardhat-toolbox"
+					] = "^1.0.2";
 					packageJson["devDependencies"]["hardhat"] = "^2.10.1";
 					break;
 				case "foundry":
 					console.log(
 						"It will be soon released - reverting to Hardhat as of now"
 					);
-					packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] =
-						"^1.0.2";
+					packageJson["devDependencies"][
+						"@nomicfoundation/hardhat-toolbox"
+					] = "^1.0.2";
 					packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
 					break;
 				default:
@@ -78,7 +83,10 @@ export const createPackageJson = async (
 		}
 
 		bar1.update(150);
-		fs.writeFileSync("package.json", JSON.stringify(packageJson, null, "\t"));
+		fs.writeFileSync(
+			"package.json",
+			JSON.stringify(packageJson, null, "\t")
+		);
 		bar1.update(200);
 		bar1.stop();
 

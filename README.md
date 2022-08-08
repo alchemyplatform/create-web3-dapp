@@ -82,7 +82,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### **Prerequisites**
 
-- NodeJS
+-   NodeJS
 
 To install node go on the [official Node website](https://nodejs.org/en/download/), and download the LTS package for your Operating System.
 
@@ -145,17 +145,17 @@ npm run dev
 
 ## **Roadmap**
 
-- [ ] Style localhost landing page + components
-- [ ] Components selection workflow
-- [ ] Write tests
-- [ ] Implement support for new Blockchain development environments:
-  - [ ] Foundry
-  - [ ] Anchor
-- [ ] Add OpenZeppelin Support
-- [ ] Add collection floor price component
-- [ ] Templates selection workflow
-- [ ] Implement GitHub Actions build on push
-- [ ] Review contributions .md
+-   [ ] Style localhost landing page + components
+-   [ ] Components selection workflow
+-   [ ] Write tests
+-   [ ] Implement support for new Blockchain development environments:
+    -   [ ] Foundry
+    -   [ ] Anchor
+-   [ ] Add OpenZeppelin Support
+-   [ ] Add collection floor price component
+-   [ ] Templates selection workflow
+-   [ ] Implement GitHub Actions build on push
+-   [ ] Review contributions .md
 
 See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) for a full list of proposed features (and known issues).
 

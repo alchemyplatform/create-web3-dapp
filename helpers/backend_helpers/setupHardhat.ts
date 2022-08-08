@@ -65,5 +65,7 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 
 	bar2.update(100);
 	bar2.stop();
-	console.log(chalk.green("Smart Contract Development Environment copied ✅"));
+	console.log(
+		chalk.green("Smart Contract Development Environment copied ✅")
+	);
 };

@@ -45,7 +45,9 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 		bar1.stop();
 
 		if (dappInfo.useBackend) {
-			console.log(chalk.yellow(`Copying ${dappInfo.backendProvider} files...`));
+			console.log(
+				chalk.yellow(`Copying ${dappInfo.backendProvider} files...`)
+			);
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
 					setUpHardhat(dappInfo);

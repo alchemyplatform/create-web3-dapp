@@ -27,19 +27,22 @@
   </p>
 </div>
 
-
 ## **Quick Start**
 
 1. Create a new account on [Alchemy.com](https://alchemy.com)
 2. Create a new Alchemy application.
 3. Navigate to the application folder
+
 ```
 cd my-dapp
 ```
+
 4. Run the application
+
 ```sh
 npm run dev
 ```
+
 5. Navigate to to <a href="localhost:3000">localhost:3000</a>
 
 6. If you're using Hardhat - go to hardhat.config.js and:
@@ -51,14 +54,11 @@ npm run dev
 </br>
 
 **ATTENTION:** the keys stored in YOUR-PROJECT-FOLDER/.env will be accessible and visible on the front-end. It is suggested to:
-- Handle API Calls in the Backend through RESTFUL API
-- Handle API calls through server side rendering to get and render data on the backend ([getServerSideProps()](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props))
 
-
-
+-   Handle API Calls in the Backend through RESTFUL API
+-   Handle API calls through server side rendering to get and render data on the backend ([getServerSideProps()](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props))
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ## **Complementary Docs**
 
@@ -98,30 +98,28 @@ npm run dev
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ## **Report an Issue**
 
 See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ## **FAQ**:
 
 How do I substitute my Alchemy API Key?
-- open YOUR-PROJECT-FOLDER/.env and change your NEXT_PUBLIC_ALCHEMY_API_KEY variable
 
+-   open YOUR-PROJECT-FOLDER/.env and change your NEXT_PUBLIC_ALCHEMY_API_KEY variable
 
 <!-- LICENSE -->
+
 ## **License**
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## **Contact**
 
 Your Name - [@vittostack](https://twitter.com/vittostack) - vitto@alchemy.com
@@ -130,9 +128,9 @@ Project Link: [https://github.com/eversmile12/create-web3-dapp](https://github.c
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/eversmile12/create-web3-dapp.svg?style=for-the-badge
 [contributors-url]: https://github.com/eversmile12/create-web3-dapp/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/eversmile12/create-web3-dapp.svg?style=for-the-badge
@@ -144,7 +142,5 @@ Project Link: [https://github.com/eversmile12/create-web3-dapp](https://github.c
 [license-shield]: https://img.shields.io/github/license/eversmile12/create-web3-dapp.svg?style=for-the-badge
 [license-url]: https://github.com/eversmile12/create-web3-dapp/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-
-
 [product-screenshot]: images/screenshot.png
 [product-screenshot-2]: images/screenshot_2.png
