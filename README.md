@@ -60,7 +60,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-**ATTENTION**: This project is under beta and not ready for production - using it in product is highgly discouraged without prior thorough review. 
+**ATTENTION**: This project is under beta and not ready for production - using it in product is highly discouraged without prior thorough review. 
 
 ![product-screenshot]
 
@@ -112,7 +112,7 @@ npm -v
     npx create-web3-dapp
    ```
 
-6. Select the dependencies and components you want to include in your web3 applicatio:
+6. Select the dependencies and components you want to include in your web3 application:
 ![product-screenshot-2]
 
 7. Navigate to the application folder
