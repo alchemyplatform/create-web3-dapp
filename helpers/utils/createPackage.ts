@@ -4,13 +4,16 @@ import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { selfDestroy } from "./selfDestroy.js";
 
-interface packageData{
-  isEVM: boolean,
-  useBackend: boolean,
-  backendProvider?: string
+interface packageData {
+  isEVM: boolean;
+  useBackend: boolean;
+  backendProvider?: string;
 }
 
-export const createPackageJson = async ( projectName: string, {isEVM, useBackend, backendProvider = ""} : packageData) => {
+export const createPackageJson = async (
+  projectName: string,
+  { isEVM, useBackend, backendProvider = "" }: packageData
+) => {
   try {
     console.log(chalk.yellow("Generating package.json"));
     const bar1 = new cliProgress.SingleBar(
@@ -55,28 +58,27 @@ export const createPackageJson = async ( projectName: string, {isEVM, useBackend
     }
 
     if (useBackend) {
-
       switch (backendProvider) {
         case "hardhat":
-          packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
+          packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] =
+            "^1.0.2";
           packageJson["devDependencies"]["hardhat"] = "^2.10.1";
           break;
         case "foundry":
-          console.log("It will be soon released - reverting to Hardhat as of now")
-          packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] = "^1.0.2";
+          console.log(
+            "It will be soon released - reverting to Hardhat as of now"
+          );
+          packageJson["devDependencies"]["@nomicfoundation/hardhat-toolbox"] =
+            "^1.0.2";
           packageJson["devDependencies"]["@hardhat"] = "^2.10.1";
           break;
         default:
           break;
       }
-     
     }
 
     bar1.update(150);
-    fs.writeFileSync(
-      "package.json",
-      JSON.stringify(packageJson, null, "\t")
-    );
+    fs.writeFileSync("package.json", JSON.stringify(packageJson, null, "\t"));
     bar1.update(200);
     bar1.stop();
 
@@ -85,6 +87,6 @@ export const createPackageJson = async ( projectName: string, {isEVM, useBackend
     execSync("npm install");
     console.log(chalk.green("Dependencies installed"));
   } catch (e) {
-    selfDestroy()
+    selfDestroy();
   }
 };

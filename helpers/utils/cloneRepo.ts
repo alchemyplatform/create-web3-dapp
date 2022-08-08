@@ -7,10 +7,7 @@ import cliProgress from "cli-progress";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { dappInfo } from "../../interfaces/dappInfo.js";
 
-export const cloneRepo = (
-  projectPath : string,
-  dappInfo : dappInfo
-) => {
+export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
   try {
     process.chdir(projectPath);
     console.log(chalk.yellow("Downloading files..."));
@@ -28,16 +25,18 @@ export const cloneRepo = (
 
     console.log(chalk.yellow("\nCopying project files..."));
 
-
-
-    
     const template = path.join(
       process.cwd(),
       "templates",
-      (dappInfo.chain == "ethereum" || dappInfo.chain == "polygon" || dappInfo.chain == "arbitrum"|| dappInfo.chain == "optimism") ? "ethereum" : "solana",
+      dappInfo.chain == "ethereum" ||
+        dappInfo.chain == "polygon" ||
+        dappInfo.chain == "arbitrum" ||
+        dappInfo.chain == "optimism"
+        ? "ethereum"
+        : "solana",
       dappInfo.wantsTemplateFiles ? "tutorial" : "vanilla"
     );
-    
+
     fse.copySync(template, process.cwd());
 
     bar1.update(200);
@@ -49,9 +48,9 @@ export const cloneRepo = (
       console.log(chalk.yellow(`Copying ${dappInfo.backendProvider} files...`));
       switch (dappInfo.backendProvider) {
         case "hardhat":
-          setUpHardhat(dappInfo)
+          setUpHardhat(dappInfo);
           break;
-        
+
         case "foundry":
           break;
         case "Anchor":

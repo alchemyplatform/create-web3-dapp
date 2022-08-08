@@ -19,22 +19,12 @@
 -->
 
 
-TODO:
-- ADD SOLANA
-- STYLE COMPONENTS
-- RELEASE BETA 1
-- CONVERT TO TYPESCRIPT
-- ADD TYPESCRYPT SUPPORT
-- RELEASE BETA 2
-- ADD TAILWIND
-- RELEASE
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -74,15 +64,20 @@ TODO:
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#quick-start">Quickstart</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+     <li>
+      <a href="#getting-started">Open Source</a>
+      <ul>
+        <li><a href="#contributors">Contributors</a></li>
+        <li><a href="#contributing">Contributing</a></li>
+      </ul>
+    </li>
+    <li><a href="#complementary-docs">Complementary Docs</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contributors">Contributors</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -110,7 +105,7 @@ From the chain to use, through the wallet login system, to the React components 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
+### **Prerequisites**
 
 * NodeJS
 
@@ -124,77 +119,84 @@ and
 ```sh
 npm -v
 ```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
+## **Quick Start**
 
-### Installation
+1. Create a new account on Alchemy.com.
+2. Create a new Alchemy application.
 
-1. In your terminal run
-* ```sh
+3. In your terminal run:
+```sh
   npx create-web3-dapp
   ```
 
-2. The first time you'll run this command, it will install the package. 
+4. The first time you'll run this command, it will install the package.
 
-3. Now the following command again:
- * ```sh
+5. Once installed, run the following command again - This will start the DApp creation flow.:
+```sh
     npx create-web3-dapp
    ```
-This will start the DApp creation flow.
+
+6. Select the dependencies and components you want to include in your web3 applicatio:
+![product-screenshot-2]
+
+7. Navigate to the application folder
+```
+cd my-dapp
+```
+8. Run the application
+```sh
+npm run dev
+```
+9. Go to to <a href="localhost:3000">localhost:3000</a>:
+![product-screenshot]
+
+10. Enjoy Web3.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-## DApp Creation Flow
-Once started, the create-web3-dapp wizard will ask you a series of questions to understand what to and what to not include in your dapp boilerplates.
-
-Here's a reference to the creation flow:
-
-1. **Insert new dapp name** *(text)*
-2. **select dapp chain** *(options)*:
-    1. The user can choose between the chains supported by Alchemy including Solana
-        1. Because our support to Solana is currently limited, the Solana implementation has partial ROI against the EVM one. 
-3. **select if we want to import the template files** *(true/false)*:
-    1. The template files contain code showcasing the Alchemy SDK capabilities (NFT API, Transfer API) through a set of NextJs components visual components.
-    2. If the user doesn’t install the template files, Alchemy will be only used to connect the wallet - the Alchemy SDK won’t be installed (to brainstorm)
-4. **Select if we want to import a Blockchain development environment like** *(options)*:
-    1. Hardhat (partially supported) - EVM
-    2. Foundry (not yet supported) - EVM
-    3. Anchor (not yet supported) - Solana
-5. **Add Alchemy API Key:**
-    1. The key will be used:
-        1. In the front-end to connect:
-            1. The wallet (Solana, EVM)
-            2. In the Alchemy SDK if the user has installed the template files[4a](EVM)
-        2. In the Blockchain development environment [5](Solana, EVM)
-6. **The builder will now proceed to create the project, performing the following actions:**
-    1. download the files from the GitHub repositories:
-        1. 
-    2. Install the dependencies (Alchemy SDK, Rainbow Kit, Hardhat, etc)
-    3. Update the dependencies
-    4. Run the application 
-6. **The user will now be able to see the following landing page at http://localhost:3000:**
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
-## Roadmap
+## **Roadmap**
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Style localhost landing page + components
+- [ ] Components selection workflow
+- [ ] Write tests
+- [ ] Implement support for new Blockchain development environments:
+    - [ ] Foundry
+    - [ ] Anchor
+- [ ] Add OpenZeppelin Support
+- [ ] Add collection floor price component
+- [ ] Templates selection workflow
+- [ ] Implement GitHub Actions build on push 
+- [ ] Review contributions .md
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+
+
+See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Open Source
+</br>
+
+### Contributors
+<ul>
+<li>Vitto Rivabella - <a href="https://www.linkedin.com/in/vittorio-rivabella/">Linkedin</a> - <a href="https://twitter.com/VittoStack">Twitter</a> - <a href="https://github.com/eversmile12">GitHub</a></li>
+<li>Albert Hu - <a href="https://www.linkedin.com/in/albhu/">Linkedin</a> - <a href="https://twitter.com/thatguyintech">Twitter</a> - <a href="https://github.com/thatguyintech">GitHub</a></li>
+</ul>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
-## Contributing
+### Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+
+**Don't forget to give the project a star! Thanks again!**
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -204,6 +206,43 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## **Complementary Docs**
+
+<ul>
+<li>
+  <strong>Core:</strong>
+  <ul>
+    <li>NextJS - <a href="https://nextjs.org/">docs</a></li>
+  </ul>
+</li>
+<li>
+  <strong>Web3:</strong>
+  <ul>
+    <li href="https://docs.alchemy.com/reference/alchemy-sdk-quickstart">AlchemySDK - <a>docs</a></li>
+    <li>EthersJS - <a href="https://docs.ethers.io/v5/">docs</a></li>
+    <li>RainbowKit - <a href="https://www.rainbowkit.com/">docs</a></li>
+    <li>PhantomWallet - <a href="https://docs.phantom.app/">docs</a></li>
+  </ul>
+</li>
+<li>
+  <strong>Blockchain Development Environments:</strong>
+  <ul>
+    <li>Hardhat - <a href="https://hardhat.org/">docs</a></li>
+    <li>Foundry - <a href="https://book.getfoundry.sh/">docs</a></li>
+    <li>Anchor - <a href=https://book.anchor-lang.com/">docs</a></li>
+  </ul>
+</li>
+<li>
+  <strong>CSS:</strong>
+  <ul>
+    <li>Tailwind - <a href="https://v2.tailwindcss.com/docs">docs</a></li>
+    <li>ChakraUI - <a href="https://chakra-ui.com/getting-started">docs</a></li>
+  </ul>
+</li>
+
+</ul>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
@@ -218,23 +257,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - [@twitter_handle](https://twitter.com/vittostack) - vitto@alchemy.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
+Project Link: [https://github.com/eversmile12/create-web3-dapp](https://github.com/eversmile12/create-web3-dapp)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -253,3 +280,4 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 
 [product-screenshot]: images/screenshot.png
+[product-screenshot-2]: images/screenshot_2.png

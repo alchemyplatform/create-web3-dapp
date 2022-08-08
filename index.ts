@@ -11,7 +11,7 @@ import { cloneRepo } from "./helpers/utils/cloneRepo.js";
 import { selfDestroy, setRoot } from "./helpers/utils/selfDestroy.js";
 import chalk from "chalk";
 import { createEnv } from "./helpers/utils/createEnv.js";
-import { dappInfo } from "./interfaces/dappInfo.js"
+import { dappInfo } from "./interfaces/dappInfo.js";
 
 console.log(`MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
@@ -51,7 +51,6 @@ const program = new Commander.Command("create-web3-dapp")
 // Starts creation process
 async function run() {
   try {
-
     // Checks if project name is provided
     if (typeof projectPath === "string") {
       projectPath = projectPath.trim();
@@ -83,7 +82,6 @@ async function run() {
       }).then((data) => data.projectPath.trim().replace(/[\W_]+/g, "-"));
       resolvedProjectPath = path.resolve(projectPath);
       dirExists = existsSync(resolvedProjectPath);
-      console.log(dirExists);
     }
 
     const projectName = path.basename(resolvedProjectPath);
@@ -95,7 +93,7 @@ async function run() {
       useBackend: false,
       backendProvider: "",
       wantsTemplateFiles: false,
-      apiKeys: {}
+      apiKeys: {},
     };
 
     const chain: string = await prompts({
@@ -113,7 +111,7 @@ async function run() {
     }).then((data) => data.chain);
 
     dappInfo.chain = chain;
-    
+
     dappInfo.isEVM =
       chain == "ethereum" ||
       chain == "polygon" ||
@@ -199,8 +197,8 @@ async function run() {
       initial: "demo",
     }).then((data) => data.apiKey);
 
-    dappInfo.apiKeys["alchemy_api_key"] = alchemyAPIKey
-    dappInfo.apiKeys["private_key"] = "none"
+    dappInfo.apiKeys["alchemy_api_key"] = alchemyAPIKey;
+    dappInfo.apiKeys["private_key"] = "none";
 
     mkdir(resolvedProjectPath);
     cloneRepo(resolvedProjectPath, dappInfo);
