@@ -13,7 +13,7 @@ import chalk from "chalk";
 import { createEnv } from "./helpers/utils/createEnv.js";
 import { dappInfo } from "./interfaces/dappInfo.js";
 
-console.log(`
+console.log(chalk.blue(`
 MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
@@ -31,7 +31,7 @@ MWx'       .oNW0;.                  'xWM
 Nd.       .xNWk'                     .dN
 l.       'kWNx.                       .l
 .       .kWM0'                         .
-`);
+`));
 
 console.log("\n");
 console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
