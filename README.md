@@ -192,7 +192,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 <li>
   <strong>Web3:</strong>
   <ul>
-    <li href="https://docs.alchemy.com/reference/alchemy-sdk-quickstart">AlchemySDK - <a>docs</a></li>
+    <li>AlchemySDK - <a href="https://docs.alchemy.com/reference/alchemy-sdk-quickstart">docs</a></li>
     <li>EthersJS - <a href="https://docs.ethers.io/v5/">docs</a></li>
     <li>RainbowKit - <a href="https://www.rainbowkit.com/">docs</a></li>
     <li>PhantomWallet - <a href="https://docs.phantom.app/">docs</a></li>
