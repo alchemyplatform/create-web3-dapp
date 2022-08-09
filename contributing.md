@@ -61,7 +61,7 @@ Follow the style you see used in the primary repository! Consistency with the re
 
 ## Opening a Pull Request
 
-PRs without documentation o comments will be returned to sender. By “documentation” we mean:
+PRs without documentation or comments will be returned to sender. By “documentation” we mean:
 
 * List of changes and explanation of them.
 
