@@ -27,6 +27,26 @@ npm -v && node -v
 
 A common tactic is to pare down your code until a simple (but still bug-causing) “base case” remains. Not only can this help you identify problems which aren’t real bugs, but it means the developer can get to fixing the bug faster.
 
+## Opening an issue
+Before submitting a new issue, please perform basic due diligence steps:
+
+Make sure the issue doesn't already exists by searching for it in [ISSUES](). 
+
+### What to put in your issue
+
+When creating a new issue, make sure to include one of the following tags in the Title:
+
+**[BUG]** - if the issue is being opened to report a bug
+**[ENHANCEMENT]** - if the issue is being opened to suggest a new feature or assumed improvement
+**[QUESTION]** - any other case
+
+### Tags
+Tags make searching for issues faster and create an amazing way for new comers to find **"good-first-issues"**
+
+Good first issues are all issues suited to be picked up by newcomers without deep understanding of the code base and how it works. 
+
+Make sure to tag your issues based on it's content using one of the provided tags. Open an issue to suggest new tags if needed. 
+
 ## Contributing changes
 
 ### Licensing of contributed material
