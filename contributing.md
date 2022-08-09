@@ -13,7 +13,7 @@ Before submitting a bug, please perform basic troubleshooting steps:
 
 Make sure you’re on the latest version. If you’re not on the most recent version, your problem may have been solved already! Upgrading is always the best first step.
 
-If you don’t find a pre-existing issue and/or solutions, consider checking on StackOverflow or the [Alchemy Discord Server](alchemy.com/discord). 
+If you don’t find a pre-existing issue and/or solutions, consider checking on StackOverflow or the [Alchemy Discord Server](https://alchemy.com/discord). 
 
 ### What to put in your bug report
 Make sure your report gets the attention it deserves: bug reports with missing information may be ignored or punted back to you, delaying a fix. The below constitutes a bare minimum; more info is almost always better:
