@@ -74,10 +74,10 @@ All submissions should have a changelog entry crediting the contributor and/or a
 Here’s an example workflow to create a new Pull Request. Your username is yourname and you’re submitting a basic bugfix.
 
 ### Preparing your Fork
-1. Click ‘Fork’ on Github, creating e.g. yourname/theproject.
-2. Clone your project: git clone git@github.com:yourname/theproject.
-3. cd theproject
-4. Install the development requirements: pip install -r dev-requirements.txt.
+1. Click ‘Fork’ on Github, creating e.g. eversmile12/create-web3-dapp.
+2. Clone your project: git clone git@github.com:eversmile12/create-web3-dapp.
+3. cd create-web3-dapp
+4. Install the development requirements: npm install.
 5. Create a branch: git checkout -b foo-the-bars - Remember to use a branch name that describes WHAT you're doing/fixing.
 6. Make your Changes.
 7. Hack, hack, hack.
