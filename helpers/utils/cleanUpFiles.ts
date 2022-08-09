@@ -43,7 +43,7 @@ export const cleanUpFiles = () => {
 		force: true,
 	});
 	fs.rmSync(path.join(process.cwd(), ".git"), {
-	        recursive: true,
-	        force: true,
+		recursive: true,
+		force: true,
 	});
 };

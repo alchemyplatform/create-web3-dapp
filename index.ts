@@ -13,7 +13,8 @@ import chalk from "chalk";
 import { createEnv } from "./helpers/utils/createEnv.js";
 import { dappInfo } from "./interfaces/dappInfo.js";
 
-console.log(chalk.blue(`
+console.log(
+	chalk.blue(`
 MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
@@ -31,7 +32,8 @@ MWx'       .oNW0;.                  'xWM
 Nd.       .xNWk'                     .dN
 l.       'kWNx.                       .l
 .       .kWM0'                         .
-`));
+`)
+);
 
 console.log("\n");
 console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
@@ -116,9 +118,9 @@ async function run() {
 
 		dappInfo.isEVM =
 			chain == "ethereum" ||
-				chain == "polygon" ||
-				chain == "arbitrum" ||
-				chain == "optimism"
+			chain == "polygon" ||
+			chain == "arbitrum" ||
+			chain == "optimism"
 				? true
 				: false;
 
@@ -287,9 +289,9 @@ async function run() {
 
 		dappInfo.isEVM =
 			chain == "ethereum" ||
-				chain == "polygon" ||
-				chain == "arbitrum" ||
-				chain == "optimism"
+			chain == "polygon" ||
+			chain == "arbitrum" ||
+			chain == "optimism"
 				? true
 				: false;
 
@@ -356,17 +358,23 @@ async function run() {
 					message: "Choose a Blockchain development environment:",
 					choices: [
 						{ title: "Hardhat", value: "hardhat" },
-						{ title: "Foundry (not yet supported)", value: "foundry" },
+						{
+							title: "Foundry (not yet supported)",
+							value: "foundry",
+						},
 					],
 					initial: 0,
-				}).then((data) => (dappInfo.backendProvider = data.backendType));
+				}).then(
+					(data) => (dappInfo.backendProvider = data.backendType)
+				);
 			}
 		}
 
 		const alchemyAPIKey: string = await prompts({
 			type: "text",
 			name: "apiKey",
-			message: "Insert your Alchemy API Key (if none, 'demo' will be used",
+			message:
+				"Insert your Alchemy API Key (if none, 'demo' will be used",
 			initial: "demo",
 		}).then((data) => data.apiKey);
 
@@ -380,7 +388,9 @@ async function run() {
 		cleanUpFiles();
 
 		console.log(
-			chalk.green("Visit https://docs.alchemy.com/ for the complete tutorial")
+			chalk.green(
+				"Visit https://docs.alchemy.com/ for the complete tutorial"
+			)
 		);
 	} catch (e) {
 		selfDestroy();

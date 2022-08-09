@@ -6,12 +6,15 @@ export const Panel = () => {
 				<div>
 					<h2>Learn Alchemy</h2>
 					<p>
-						{" "}
 						Nel mezzo del cammin di nostra vita mi ritrovai per una
 						selva oscura, ché la diritta via era smarrita
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
+						<a
+							className={styles.button}
+							href="https://docs.alchemy.com/docs/alchemy-quickstart-guide"
+							target="_blank"
+						>
 							Go there
 						</a>
 					</div>
@@ -23,7 +26,11 @@ export const Panel = () => {
 						selva oscura, ché la diritta via era smarrita.
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
+						<a
+							className={styles.button}
+							href="https://docs.alchemy.com/docs/welcome-to-the-road-to-web3"
+							target="_blank"
+						>
 							Go there
 						</a>
 					</div>
@@ -37,7 +44,11 @@ export const Panel = () => {
 						selva oscura, ché la diritta via era smarrita
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
+						<a
+							className={styles.button}
+							href="https://goerlifaucet.com/"
+							target="_blank"
+						>
 							Go there
 						</a>
 					</div>
@@ -49,7 +60,11 @@ export const Panel = () => {
 						selva oscura, ché la diritta via era smarrita.
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
+						<a
+							className={styles.button}
+							href="https://docs.alchemy.com/"
+							target="_blank"
+						>
 							Go there
 						</a>
 					</div>
