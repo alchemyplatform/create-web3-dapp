@@ -47,7 +47,7 @@
      <li>
       <a href="#getting-started">Open Source</a>
       <ul>
-        <li><a href="#contributors">Contributors</a></li>
+        <li><a href="#maintainers">Contributors</a></li>
         <li><a href="#contributing">Contributing</a></li>
       </ul>
     </li>
@@ -165,7 +165,7 @@ See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) fo
 
 </br>
 
-### Contributors
+### Maintainers
 
 <ul>
 <li>Vitto Rivabella - <a href="https://www.linkedin.com/in/vittorio-rivabella/">Linkedin</a> - <a href="https://twitter.com/VittoStack">Twitter</a> - <a href="https://github.com/eversmile12">GitHub</a></li>
@@ -180,15 +180,7 @@ See the [open issues](https://github.com/eversmile12/create-web3-dapp/issues) fo
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-
-**Don't forget to give the project a star! Thanks again!**
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Check the [contributions.md](https://github.com/Eversmile12/create-web3-dapp/blob/main/contributing.md) document to learn how to correctly contribute to create-web3-dapp and make sure to join our community on [Discord](https://alchemy.com/discord) to meet the other developers working on the project.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
