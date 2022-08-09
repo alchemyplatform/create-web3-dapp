@@ -30,7 +30,7 @@ A common tactic is to pare down your code until a simple (but still bug-causing)
 ## Opening an issue
 Before submitting a new issue, please perform basic due diligence steps:
 
-Make sure the issue doesn't already exists by searching for it in [ISSUES](). 
+Make sure the issue doesn't already exists by searching for it in [ISSUES](https://github.com/Eversmile12/create-web3-dapp/issues). 
 
 ### What to put in your issue
 
