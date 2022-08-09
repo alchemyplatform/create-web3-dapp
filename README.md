@@ -242,7 +242,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/vittostack) - vitto@alchemy.com
+[@vittostack](https://twitter.com/vittostack) - vitto@alchemy.com
 
 Project Link: [https://github.com/eversmile12/create-web3-dapp](https://github.com/eversmile12/create-web3-dapp)
 
