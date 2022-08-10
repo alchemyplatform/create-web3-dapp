@@ -131,7 +131,7 @@ cd my-dapp
 8. Run the application
 
 ```sh
-npm run dev
+npm run start
 ```
 
 9. Go to to <a href="localhost:3000">localhost:3000</a>:
