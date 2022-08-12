@@ -67,6 +67,9 @@ export const createPackageJson = async (
 						"@nomicfoundation/hardhat-toolbox"
 					] = "^1.0.2";
 					packageJson["devDependencies"]["hardhat"] = "^2.10.1";
+					packageJson["scripts"]["compile"] = "cd ./backend && npx hardhat compile";
+					packageJson["scripts"]["test"] = "cd ./backend && npx hardhat test";
+					packageJson["scripts"]["deploy"] = "cd ./backend && npx hardhat run scripts/deploy.js";
 					break;
 				case "foundry":
 					console.log(
