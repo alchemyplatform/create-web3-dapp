@@ -61,15 +61,15 @@
 
 ## About The Project
 
-**ATTENTION**: This project is under beta and not ready for production - using it in product is highly discouraged without prior thorough review.
+**ATTENTION**: This project is under beta and not ready for production - using it in a product is highly discouraged without prior thorough review.
 
 ![product-screenshot]
 
 Create and deploy a decentralized application on Ethereum, Polygon, Solana, and all major chains, in a matter of minutes.
 
-create-web3-dapp is an utility NPX package built on top of NextJS that allows developers to pick and choose the boilerplates of their decentralized application.
+create-web3-dapp is a utility NPX package built on top of NextJS that allows developers to pick and choose the boilerplates of their decentralized application.
 
-From the chain to use, through the wallet login system, to the React components to include and the Blockchain development environment, everything developers need to spin up their web3 dapps, bundled in an easy to use command line tool.
+From the chain to use, through the wallet login system, to the React components to include and the Blockchain development environment, everything developers need to spin up their web3 dapps, bundled in an easy-to-use command line tool.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -84,7 +84,7 @@ To get a local copy up and running follow these simple example steps.
 
 -   NodeJS
 
-To install node go on the [official Node website](https://nodejs.org/en/download/), and download the LTS package for your Operating System.
+To install node, go to the official Node website, and download the LTS package for your Operating System.
 
 To verify if NodeJS has been correctly installed on your system, open your terminal and run:
 
@@ -111,7 +111,7 @@ npm -v
   npx create-web3-dapp
 ```
 
-4. The first time you'll run this command, it will install the package.
+4. The first time you run this command, it will install the package.
 
 5. Once installed, run the following command again - This will start the DApp creation flow.:
 
