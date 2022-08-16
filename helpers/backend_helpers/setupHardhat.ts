@@ -28,9 +28,8 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 	);
 
 	writeStream.write("require('@nomicfoundation/hardhat-toolbox');\n");
-	writeStream.write("require('dotenv').config()\n");
+	writeStream.write("require('dotenv').config()\n\n");
 
-	writeStream.write("// Remove the quotes to get started \n");
 	const modules = {
 		solidity: "0.8.9",
 		networks: {
@@ -57,8 +56,8 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 
 	writeStream.write(
 		`module.exports = ${JSON.stringify(modules, null, "\t").replace(
-			/"([^"]+)":/g,
-			"$1:"
+			/"(?!\d\.\d\.\d)([^",]+)"/g,
+			"$1"
 		)}`
 	);
 	writeStream.close();
