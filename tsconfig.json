@@ -22,6 +22,6 @@
 		"helpers/utils/createEnv.ts",
 		"helpers/utils/createReadme.ts",
 		"helpers/utils/cloneRepo.ts"
-	],
+, "helpers/utils/copyFile.ts"	],
 	"exclude": ["src/**/*.spec.ts", "node_modules"]
 }

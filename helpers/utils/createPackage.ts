@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { selfDestroy } from "./selfDestroy.js";
-
+import {copyFile} from "./copyFile.js"
 interface packageData {
 	isEVM: boolean;
 	useBackend: boolean;
@@ -15,7 +15,7 @@ export const createPackageJson = async (
 	{ isEVM, useBackend, backendProvider = "" }: packageData
 ) => {
 	try {
-		console.log(chalk.yellow("Generating package.json"));
+		console.log(chalk.yellow("Generating package.json\n"));
 		const bar1 = new cliProgress.SingleBar(
 			{},
 			cliProgress.Presets.shades_classic
@@ -90,15 +90,18 @@ export const createPackageJson = async (
 		bar1.update(200);
 		
 
-		console.log(chalk.green("Package.json generated"));
+		console.log(chalk.green("Package.json generated\n"));
 		execSync("npx npm-check-updates -u")
 		bar1.update(250);
-		console.log(chalk.yellow("Checking dependencies for updates..."));
-		console.log(chalk.yellow("Installing dependencies..."));
+		console.log(chalk.yellow("Checking dependencies for updates...\n"));
+		console.log(chalk.yellow("Installing dependencies...\n"));
 		execSync("npm install");
 		bar1.update(300);
-		console.log(chalk.green("Dependencies installed"));
+		console.log(chalk.green("Dependencies installed\n"));
 		bar1.stop();
+
+		copyFile("utils", ".eslintrc", process.cwd())
+		copyFile("utils", "README.md", process.cwd())
 	} catch (e) {
 		selfDestroy();
 	}

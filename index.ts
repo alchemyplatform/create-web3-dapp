@@ -12,7 +12,7 @@ import { selfDestroy, setRoot } from "./helpers/utils/selfDestroy.js";
 import chalk from "chalk";
 import { createEnv } from "./helpers/utils/createEnv.js";
 import { dappInfo } from "./interfaces/dappInfo.js";
-import {logInstructions} from "./helpers/utils/logInstructions"
+import {logInstructions} from "./helpers/utils/logInstructions.js"
 
 console.log(chalk.blue(`
 MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
