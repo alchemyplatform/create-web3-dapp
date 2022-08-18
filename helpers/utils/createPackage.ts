@@ -20,7 +20,7 @@ export const createPackageJson = async (
 			{},
 			cliProgress.Presets.shades_classic
 		);
-		bar1.start(200, 0);
+		bar1.start(300, 0);
 
 		const packageJson = {
 			name: projectName,
@@ -42,7 +42,7 @@ export const createPackageJson = async (
 				"eslint-config-next": "12.2.3",
 			},
 		};
-		bar1.update(100);
+		bar1.update(50);
 
 		if (isEVM) {
 			packageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
@@ -82,18 +82,23 @@ export const createPackageJson = async (
 			}
 		}
 
-		bar1.update(150);
+		bar1.update(100);
 		fs.writeFileSync(
 			"package.json",
 			JSON.stringify(packageJson, null, "\t")
 		);
 		bar1.update(200);
-		bar1.stop();
+		
 
 		console.log(chalk.green("Package.json generated"));
+		execSync("npx npm-check-updates -u")
+		bar1.update(250);
+		console.log(chalk.yellow("Checking dependencies for updates..."));
 		console.log(chalk.yellow("Installing dependencies..."));
 		execSync("npm install");
+		bar1.update(300);
 		console.log(chalk.green("Dependencies installed"));
+		bar1.stop();
 	} catch (e) {
 		selfDestroy();
 	}
