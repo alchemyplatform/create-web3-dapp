@@ -18,9 +18,6 @@ export const cleanUpFiles = () => {
 	fs.rmSync(path.join(process.cwd(), ".eslintignore"), {
 		force: true,
 	});
-	fs.rmSync(path.join(process.cwd(), ".eslintrc"), {
-		force: true,
-	});
 	fs.rmSync(path.join(process.cwd(), "contributing.md"), {
 		force: true,
 	});
@@ -43,7 +40,7 @@ export const cleanUpFiles = () => {
 		force: true,
 	});
 	fs.rmSync(path.join(process.cwd(), ".git"), {
-	        recursive: true,
-	        force: true,
+		recursive: true,
+		force: true,
 	});
 };
