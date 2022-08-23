@@ -1,6 +1,7 @@
 
 export type APIKeys = {
 	alchemy_api_key?: string;
+	private_key?: string;
 };
 
 export interface dappInfo {

@@ -324,7 +324,6 @@ async function run() {
 					}).then((data) => data.apiKey);
 
 					dappInfo.apiKeys["alchemy_api_key"] = alchemyAPIKey;
-					dappInfo.apiKeys["private_key"] = "none";
 
 					quit = true;
 				} catch (e) {

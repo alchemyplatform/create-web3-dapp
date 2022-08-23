@@ -20,7 +20,7 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 	fse.copySync(hardhatTemplate, path.join(process.cwd(), "backend"));
 
 	if (dappInfo.apiKeys) {
-		createEnv(dappInfo.apiKeys, path.join(process.cwd(), "backend"), false);
+		createEnv({ ...dappInfo.apiKeys, private_key:"0x"}, path.join(process.cwd(), "backend"), false);
 	}
 
 	const writeStream = createWriteStream(
