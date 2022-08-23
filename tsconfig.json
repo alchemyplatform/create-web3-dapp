@@ -16,12 +16,12 @@
 		"./index.ts",
 		"./helpers/*",
 		"helpers/backend_helpers/setupHardhat.ts",
-		"helpers/utils/cleanUpFiles.ts",
+		"helpers/core/cleanUpFiles.ts",
 		"helpers/utils/mkdir.ts",
 		"helpers/utils/generateAlchemyUrl.ts",
 		"helpers/utils/createEnv.ts",
 		"helpers/utils/createReadme.ts",
-		"helpers/utils/cloneRepo.ts"
+		"helpers/core/cloneRepo.ts"
 , "helpers/utils/copyFile.ts"	],
 	"exclude": ["src/**/*.spec.ts", "node_modules"]
 }

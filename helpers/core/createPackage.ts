@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { selfDestroy } from "./selfDestroy.js";
-import {copyFile} from "./copyFile.js"
+import {copyFile} from "../utils/copyFile.js"
 interface packageData {
 	isEVM: boolean;
 	useBackend: boolean;
@@ -100,9 +100,11 @@ export const createPackageJson = async (
 		console.log(chalk.green("Dependencies installed\n"));
 		bar1.stop();
 
-		copyFile("utils", ".eslintrc", process.cwd())
-		copyFile("utils", "README.md", process.cwd())
+		// copyFile("utils", ".eslintrc", process.cwd())
+		
+		// copyFile("utils", "README.md", process.cwd())
 	} catch (e) {
-		selfDestroy();
+
+		selfDestroy(e);
 	}
 };
