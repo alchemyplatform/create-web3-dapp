@@ -1,7 +1,7 @@
 import fs from "fs";
 
 let root = ""; 
-let verbose = false;
+const verbose = true;
 
 export const setRoot = (path: string) => {
 	root = path;

@@ -21,7 +21,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint . --ext .ts && yarn prettier --write .",
-		"start": "parcel index.html",
+		"start": "npx tsc && npm link && npx create-web3-dapp",
 		"build": "parcel build ./dist/index.js"
 	},
 	"bin": {

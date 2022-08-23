@@ -111,7 +111,7 @@ async function run() {
 				break;
 			case 1:
 				try {
-					let builderTemplate: string = await prompts({
+					const builderTemplate: string = await prompts({
 						type: "select",
 						name: "builderTemplate",
 						message: "Choose how to start:",

@@ -45,8 +45,9 @@ export const createPackageJson = async (
 			},
 		};
 		bar1.update(50);
-		let frontEndPackageJson = JSON.parse(JSON.stringify(packageJsonTemplate))
-		;
+		const frontEndPackageJson = JSON.parse(
+			JSON.stringify(packageJsonTemplate)
+		);
 		if (isEVM) {
 			frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
 			frontEndPackageJson["dependencies"]["@rainbow-me/rainbowkit"] =
@@ -77,8 +78,9 @@ export const createPackageJson = async (
 		bar1.update(150);
 
 		if (useBackend) {
-			let backendPackageJson = JSON.parse(JSON.stringify(packageJsonTemplate))
-			;
+			const backendPackageJson = JSON.parse(
+				JSON.stringify(packageJsonTemplate)
+			);
 			switch (backendProvider) {
 				case "hardhat":
 					backendPackageJson["devDependencies"][
@@ -109,14 +111,15 @@ export const createPackageJson = async (
 					JSON.stringify(backendPackageJson, null, "\t")
 				);
 				console.log("2/2 Package.json generated ✅");
-				console.log(chalk.yellow("Installing Hardhat dependencies...\n"));
+				console.log(
+					chalk.yellow("Installing Hardhat dependencies...\n")
+				);
 				process.chdir("backend");
 				execSync("npx npm-check-updates -u");
 				execSync("npm install");
 				console.log("Hardhat dependencies installed ✅");
 				bar1.update(200);
 			}
-			
 		}
 
 		process.chdir(resolvedProjectPath);
@@ -129,9 +132,9 @@ export const createPackageJson = async (
 		console.log("\n Dependencies installed ✅");
 		bar1.stop();
 
-		// copyFile("utils", ".eslintrc", process.cwd())
+		copyFile("utils", ".eslintrc", process.cwd())
 
-		// copyFile("utils", "README.md", process.cwd())
+		copyFile("utils", "README.md", process.cwd())
 	} catch (e) {
 		selfDestroy(e);
 	}
