@@ -68,8 +68,8 @@ async function run() {
 		apiKeys: {},
 	};
 
-	let projectName: string = "";
-	let resolvedProjectPath: string = "";
+	let projectName = "";
+	let resolvedProjectPath = "";
 	while(!quit)
 	switch (step) {
 		case 0:
@@ -222,7 +222,7 @@ async function run() {
 				if (dappInfo.chain !== "solana") {
 					await prompts({
 						type: "select",
-						name: "templateFiles",
+						name: "toolkitType",
 						message: "What kind of DApp are you building?",
 						choices: [
 							{ title: "NFTs", value: "nfts" },
@@ -232,7 +232,7 @@ async function run() {
 						],
 						initial: 0,
 						hint: '- Select Blank to start from scratch'
-					}).then((data) => dappInfo.toolkitType = data.templateFiles);
+					}).then((data) => dappInfo.toolkitType = data.toolkitType);
 		
 					if (dappInfo.toolkitType) {
 						await prompts({
@@ -244,7 +244,7 @@ async function run() {
 								{ title: "NTFs Collection Info Panel", value: "nftGallery.jsx" },
 							],
 							hint: '- Space to select. Return to submit'
-						}).then((data) => dappInfo.toolkitType = data.templateFiles);
+						}).then((data) => console.log(data.components));
 					}
 				}
 				step++;

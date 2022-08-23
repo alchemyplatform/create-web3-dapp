@@ -46,4 +46,8 @@ export const cleanUpFiles = () => {
 	        recursive: true,
 	        force: true,
 	});
+	fs.rmSync(path.join(process.cwd(), "contracts"), {
+		recursive: true,
+		force: true,
+	});
 };

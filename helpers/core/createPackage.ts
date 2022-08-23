@@ -100,9 +100,9 @@ export const createPackageJson = async (
 		console.log(chalk.green("Dependencies installed\n"));
 		bar1.stop();
 
-		// copyFile("utils", ".eslintrc", process.cwd())
+		copyFile("utils", ".eslintrc", process.cwd())
 		
-		// copyFile("utils", "README.md", process.cwd())
+		copyFile("utils", "README.md", process.cwd())
 	} catch (e) {
 
 		selfDestroy(e);

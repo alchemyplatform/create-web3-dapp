@@ -1,16 +1,11 @@
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Network, Alchemy } from "alchemy-sdk";
 import { useAccount } from "wagmi";
-import { NFTGallery } from "./components/nftGallery";
-import { TransactionsBox } from "./components/transactionsBox";
 import { Panel } from "./components/panels";
 import { Section } from "./layout/section";
-import { CodeSnippet } from "./components/codeSnippet";
 
 export default function Home() {
-	const { address, isConnected } = useAccount();
 	/* WARNING:: the API key will be exposed on the browser - ideally you should get your key through server side rendering
 or get the data directly from your APIs */
 
