@@ -3,54 +3,72 @@ export const Panel = () => {
 	return (
 		<div className={styles.panel_container}>
 			<div className={styles.panel}>
-				<div>
-					<h2>Learn Alchemy</h2>
+				<div className={styles.box}>
+					<h2>Quickstart</h2>
 					<p>
-						{" "}
-						Nel mezzo del cammin di nostra vita mi ritrovai per una
-						selva oscura, ché la diritta via era smarrita
+						Kickstart your web3 project in 1 minute with
+						create-web3-dapp. Learn how to create what you exactly
+						need with the kickstart guide.
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
-							Go there
+						<a
+							className={styles.button}
+							target="_blank"
+							href="https://docs.alchemy.com/"
+						>
+							Let's Go
 						</a>
 					</div>
 				</div>
-				<div>
-					<h2>Road to web3</h2>
+				<div className={styles.box}>
+					<h2>Learn Web3</h2>
 					<p>
-						Nel mezzo del cammin di nostra vita mi ritrovai per una
-						selva oscura, ché la diritta via era smarrita.
+						Become a web3 developer in 10 weeks completely for free
+						joining the Road to Web3 bootcamp! Learn by the best in
+						class.
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
-							Go there
+						<a
+							className={styles.button}
+							target="_blank"
+							href="https://docs.alchemy.com/docs/welcome-to-the-road-to-web3"
+						>
+							Let's Go
 						</a>
 					</div>
 				</div>
 			</div>
 			<div className={styles.panel}>
-				<div>
-					<h2>Request faucet</h2>
+				<div className={styles.box}>
+					<h2>Become a contributor</h2>
 					<p>
-						Nel mezzo del cammin di nostra vita mi ritrovai per una
-						selva oscura, ché la diritta via era smarrita
+						Help building create-web3-dapp, visit the docs and start
+						contributing towards the most used dapp building CLI
+						tool!
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
-							Go there
+						<a
+							className={styles.button}
+							target="_blank"
+							href="https://github.com/Eversmile12/create-web3-dapp/blob/main/contributing.md"
+						>
+							Let's Go
 						</a>
 					</div>
 				</div>
-				<div>
-					<h2>Read our docs</h2>
+				<div className={styles.box}>
+					<h2>Create an Alchemy Account</h2>
 					<p>
-						Nel mezzo del cammin di nostra vita mi ritrovai per una
-						selva oscura, ché la diritta via era smarrita.
+						Create a free Alchemy account and start building dapps
+						like the big do. get your acount
 					</p>
 					<div className={styles.button_container}>
-						<a className={styles.button} href="#">
-							Go there
+						<a
+							className={styles.button}
+							target="_blank"
+							href="https://alchemy.com/?a=create-web3-dapp"
+						>
+							Let's Go
 						</a>
 					</div>
 				</div>

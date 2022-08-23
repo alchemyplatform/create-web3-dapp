@@ -1,14 +1,62 @@
 .panel_container {
 	display: flex;
 	flex-direction: column;
-	padding: 0 20rem;
+	align-items: center;
 }
+
+
 
 .panel {
 	display: flex;
+	column-gap: 3rem;
+	margin-bottom: 3rem;
+	align-items: center;
+	width: 60%;
 	text-align: justify;
-	column-gap: 8rem;
-	margin-bottom: 2rem;
+	
+}
+
+.box{
+	width: 100%;
+	border: 2px solid rgb(236, 236, 236);
+	padding: 2rem 1.5rem;
+	border-radius: 6px;
+}
+
+
+@media screen and (max-width: 1260px) {
+	.panel{
+		min-width: 100%;
+	}
+	.panel_container{
+		padding: 0 10rem;
+	}
+}
+
+@media screen and (max-width: 820px) {
+	.panel{
+		min-width: 100%;
+		column-gap: 5rem;
+	
+	}
+	.box{
+		margin-bottom: 3rem;
+	}
+	.panel_container{
+		padding: 0 5rem;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.panel{
+		min-width: 100%;
+		flex-direction: column;
+		margin-bottom: 0;
+		min-width: 15rem;
+	}
+	.panel_container{
+		padding: 0 5rem;
+	}
 }
 
 .button_container {
@@ -18,7 +66,16 @@
 }
 
 .button {
-	background-color: blue;
+	background-color: #0E76FD;
+	border-radius: 5px;
 	padding: 0.6rem 1.2rem;
 	color: white;
+	font-weight: 600;
+	margin-top: 1.5rem;
+}
+
+.button:hover {
+	transition: background-color 0.2s ease;
+	background-color: #0664de;
+	
 }
