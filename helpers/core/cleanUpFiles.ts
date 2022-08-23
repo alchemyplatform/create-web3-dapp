@@ -1,8 +1,9 @@
+import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 
 export const cleanUpFiles = () => {
-	console.log("deleting template files");
+	console.log(chalk.yellow("Deleting template files..."));
 	fs.rmSync(path.join(process.cwd(), "templates"), {
 		recursive: true,
 		force: true,
@@ -48,4 +49,5 @@ export const cleanUpFiles = () => {
 		recursive: true,
 		force: true,
 	});
+	console.log("Project cleaned up ✅");
 };

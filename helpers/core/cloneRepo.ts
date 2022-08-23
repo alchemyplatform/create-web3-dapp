@@ -37,9 +37,6 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 			"core"
 		);
 		fse.copySync(template, process.cwd());
-		console.log(
-			chalk.yellow(`Copying ${dappInfo.toolkitType} files and ${dappInfo.components}...`)
-		);
 		if (dappInfo.toolkitType && dappInfo.components) {
 			
 			getComponents(
@@ -50,7 +47,7 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 		}
 
 		bar1.update(200);
-		console.log(chalk.green("Project files copied ✅"));
+		console.log("Project files copied ✅");
 
 		bar1.stop();
 

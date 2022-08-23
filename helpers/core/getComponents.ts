@@ -7,9 +7,7 @@ export const getComponents = (
 	components: [string],
 	isEVM: boolean
 ) => {
-    console.log(
-        chalk.yellow(`Copying components files...`)
-    );
+ 
 
 	for (const component of components) {
 		const fromComponentPath = path.join(
