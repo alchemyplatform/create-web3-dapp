@@ -1,22 +1,26 @@
+import chalk from "chalk";
 import fse from "fs-extra";
 import path from "path";
-import { Component } from "../../interfaces/component";
 
 export const getComponents = (
 	toolkitType: string,
-	components: [Component],
-	chain: string
+	components: [string],
+	isEVM: boolean
 ) => {
+    console.log(
+        chalk.yellow(`Copying components files...`)
+    );
+
 	for (const component of components) {
 		const fromComponentPath = path.join(
 			process.cwd(),
 			"templates",
-			chain == "solana" ? "evm" : "solana",
+			isEVM ? "evm" : "solana",
 			"components",
 			toolkitType,
-			component.name
+			component
 		);
-		const toComponentPath = path.join(process.cwd(), "components");
+		const toComponentPath = path.join(process.cwd(), "pages", "components", component);
 		fse.copySync(fromComponentPath, toComponentPath);
 	}
 };

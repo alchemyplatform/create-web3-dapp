@@ -37,12 +37,15 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 			"core"
 		);
 		fse.copySync(template, process.cwd());
-
+		console.log(
+			chalk.yellow(`Copying ${dappInfo.toolkitType} files and ${dappInfo.components}...`)
+		);
 		if (dappInfo.toolkitType && dappInfo.components) {
+			
 			getComponents(
 				dappInfo.toolkitType,
 				dappInfo.components,
-				dappInfo.chain
+				dappInfo.isEVM
 			);
 		}
 

@@ -1,4 +1,3 @@
-import { Component } from "./component";
 
 export type APIKeys = {
 	alchemy_api_key?: string;
@@ -12,6 +11,6 @@ export interface dappInfo {
 	useBackend: boolean;
 	backendProvider?: string;
 	toolkitType?: string;
-	components: [Component] | null;
+	components: [string] | null;
 	apiKeys: APIKeys;
 }
