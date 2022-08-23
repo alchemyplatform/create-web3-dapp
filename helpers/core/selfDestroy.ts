@@ -1,13 +1,15 @@
 import fs from "fs";
 
-let root = "";
+let root = ""; 
+let verbose = false;
 
 export const setRoot = (path: string) => {
 	root = path;
 };
 
 export const selfDestroy = (e) => {
-	console.error(e);
+	if (verbose) console.error(e);
+	
 	fs.rmSync(root, {
 		recursive: true,
 		force: true,

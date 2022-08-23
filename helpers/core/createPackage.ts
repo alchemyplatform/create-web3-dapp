@@ -107,7 +107,7 @@ export const createPackageJson = async (
 				);
 				process.chdir("backend");
 				execSync("npx npm-check-updates -u");
-				execSync("npm install --loglevel verbose");
+				execSync("npm install");
 			}
 			
 		}
@@ -116,7 +116,7 @@ export const createPackageJson = async (
 		console.log(chalk.green("Package.json generated\n"));
 		execSync("npx npm-check-updates -u");
 		bar1.update(250);
-		console.log(chalk.yellow("Checking dependencies for updates...\n"));
+		console.log(chalk.yellow("\nChecking dependencies for updates...\n"));
 		console.log(chalk.yellow("Installing dependencies...\n"));
 		execSync("npm install");
 		bar1.update(300);

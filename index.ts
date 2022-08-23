@@ -86,6 +86,7 @@ async function run() {
 					resolvedProjectPath = path.resolve(projectPath);
 					let dirExists: boolean = existsSync(resolvedProjectPath);
 					setRoot(resolvedProjectPath);
+					
 					let i = 1;
 					// Check if project
 					while (dirExists) {
@@ -215,10 +216,10 @@ async function run() {
 							message: "What kind of DApp are you building?",
 							choices: [
 								{ title: "NFTs", value: "nfts" },
-								{ title: "DeFi (coming soon)", value: "_" },
+								{ title: "DeFi (coming soon)", value: undefined },
 								{
 									title: "Governance (coming soon)",
-									value: "_",
+									value: undefined,
 								},
 								{ title: "Blank", value: undefined },
 							],
