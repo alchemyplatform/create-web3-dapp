@@ -6,7 +6,7 @@ import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { dappInfo } from "../../interfaces/dappInfo.js";
-import {getComponents} from "./getComponents.js"
+import { getComponents } from "./getComponents.js";
 export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 	try {
 		process.chdir(projectPath);
@@ -38,11 +38,13 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 		);
 		fse.copySync(template, process.cwd());
 
-		if (dappInfo.toolkitType && dappInfo.components ) {
-			getComponents(dappInfo.toolkitType, dappInfo.components, dappInfo.chain)
+		if (dappInfo.toolkitType && dappInfo.components) {
+			getComponents(
+				dappInfo.toolkitType,
+				dappInfo.components,
+				dappInfo.chain
+			);
 		}
-
-	
 
 		bar1.update(200);
 		console.log(chalk.green("Project files copied ✅"));

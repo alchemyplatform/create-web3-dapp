@@ -1,4 +1,4 @@
 export type Component = {
-    name: string,
-    type: false
-}
+	name: string;
+	type: false;
+};

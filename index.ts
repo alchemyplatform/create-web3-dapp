@@ -267,7 +267,7 @@ async function run() {
 		
 				mkdir(resolvedProjectPath);
 				cloneRepo(resolvedProjectPath, dappInfo);
-				createPackageJson(projectName, dappInfo);
+				createPackageJson(projectName, resolvedProjectPath, dappInfo);
 				createEnv(dappInfo.apiKeys, process.cwd());
 				cleanUpFiles();
 				logInstructions();

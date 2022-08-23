@@ -7,7 +7,7 @@ export const setRoot = (path: string) => {
 };
 
 export const selfDestroy = (e) => {
-	console.error(e)
+	console.error(e);
 	fs.rmSync(root, {
 		recursive: true,
 		force: true,

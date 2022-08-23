@@ -6,8 +6,10 @@ export const copyFile = (folder, filename, destination) => {
     const file = path.join(process.cwd(), "templates", folder, filename)
 
     if (destination !== process.cwd()) {
-        destination = path.join(process.cwd(), destination)
+        destination = path.join(process.cwd(), destination, "/")
     }
-    
-    fse.copySync(file, )
+    fse.removeSync(path.join(destination, filename), {
+		force: true,
+	});
+    fse.copySync(file, destination)
 }
