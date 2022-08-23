@@ -19,7 +19,6 @@ export const cleanUpFiles = () => {
 	fs.rmSync(path.join(process.cwd(), ".eslintignore"), {
 		force: true,
 	});
-
 	fs.rmSync(path.join(process.cwd(), "contributing.md"), {
 		force: true,
 	});

@@ -20,5 +20,15 @@ export const getComponents = (
 		);
 		const toComponentPath = path.join(process.cwd(), "pages", "components", component);
 		fse.copySync(fromComponentPath, toComponentPath);
+		const fromComponentStylePath = path.join(
+			process.cwd(),
+			"templates",
+			isEVM ? "evm" : "solana",
+			"components",
+			toolkitType,
+			`${component}.module.css`
+		)
+		const toComponentStylePath = path.join(process.cwd(), "styles", `${component}.module.css`);
+		fse.copySync(fromComponentStylePath, toComponentStylePath);
 	}
 };
