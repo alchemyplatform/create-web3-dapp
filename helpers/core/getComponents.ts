@@ -16,7 +16,7 @@ export const getComponents = (
 			isEVM ? "evm" : "solana",
 			"components",
 			toolkitType,
-			component
+			`${component + ".jsx"}`
 		);
 		const toComponentPath = path.join(process.cwd(), "pages", "components", component);
 		fse.copySync(fromComponentPath, toComponentPath);
@@ -26,7 +26,7 @@ export const getComponents = (
 			isEVM ? "evm" : "solana",
 			"components",
 			toolkitType,
-			`${component}.module.css`
+			`${component.charAt(0).toUpperCase() + component.slice(1)}.module.css`
 		)
 		const toComponentStylePath = path.join(process.cwd(), "styles", `${component}.module.css`);
 		fse.copySync(fromComponentStylePath, toComponentStylePath);

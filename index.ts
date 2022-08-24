@@ -237,11 +237,11 @@ async function run() {
 								choices: [
 									{
 										title: "NFTs Gallery",
-										value: "nftCard.jsx",
+										value: "nftCard",
 									},
 									{
 										title: "NTFs Collection Info Panel",
-										value: "nftGallery.jsx",
+										value: "nftGallery",
 									},
 								],
 								hint: "- Space to select. Return to submit",
