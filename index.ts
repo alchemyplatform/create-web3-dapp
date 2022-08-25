@@ -229,7 +229,8 @@ async function run() {
 							(data) => (dappInfo.toolkitType = data.toolkitType)
 						);
 
-						if (dappInfo.toolkitType) {
+
+						if (typeof dappInfo.toolkitType == "string") {
 							await prompts({
 								type: "multiselect",
 								name: "components",

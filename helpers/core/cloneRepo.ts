@@ -36,13 +36,19 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 				: "solana",
 			"core"
 		);
-		fse.copySync(template, process.cwd());
+		if (dappInfo.useBackend) {
+			fse.copySync(template, path.join(process.cwd(), "frontend"));
+		} else {
+			fse.copySync(template, process.cwd());
+
+		}
 		if (dappInfo.toolkitType && dappInfo.components) {
 			
 			getComponents(
 				dappInfo.toolkitType,
 				dappInfo.components,
-				dappInfo.isEVM
+				dappInfo.isEVM,
+				dappInfo.useBackend
 			);
 		}
 

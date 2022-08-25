@@ -5,7 +5,8 @@ import path from "path";
 export const getComponents = (
 	toolkitType: string,
 	components: [string],
-	isEVM: boolean
+	isEVM: boolean,
+	useBackend: boolean
 ) => {
  
 
@@ -18,8 +19,15 @@ export const getComponents = (
 			toolkitType,
 			`${component + ".jsx"}`
 		);
-		const toComponentPath = path.join(process.cwd(), "pages", "components", component);
+
+		let toComponentPath = "";
+		if (useBackend) {
+			toComponentPath = path.join(process.cwd(), "frontend", "pages", "components", `${component + ".jsx"}`);
+		} else {
+			toComponentPath = path.join(process.cwd(), "pages", "components", `${component + ".jsx"}`);
+		}
 		fse.copySync(fromComponentPath, toComponentPath);
+
 		const fromComponentStylePath = path.join(
 			process.cwd(),
 			"templates",
@@ -28,7 +36,12 @@ export const getComponents = (
 			toolkitType,
 			`${component.charAt(0).toUpperCase() + component.slice(1)}.module.css`
 		)
-		const toComponentStylePath = path.join(process.cwd(), "styles", `${component}.module.css`);
+		let toComponentStylePath = "";
+		if (useBackend) {
+			toComponentStylePath = path.join(process.cwd(),"frontend", "styles", `${component.charAt(0).toUpperCase() + component.slice(1)}.module.css`);
+		} else {
+			toComponentStylePath = path.join(process.cwd(), "styles", `${component.charAt(0).toUpperCase() + component.slice(1)}.module.css`);
+		}
 		fse.copySync(fromComponentStylePath, toComponentStylePath);
 	}
 };

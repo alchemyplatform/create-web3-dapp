@@ -37,12 +37,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@openzeppelin/contracts": "^4.7.3",
 		"alchemy-sdk": "^2.0.0",
 		"chalk": "^5.0.1",
 		"cli-progress": "^3.11.2",
 		"commander": "^9.4.0",
 		"fs-extra": "^10.1.0",
-		"parcel-bundler": "^1.12.5",
+		"parcel-bundler": "^1.3.1",
 		"prompts": "^2.4.2",
 		"typescript": "^4.7.4"
 	},

@@ -70,10 +70,18 @@ export const createPackageJson = async (
 		}
 
 		bar1.update(100);
-		fs.writeFileSync(
-			"package.json",
-			JSON.stringify(frontEndPackageJson, null, "\t")
-		);
+		if (useBackend) {
+			fs.writeFileSync(
+				path.join("frontend", "package.json"),	
+				JSON.stringify(frontEndPackageJson, null, "\t")
+			);
+		} else {
+			fs.writeFileSync(
+				"package.json",
+				JSON.stringify(frontEndPackageJson, null, "\t")
+			);
+		}
+		
 		console.log("\n1/x Package.json generated ✅");
 		bar1.update(150);
 
@@ -121,8 +129,11 @@ export const createPackageJson = async (
 				bar1.update(200);
 			}
 		}
-
-		process.chdir(resolvedProjectPath);
+		if (useBackend) {
+			process.chdir(path.join("front-end",resolvedProjectPath));
+		} else {
+			process.chdir(resolvedProjectPath);
+		}
 		console.log(chalk.yellow("\nChecking dependencies for updates..."));
 		execSync("npx npm-check-updates -u");
 		bar1.update(250);

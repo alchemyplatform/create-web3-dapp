@@ -8,8 +8,6 @@ lerna-debug.log*
 my-dapp-[0-9]*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-.prettierignore
-.prettierrc
 
 # Runtime data
 pids
