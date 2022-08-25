@@ -21,8 +21,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint . --ext .ts && yarn prettier --write .",
-		"start": "npx tsc && npm link && npx create-web3-dapp",
-		"build": "parcel build ./dist/index.js"
+		"start": "npx tsc && npm link && npx create-web3-dapp"
 	},
 	"bin": {
 		"create-web3-dapp": "./dist/index.js"
@@ -37,12 +36,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@openzeppelin/contracts": "^4.7.3",
-		"alchemy-sdk": "^2.0.0",
 		"chalk": "^5.0.1",
 		"cli-progress": "^3.11.2",
 		"fs-extra": "^10.1.0",
-		"parcel-bundler": "^1.3.1",
 		"prompts": "^2.4.2",
 		"typescript": "^4.7.4"
 	},
