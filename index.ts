@@ -9,6 +9,7 @@ import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
+import { exit } from "process";
 
 console.log(
 	chalk.blue(`
@@ -337,6 +338,7 @@ async function run() {
 		getProjectFiles(resolvedProjectPath, dappInfo);
 		installDependencies(projectName, resolvedProjectPath, dappInfo);
 		logInstructions();
+		exit(0)
 	} catch (e) {
 		selfDestroy(e);
 	}

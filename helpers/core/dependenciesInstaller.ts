@@ -49,7 +49,7 @@ export const installDependencies = async (
 		console.log(chalk.yellow("\nInstalling other dependencies..."));
 		execSync("npm install");
 		bar2.update(200);
-		console.log("\n Dependencies installed ✅");
+		console.log("\nDependencies installed ✅");
 		bar2.stop();
 
 	} catch (e) {
@@ -63,7 +63,7 @@ const generatePackageDotJson = (
 	useBackend,
 	backendProvider
 ) => {
-	console.log(chalk.yellow("Generating package.json\n"));
+	console.log(chalk.yellow("Generating package.json...\n"));
 	
 
 	const packageJsonTemplate = {

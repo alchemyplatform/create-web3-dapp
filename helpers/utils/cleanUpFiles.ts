@@ -66,5 +66,5 @@ export const cleanUpFiles = (useBackend: boolean) => {
 			force: true,
 		});
 	}
-	console.log("Project cleaned up ✅");
+	console.log("Project cleaned up ✅\n");
 };
