@@ -2,7 +2,7 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 
-export const cleanUpFiles = () => {
+export const cleanUpFiles = (useBackend: boolean) => {
 	console.log(chalk.yellow("Deleting template files..."));
 	fs.rmSync(path.join(process.cwd(), "templates"), {
 		recursive: true,
@@ -45,11 +45,26 @@ export const cleanUpFiles = () => {
 	});
 	fs.rmSync(path.join(process.cwd(), ".git"), {
 		recursive: true,
-	        force: true,
+		force: true,
 	});
 	fs.rmSync(path.join(process.cwd(), "contracts"), {
 		recursive: true,
 		force: true,
 	});
+
+	if (useBackend) {
+		fs.rmSync(path.join(process.cwd(), ".prettierignore"), {
+			force: true,
+		});
+		fs.rmSync(path.join(process.cwd(), ".prettierrc"), {
+			force: true,
+		});
+		fs.rmSync(path.join(process.cwd(), "package.json"), {
+			force: true,
+		});
+		fs.rmSync(path.join(process.cwd(), "package-lock.json"), {
+			force: true,
+		});
+	}
 	console.log("Project cleaned up ✅");
 };

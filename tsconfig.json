@@ -16,7 +16,7 @@
 		"./index.ts",
 		"./helpers/*",
 		"helpers/backend_helpers/setupHardhat.ts",
-		"helpers/core/cleanUpFiles.ts",
+		"helpers/utils/cleanUpFiles.ts",
 		"helpers/utils/mkdir.ts",
 		"helpers/utils/generateAlchemyUrl.ts",
 		"helpers/utils/createEnv.ts",

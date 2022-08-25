@@ -1,4 +1,4 @@
-export const generateAlchemyURL = (chain, apiKey): string => {
+export const generateAlchemyURL = (chain): string => {
 	let rpcUrl = "";
 
 	switch (chain) {

@@ -38,7 +38,6 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 				accounts: "[`0x${process.env.PRIVATE_KEY}`]",
 				url: generateAlchemyURL(
 					dappInfo.chain,
-					dappInfo.apiKeys.alchemy_api_key
 				),
 			},
 		},
@@ -49,7 +48,6 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 			accounts: "[`0x${process.env.PRIVATE_KEY}`]",
 			url: generateAlchemyURL(
 				dappInfo.testnet,
-				dappInfo.apiKeys.alchemy_api_key
 			),
 		};
 	}

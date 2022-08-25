@@ -1,12 +1,9 @@
 #!/usr/bin/env node
-
-import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
 import {installDependencies } from "./helpers/core/dependenciesInstaller.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/utils/mkdir.js";
-import { cleanUpFiles } from "./helpers/core/cleanUpFiles.js";
 import { getProjectFiles } from "./helpers/core/getProjectFiles.js";
 import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
@@ -84,7 +81,6 @@ async function run() {
 
 					resolvedProjectPath = path.resolve(projectPath);
 					let dirExists: boolean = existsSync(resolvedProjectPath);
-					setRoot(resolvedProjectPath);
 					
 					let i = 1;
 					// Check if project
@@ -103,6 +99,8 @@ async function run() {
 						i += 1;
 					}
 					projectName = path.basename(resolvedProjectPath);
+					setRoot(resolvedProjectPath);
+
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -145,7 +143,7 @@ async function run() {
 
 						step = 4;
 					} else if ("custom") {
-						const chain: string = await prompts({
+						await prompts({
 							type: "select",
 							name: "chain",
 							message: "For which VM are you building for?",
@@ -161,10 +159,10 @@ async function run() {
 						}).then((data) => (dappInfo.chain = data.chain));
 
 						dappInfo.isEVM =
-							chain == "ethereum" ||
-							chain == "polygon" ||
-							chain == "arbitrum" ||
-							chain == "optimism"
+							dappInfo.chain == "ethereum" ||
+							dappInfo.chain == "polygon" ||
+							dappInfo.chain == "arbitrum" ||
+							dappInfo.chain == "optimism"
 								? true
 								: false;
 						step++;
@@ -338,7 +336,6 @@ async function run() {
 		mkdir(resolvedProjectPath);
 		getProjectFiles(resolvedProjectPath, dappInfo);
 		installDependencies(projectName, resolvedProjectPath, dappInfo);
-		cleanUpFiles();
 		logInstructions();
 	} catch (e) {
 		selfDestroy(e);

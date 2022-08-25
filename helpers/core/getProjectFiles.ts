@@ -8,6 +8,8 @@ import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { dappInfo } from "../../interfaces/dappInfo.js";
 import { getComponents } from "./getComponents.js";
 import { createEnv } from "../utils/createEnv.js";
+import { copyFile } from "../utils/copyFile.js";
+import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 
 export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 	try {
@@ -76,6 +78,8 @@ export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 		}
 
 		createEnv(dappInfo.apiKeys, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
+		copyFile("utils", "README.md", process.cwd());
+		cleanUpFiles(dappInfo.useBackend)
 
 	} catch (e) {
 		selfDestroy(e);
