@@ -21,7 +21,7 @@
 		"helpers/utils/generateAlchemyUrl.ts",
 		"helpers/utils/createEnv.ts",
 		"helpers/utils/createReadme.ts",
-		"helpers/core/cloneRepo.ts"
+		"helpers/core/getProjectFiles.ts"
 , "helpers/utils/copyFile.ts"	],
 	"exclude": ["src/**/*.spec.ts", "node_modules"]
 }

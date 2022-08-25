@@ -7,7 +7,9 @@ import cliProgress from "cli-progress";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { dappInfo } from "../../interfaces/dappInfo.js";
 import { getComponents } from "./getComponents.js";
-export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
+import { createEnv } from "../utils/createEnv.js";
+
+export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 	try {
 		process.chdir(projectPath);
 		console.log(chalk.yellow("Downloading files..."));
@@ -72,6 +74,9 @@ export const cloneRepo = (projectPath: string, dappInfo: dappInfo) => {
 					break;
 			}
 		}
+
+		createEnv(dappInfo.apiKeys, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
+
 	} catch (e) {
 		selfDestroy(e);
 	}

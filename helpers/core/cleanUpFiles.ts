@@ -36,6 +36,9 @@ export const cleanUpFiles = () => {
 	fs.rmSync(path.join(process.cwd(), "tsconfig.json"), {
 		force: true,
 	});
+	fs.rmSync(path.join(process.cwd(), ".eslintrc"), {
+		force: true,
+	});
 	fs.rmSync(path.join(process.cwd(), "images"), {
 		recursive: true,
 		force: true,

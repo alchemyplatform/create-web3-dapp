@@ -3,14 +3,13 @@
 import * as Commander from "commander";
 import prompts from "prompts";
 import path from "path";
-import { createPackageJson } from "./helpers/core/createPackage.js";
+import {installDependencies } from "./helpers/core/dependenciesInstaller.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/utils/mkdir.js";
 import { cleanUpFiles } from "./helpers/core/cleanUpFiles.js";
-import { cloneRepo } from "./helpers/core/cloneRepo.js";
+import { getProjectFiles } from "./helpers/core/getProjectFiles.js";
 import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
-import { createEnv } from "./helpers/utils/createEnv.js";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
 
@@ -337,9 +336,8 @@ async function run() {
 
 	try {
 		mkdir(resolvedProjectPath);
-		cloneRepo(resolvedProjectPath, dappInfo);
-		createPackageJson(projectName, resolvedProjectPath, dappInfo);
-		createEnv(dappInfo.apiKeys, process.cwd());
+		getProjectFiles(resolvedProjectPath, dappInfo);
+		installDependencies(projectName, resolvedProjectPath, dappInfo);
 		cleanUpFiles();
 		logInstructions();
 	} catch (e) {

@@ -1,6 +1,0 @@
-{
-    "globals": {
-        "console": "readonly",
-        "process": "readonly"
-    }
-  }

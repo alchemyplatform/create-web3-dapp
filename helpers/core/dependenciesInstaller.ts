@@ -11,7 +11,7 @@ interface packageData {
 	backendProvider?: string;
 }
 
-export const createPackageJson = async (
+export const installDependencies = async (
 	projectName: string,
 	resolvedProjectPath,
 	{ isEVM, useBackend, backendProvider = "" }: packageData
@@ -130,7 +130,7 @@ export const createPackageJson = async (
 			}
 		}
 		if (useBackend) {
-			process.chdir(path.join("front-end",resolvedProjectPath));
+			process.chdir(path.join("frontend",resolvedProjectPath));
 		} else {
 			process.chdir(resolvedProjectPath);
 		}
@@ -141,10 +141,7 @@ export const createPackageJson = async (
 		execSync("npm install");
 		bar1.update(300);
 		console.log("\n Dependencies installed ✅");
-		bar1.stop();
-
-		copyFile("utils", ".eslintrc", process.cwd())
-
+		bar1.stop();		
 		copyFile("utils", "README.md", process.cwd())
 	} catch (e) {
 		selfDestroy(e);
