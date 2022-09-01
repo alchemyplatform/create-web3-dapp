@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../../styles/NFTGallery.module.css";
-import { NFTCard } from "./nftCard";
+
+
 export const NFTGallery = ({ alchemy, address }) => {
 	const [NFTs, setNFTs] = useState();
 	useEffect(() => {
@@ -26,6 +27,22 @@ export const NFTGallery = ({ alchemy, address }) => {
 			) : (
 				<p>Connect your wallet to see your NFTs</p>
 			)}
+		</div>
+	);
+};
+
+const NFTCard = ({ nft }) => {
+	return (
+		<div id={nft.id} className={styles.card_container}>
+			<div className={styles.image_container}>
+				<img className={styles.image} src={nft.media[0].gateway}></img>
+			</div>
+
+			<div className={styles.text_container}>
+				<h4 className={styles.title}>{nft.title}</h4>
+				<p className={styles.id}>{nft.id}</p>
+				<p className={styles.description}>{nft.description}</p>
+			</div>
 		</div>
 	);
 };

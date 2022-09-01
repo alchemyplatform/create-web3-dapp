@@ -7,7 +7,8 @@ import { dappInfo } from "../../interfaces/dappInfo.js";
 import { createWriteStream } from "fs";
 import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 
-export const setUpHardhat = (dappInfo: dappInfo) => {
+export const setUpHardhat = (dappInfo: dappInfo, projectPath) => {
+	console.log(chalk.yellow("Generating hardhat config files..."));
 	const bar2 = new cliProgress.SingleBar(
 		{},
 		cliProgress.Presets.shades_classic
@@ -15,16 +16,16 @@ export const setUpHardhat = (dappInfo: dappInfo) => {
 	bar2.start(100, 0);
 	bar2.update(50);
 
-	const hardhatTemplate = path.join(process.cwd(), "templates", "hardhat");
-	fse.mkdirSync(path.join(process.cwd(), "backend"));
-	fse.copySync(hardhatTemplate, path.join(process.cwd(), "backend"));
+	const hardhatTemplate = path.join(projectPath, "templates", "hardhat");
+	fse.mkdirSync(path.join(projectPath, "backend"));
+	fse.copySync(hardhatTemplate, path.join(projectPath, "backend"));
 
-	if (dappInfo.apiKeys) {
-		createEnv({ ...dappInfo.apiKeys, private_key:"0x"}, path.join(process.cwd(), "backend"), false);
-	}
+	
+	createEnv({alchemy_api_key: dappInfo.alchemyAPIKey, private_key:"0x"}, path.join(projectPath, "backend"), false);
+	
 
 	const writeStream = createWriteStream(
-		path.join(process.cwd(), "backend", "hardhat.config.js")
+		path.join(projectPath, "backend", "hardhat.config.js")
 	);
 
 	writeStream.write("require('@nomicfoundation/hardhat-toolbox');\n");

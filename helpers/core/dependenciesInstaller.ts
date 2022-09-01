@@ -31,8 +31,10 @@ export const installDependencies = async (
 			bar1.update(50);
 			execSync("npx npm-check-updates -u");
 			execSync("npm install");
-			console.log("Hardhat dependencies installed ✅");
 			bar1.update(100);
+			console.log("Hardhat dependencies installed ✅");
+			bar1.stop();
+
 		}
 		const bar2 = new cliProgress.SingleBar(
 			{},
@@ -51,6 +53,8 @@ export const installDependencies = async (
 		bar2.update(200);
 		console.log("\nDependencies installed ✅");
 		bar2.stop();
+		process.chdir(resolvedProjectPath);
+
 
 	} catch (e) {
 		selfDestroy(e);

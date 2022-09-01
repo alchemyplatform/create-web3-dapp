@@ -57,7 +57,6 @@ export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 		}
 
 		bar1.update(200);
-		console.log("Project files copied ✅");
 
 		bar1.stop();
 
@@ -67,7 +66,7 @@ export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 			);
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
-					setUpHardhat(dappInfo);
+					setUpHardhat(dappInfo, projectPath);
 					break;
 
 				case "foundry":
@@ -77,10 +76,10 @@ export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 			}
 		}
 
-		createEnv(dappInfo.apiKeys, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
+		createEnv({alchemy_api_key: dappInfo.alchemyAPIKey}, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
 		copyFile("utils", "README.md", process.cwd());
 		cleanUpFiles(dappInfo.useBackend)
-
+		console.log("Project files copied ✅");
 	} catch (e) {
 		selfDestroy(e);
 	}

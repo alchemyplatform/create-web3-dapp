@@ -1,8 +1,5 @@
 
-export type APIKeys = {
-	alchemy_api_key?: string;
-	private_key?: string;
-};
+
 
 export interface dappInfo {
 	chain: string;
@@ -13,5 +10,5 @@ export interface dappInfo {
 	backendProvider?: string;
 	toolkitType?: string;
 	components: [string] | null;
-	apiKeys: APIKeys;
+	alchemyAPIKey: string | 'demo';
 }

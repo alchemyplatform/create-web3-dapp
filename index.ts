@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import prompts from "prompts";
 import path from "path";
-import {installDependencies } from "./helpers/core/dependenciesInstaller.js";
+import { installDependencies } from "./helpers/core/dependenciesInstaller.js";
 import { existsSync } from "fs";
 import { mkdir } from "./helpers/utils/mkdir.js";
 import { getProjectFiles } from "./helpers/core/getProjectFiles.js";
@@ -9,7 +9,7 @@ import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
-import { exit } from "process";
+import { getComponentsInCathegory } from "./helpers/utils/getComponentsInCathegory.js"
 
 console.log(
 	chalk.blue(`
@@ -54,7 +54,7 @@ async function run() {
 		backendProvider: "",
 		toolkitType: undefined,
 		components: null,
-		apiKeys: { alchemy_api_key: "demo" },
+		alchemyAPIKey: "demo",
 	};
 
 	let projectName = "";
@@ -82,7 +82,7 @@ async function run() {
 
 					resolvedProjectPath = path.resolve(projectPath);
 					let dirExists: boolean = existsSync(resolvedProjectPath);
-					
+
 					let i = 1;
 					// Check if project
 					while (dirExists) {
@@ -101,7 +101,6 @@ async function run() {
 					}
 					projectName = path.basename(resolvedProjectPath);
 					setRoot(resolvedProjectPath);
-
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -214,7 +213,10 @@ async function run() {
 							message: "What kind of DApp are you building?",
 							choices: [
 								{ title: "NFTs", value: "nfts" },
-								{ title: "DeFi (coming soon)", value: undefined },
+								{
+									title: "DeFi (coming soon)",
+									value: undefined,
+								},
 								{
 									title: "Governance (coming soon)",
 									value: undefined,
@@ -227,28 +229,25 @@ async function run() {
 							(data) => (dappInfo.toolkitType = data.toolkitType)
 						);
 
-
 						if (typeof dappInfo.toolkitType == "string") {
+							const components = getComponentsInCathegory(
+								dappInfo.toolkitType
+							)
+
+							console.log(components)
 							await prompts({
 								type: "multiselect",
 								name: "components",
 								message: "Import template react components",
-								choices: [
-									{
-										title: "NFTs Gallery",
-										value: "nftCard",
-									},
-									{
-										title: "NTFs Collection Info Panel",
-										value: "nftGallery",
-									},
-								],
+								choices: components,
 								hint: "- Space to select. Return to submit",
 							}).then(
 								(data) =>
 									(dappInfo.components = data.components)
 							);
 						}
+
+						console.log(dappInfo.components)
 					}
 					step++;
 				} catch (e) {
@@ -322,7 +321,7 @@ async function run() {
 						initial: "demo",
 					}).then((data) => data.apiKey);
 
-					dappInfo.apiKeys["alchemy_api_key"] = alchemyAPIKey;
+					dappInfo.alchemyAPIKey = alchemyAPIKey;
 
 					quit = true;
 				} catch (e) {
@@ -338,14 +337,9 @@ async function run() {
 		getProjectFiles(resolvedProjectPath, dappInfo);
 		installDependencies(projectName, resolvedProjectPath, dappInfo);
 		logInstructions();
-		exit(0)
 	} catch (e) {
 		selfDestroy(e);
 	}
-
-	// Choose DApp chain to setup RPC url and dependencies
-
-	//TODO: Split in components selection
 }
 
 run();
