@@ -21,7 +21,7 @@ export const setUpHardhat = (dappInfo: dappInfo, projectPath) => {
 	fse.copySync(hardhatTemplate, path.join(projectPath, "backend"));
 
 	
-	createEnv({alchemy_api_key: dappInfo.alchemyAPIKey, private_key:"0x"}, path.join(projectPath, "backend"), false);
+	createEnv({alchemy_api_key: dappInfo.alchemyAPIKey, private_key:"0x"}, path.join(projectPath, "backend"));
 	
 
 	const writeStream = createWriteStream(
