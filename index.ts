@@ -9,7 +9,7 @@ import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
-import { getComponentsInCathegory } from "./helpers/utils/getComponentsInCathegory.js"
+import { getModulesInCathegory } from "./helpers/utils/getModulesInCathegory.js"
 
 console.log(
 	chalk.blue(`
@@ -53,7 +53,7 @@ async function run() {
 		useBackend: false,
 		backendProvider: "",
 		toolkitType: undefined,
-		components: null,
+		modules: null,
 		alchemyAPIKey: "demo",
 	};
 
@@ -230,24 +230,24 @@ async function run() {
 						);
 
 						if (typeof dappInfo.toolkitType == "string") {
-							const components = getComponentsInCathegory(
+							const modules = getModulesInCathegory(
 								dappInfo.toolkitType
 							)
 
-							console.log(components)
+							console.log(modules)
 							await prompts({
 								type: "multiselect",
-								name: "components",
+								name: "modules",
 								message: "Import template react components",
-								choices: components,
+								choices: modules,
 								hint: "- Space to select. Return to submit",
 							}).then(
 								(data) =>
-									(dappInfo.components = data.components)
+									(dappInfo.modules = data.modules)
 							);
 						}
 
-						console.log(dappInfo.components)
+						console.log(dappInfo.modules)
 					}
 					step++;
 				} catch (e) {

@@ -46,14 +46,16 @@ export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 			fse.copySync(template, process.cwd());
 
 		}
-		if (dappInfo.toolkitType && dappInfo.components) {
-			
+		if (dappInfo.toolkitType && dappInfo.modules) {
+			console.log("getting components")
 			getComponents(
 				dappInfo.toolkitType,
-				dappInfo.components,
+				dappInfo.modules,
 				dappInfo.isEVM,
 				dappInfo.useBackend
 			);
+
+			// getHooks()
 		}
 
 		bar1.update(200);

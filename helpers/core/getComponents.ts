@@ -1,14 +1,15 @@
 import fse from "fs-extra";
 import path from "path";
-
+import {getComponentsFromModules} from "../utils/getComponentsFromModules.js"
 export const getComponents = (
 	toolkitType: string,
-	components: [string],
+	modules: [string],
 	isEVM: boolean,
 	useBackend: boolean
 ) => {
- 
-
+	
+	const components = getComponentsFromModules(modules)
+	
 	for (const component of components) {
 		const fromComponentPath = path.join(
 			process.cwd(),

@@ -1,48 +1,41 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/NFTGallery.module.css";
+import styles from "../../styles/NftGallery.module.css";
+import { NFTCard } from "./nftCard";
 
-
-export const NFTGallery = ({ alchemy, address }) => {
+export const NFTGallery = ({ address, nftsData }) => {
 	const [NFTs, setNFTs] = useState();
+
+	if (nftsData) {
+		setNFTs(nftsData);
+	}
+
 	useEffect(() => {
 		(async () => {
+			console.log(address);
 			if (address) {
-				console.log("looking for nfts");
-				const nfts = await alchemy.nft
-					.getNftsForOwner(address)
-					.then((data) => data.ownedNfts);
-				setNFTs(nfts);
-			} else {
-				setNFTs();
+				const nfts = await fetch("/api/getNftsForOwner", {
+					method: "POST",
+					body: JSON.stringify({ address: address }),
+				}).then((data) => data.json());
+
+				if (nfts) {
+					setNFTs(nfts);
+					return;
+				}
 			}
+			setNFTs();
 		})();
 	}, [address]);
 
 	return (
 		<div className={styles.nft_gallery}>
 			{NFTs ? (
-				NFTs.slice(0, 3).map((NFT) => {
+				NFTs.map((NFT) => {
 					return <NFTCard nft={NFT} />;
 				})
 			) : (
 				<p>Connect your wallet to see your NFTs</p>
 			)}
-		</div>
-	);
-};
-
-const NFTCard = ({ nft }) => {
-	return (
-		<div id={nft.id} className={styles.card_container}>
-			<div className={styles.image_container}>
-				<img className={styles.image} src={nft.media[0].gateway}></img>
-			</div>
-
-			<div className={styles.text_container}>
-				<h4 className={styles.title}>{nft.title}</h4>
-				<p className={styles.id}>{nft.id}</p>
-				<p className={styles.description}>{nft.description}</p>
-			</div>
 		</div>
 	);
 };
