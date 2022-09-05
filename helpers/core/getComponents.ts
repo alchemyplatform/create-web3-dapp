@@ -1,6 +1,8 @@
 import fse from "fs-extra";
 import path from "path";
-import {getComponentsFromModules} from "../utils/getComponentsFromModules.js"
+import { getComponentsFromModules } from "../utils/getComponentsFromModules.js"
+import { getHooksFromComponents } from "../utils/getHooksFromComponents.js"
+
 export const getComponents = (
 	toolkitType: string,
 	modules: [string],
@@ -9,7 +11,7 @@ export const getComponents = (
 ) => {
 	
 	const components = getComponentsFromModules(modules)
-	
+
 	for (const component of components) {
 		const fromComponentPath = path.join(
 			process.cwd(),
@@ -44,4 +46,27 @@ export const getComponents = (
 		}
 		fse.copySync(fromComponentStylePath, toComponentStylePath);
 	}
+
+	const hooks = getHooksFromComponents(components)
+
+	if (hooks.length > 0) {
+		console.log("HOOKS", hooks)
+		for (const hook of hooks) {
+			const fromHookPath = path.join(
+				process.cwd(),
+				"templates",
+				"hooks",
+				`${hook + ".js"}`
+			);
+	
+			let toHookPath = "";
+			if (useBackend) {
+				toHookPath = path.join(process.cwd(),"frontend", "hooks", `${hook + ".js"}`);
+			} else {
+				toHookPath = path.join(process.cwd(), "hooks", `${hook + ".js"}`);
+			}
+			fse.copySync(fromHookPath, toHookPath);
+		}
+	}
+	
 };

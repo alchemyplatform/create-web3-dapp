@@ -1,6 +1,8 @@
+import modulesToComponentDictionary from "./modulesToComponentDictionary.js"
+
 export const getComponentsFromModules = (modules: [string]) => {
     let components :string[] = [];
-    console.log("getting components from modules")
+    
     console.log(modules)
     for (const module of modules) {
         let moduleComponents = modulesToComponentDictionary[module].moduleComponents
@@ -17,16 +19,3 @@ export const getComponentsFromModules = (modules: [string]) => {
     return components
 }
 
-const modulesToComponentDictionary = {
-	nftGallery: {
-		moduleComponents: ["nftGallery", "nftCard"],
-		hooks: [],
-    },
-    nftCard: {
-        moduleComponents:["nftCard"]
-    },
-	nftDetailsPopUp: {
-		moduleComponents: ["nftDetailsPopUp"],
-		hooks: ["useComponentVisible"],
-	},
-};

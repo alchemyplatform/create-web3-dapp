@@ -9,12 +9,7 @@ export default function Home() {
 	/* WARNING:: the API key will be exposed on the browser - ideally you should get your key through server side rendering
 or get the data directly from your APIs */
 
-	const settings = {
-		apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
-		network: Network.ETH_MAINNET,
-	};
-
-	const alchemy = new Alchemy(settings);
+	
 
 	return (
 		<div>
