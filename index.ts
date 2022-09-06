@@ -111,7 +111,6 @@ async function run() {
 				step++;
 				break;
 			case 1:
-
 				try {
 					const builderTemplate: string = await prompts({
 						type: "select",
@@ -194,7 +193,6 @@ async function run() {
 				break;
 
 			case 3:
-
 				try {
 					if (
 						dappInfo.chain === "ethereum" ||
@@ -238,7 +236,6 @@ async function run() {
 
 				break;
 			case 4:
-
 				try {
 					if (dappInfo.chain !== "solana") {
 						await prompts({
@@ -306,7 +303,6 @@ async function run() {
 
 				break;
 			case 5:
-
 				try {
 					let useBackend;
 					if (dappInfo.chain == "solana") {
@@ -375,7 +371,6 @@ async function run() {
 								initial: 0,
 							}).then((data) => data.backendType);
 							if (backendType == "back") {
-								step--;
 								break;
 							}
 							dappInfo.backendProvider = backendType;
@@ -389,7 +384,6 @@ async function run() {
 
 				break;
 			case 6:
-
 				try {
 					const alchemyAPIKey: string = await prompts({
 						type: "text",
