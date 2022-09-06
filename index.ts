@@ -10,10 +10,16 @@ import chalk from "chalk";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
 import {
+	getAvailableLibrariesForStandard,
+	selectLibrariesForStandard,
+} from "./helpers/SCWizard/getAvailableLibrariesForStandard.js";
+import { buildSmartContract } from "./helpers/SCWizard/smartContractBuilder.js";
+import {
 	getModulesInCathegory,
 	selectModulesInCathegory,
 } from "./helpers/utils/getModulesInCathegory.js";
-
+import { SmartContractInfo } from "./helpers/SCWizard/interfaces/smartContractInfo.js";
+import { generateContractInfo } from "./helpers/SCWizard/generateContractInfo.js";
 console.log(
 	chalk.blue(`
 MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
@@ -59,6 +65,7 @@ async function run() {
 		modules: null,
 		alchemyAPIKey: "demo",
 	};
+	let contractInfo;
 
 	let projectName = "";
 	let resolvedProjectPath = "";
@@ -228,8 +235,8 @@ async function run() {
 								}
 							}
 						}
-						step++;
 					}
+					step++;
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -247,10 +254,12 @@ async function run() {
 								{
 									title: "DeFi (coming soon)",
 									value: undefined,
+									disabled: true,
 								},
 								{
 									title: "Governance (coming soon)",
 									value: undefined,
+									disabled: true,
 								},
 								{ title: "Blank", value: undefined },
 								{ title: "Back", value: "back" },
@@ -261,11 +270,15 @@ async function run() {
 							(data) => (dappInfo.toolkitType = data.toolkitType)
 						);
 
-						if (typeof dappInfo.toolkitType == "string") {
+						if (
+							dappInfo.toolkitType &&
+							typeof dappInfo.toolkitType === "string"
+						) {
 							if (dappInfo.toolkitType == "back") {
 								step--;
 								break;
 							}
+
 							const modules = getModulesInCathegory(
 								dappInfo.toolkitType
 							);
@@ -288,14 +301,23 @@ async function run() {
 								inactive: "no",
 							}).then((data) => data.continueComponentSelection);
 							if (!continueComponentSelection) {
+								if (dappInfo.toolkitType && dappInfo.modules) {
+									selectModulesInCathegory(
+										dappInfo.toolkitType,
+										dappInfo.modules
+									);
+								}
 								break;
 							}
 						}
 					}
-					selectModulesInCathegory(
-						dappInfo.toolkitType!,
-						dappInfo.modules!
-					);
+					if (dappInfo.toolkitType && dappInfo.modules) {
+						selectModulesInCathegory(
+							dappInfo.toolkitType,
+							dappInfo.modules
+						);
+					}
+
 					step++;
 				} catch (e) {
 					selfDestroy(e);
@@ -355,9 +377,9 @@ async function run() {
 						dappInfo.useBackend = useBackend;
 
 						if (dappInfo.useBackend) {
-							let backendType = await prompts({
+							let backendProvider = await prompts({
 								type: "select",
-								name: "backendType",
+								name: "backendProvider",
 								message:
 									"Choose a Blockchain development environment:",
 								choices: [
@@ -365,15 +387,99 @@ async function run() {
 									{
 										title: "Foundry (not yet supported)",
 										value: "foundry",
+										disabled: true,
 									},
 									{ title: "Back", value: "back" },
 								],
 								initial: 0,
-							}).then((data) => data.backendType);
-							if (backendType == "back") {
+							}).then((data) => data.backendProvider);
+							if (backendProvider == "back") {
 								break;
 							}
-							dappInfo.backendProvider = backendType;
+							dappInfo.backendProvider = backendProvider;
+
+							let wantsContract: boolean = await prompts({
+								type: "select",
+								name: "wantsContract",
+								message:
+									"Do you want to create a new contract?",
+								choices: [
+									{
+										title: "Yes",
+										description:
+											"This will start the smart contract creation wizard",
+										value: true,
+									},
+									{ title: "No", value: false },
+									{ title: "Back", value: "back" },
+								],
+								initial: 0,
+								hint: "- This will install the needed dependencies to your project",
+							}).then((data) => data.wantsContract);
+
+							if (wantsContract) {
+								const contractName = await prompts({
+									type: "text",
+									name: "contractName",
+									initial: `myContract`,
+									message: "Choose a name for your contract",
+								}).then((data) =>
+									data.contractName
+										.trim()
+										.replace(/[\W_]+/g, "-")
+								);
+								const symbol = await prompts({
+									type: "text",
+									name: "contractSymbol",
+									initial: `ALC`,
+									message:
+										"Choose a symbol for your contract",
+								}).then((data) =>
+									data.contractSymbol
+										.trim()
+										.replace(/[\W_]+/g, "")
+								);
+								const standard = await prompts({
+									type: "multiselect",
+									name: "contractStandard",
+									message:
+										"What kind of smart contract do you want to create?",
+									choices: [
+										{
+											title: "ERC721",
+											value: "ERC721",
+										},
+										{
+											title: "ERC20",
+											value: "ERC20",
+										},
+									],
+									hint: "- Space to select. Return to submit",
+								}).then((data) => data.contractStandard[0]);
+								const librariesForStandard =
+									getAvailableLibrariesForStandard(standard);
+								const selectedLibraries = await prompts({
+									type: "multiselect",
+									name: "selectedLibraries",
+									message:
+										"Select the features you want to implement",
+									choices: [...librariesForStandard],
+									hint: "- Space to select. Return to submit",
+								}).then((data) => data.selectedLibraries);
+								console.log(selectedLibraries);
+
+								selectLibrariesForStandard(
+									standard,
+									selectedLibraries
+								);
+								contractInfo =
+									generateContractInfo(
+										contractName,
+										symbol,
+										standard,
+										selectedLibraries
+									);
+							}
 						}
 					}
 
@@ -405,9 +511,9 @@ async function run() {
 	}
 
 	try {
-		console.log(dappInfo);
 		mkdir(resolvedProjectPath);
 		getProjectFiles(resolvedProjectPath, dappInfo);
+		buildSmartContract(contractInfo);
 		installDependencies(projectName, resolvedProjectPath, dappInfo);
 		logInstructions();
 	} catch (e) {

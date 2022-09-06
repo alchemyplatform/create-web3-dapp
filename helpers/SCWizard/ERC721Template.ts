@@ -1,0 +1,144 @@
+export const generateERC721Template = (smartContractInfo, superClasses) => {
+	return `contract ${smartContractInfo.name} ${
+		superClasses.length ? "is" : ""
+	} ${superClasses.map((superClass, i, superClasses) => {
+		if (i + 1 !== superClasses.length) {
+			return `${superClass},`;
+		} else {
+			return `${superClass}`;
+		}
+	})} {
+    ${
+		smartContractInfo.hasAutoIncrement
+			? `using Counters for Counters.Counter;
+    Counters.Counter private _tokenIdCounter;`
+			: ""
+	}
+    ${
+		smartContractInfo.hasRoles
+			? `bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+        bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");`
+			: ""
+	}
+   
+
+    constructor()ERC721("${smartContractInfo.name}","${
+		smartContractInfo.symbol
+	}")${
+		smartContractInfo.isVotes
+			? `EIP712(${smartContractInfo.name}, "1")`
+			: ""
+	} {
+        ${
+			smartContractInfo.isRoles
+				? `_grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(PAUSER_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);`
+				: ""
+		}
+    }
+
+    ${
+		smartContractInfo.isPausable
+			? `function pause() public ${
+					smartContractInfo.isRoles ? `onlyRole(PAUSER_ROLE)` : ""
+			  } ${smartContractInfo.isOwnable ? `onlyOwner` : ""} {
+        _pause();
+    }
+
+    function unpause() public ${
+		smartContractInfo.isRoles ? `onlyRole(PAUSER_ROLE)` : ""
+	} ${smartContractInfo.isOwnable ? `onlyOwner` : ""} {
+        _unpause();
+    }`
+			: ""
+	} 
+
+    ${
+		smartContractInfo.isMintable
+			? `function safeMint(address to, string memory uri) public ${
+					smartContractInfo.isRoles ? `onlyRole(PAUSER_ROLE)` : ""
+			  } ${smartContractInfo.isOwnable ? `onlyOwner` : ""} {
+            ${
+				smartContractInfo.hasAutoIncrement
+					? `uint256 tokenId = _tokenIdCounter.current();
+            _tokenIdCounter.increment();`
+					: ""
+			}
+            
+            _safeMint(to, tokenId);
+            ${
+				smartContractInfo.hasURIStorage
+					? `_setTokenURI(tokenId, uri);`
+					: ""
+			}
+        }`
+			: ""
+	}
+   
+
+    ${
+		smartContractInfo.isPausable || smartContractInfo.isEnumerable
+			? `function _beforeTokenTransfer(address from, address to, uint256 tokenId)
+        internal
+        ${smartContractInfo.isPausable ? `whenNotPaused` : ""}
+        override(ERC721 ${
+			smartContractInfo.isEnumerable ? `,ERC721Enumerable` : ""
+		})
+    {
+            super._beforeTokenTransfer(from, to, tokenId);
+        }`
+			: ""
+	}
+
+    ${
+		smartContractInfo.isVotes
+			? `function _afterTokenTransfer(address from, address to, uint256 tokenId)
+        internal
+        override(ERC721, ERC721Votes)
+    {
+        super._afterTokenTransfer(from, to, tokenId);
+    }`
+			: ""
+	}
+    
+    ${
+		smartContractInfo.isBurnable
+			? `function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }`
+			: ""
+	}
+   
+    ${
+		smartContractInfo.hasURIStorage
+			? `function tokenURI(uint256 tokenId)
+    public
+    view
+    override(ERC721, ERC721URIStorage)
+    returns (string memory)
+{
+    return super.tokenURI(tokenId);
+} 
+`
+			: ""
+	}
+
+    ${
+		smartContractInfo.isEnumerable || smartContractInfo.isOwnable
+			? `function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC721 ${
+		smartContractInfo.isEnumerable ? `, ERC721Enumerable` : ""
+	} ${smartContractInfo.hasRoles ? `, AccessControl` : ""})
+    returns (bool)
+{
+    return super.supportsInterface(interfaceId);
+}`
+			: ""
+	}
+    
+   
+}`.trim();
+};

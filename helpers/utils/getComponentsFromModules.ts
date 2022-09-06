@@ -3,9 +3,7 @@ import modulesToComponentDictionary from "./modulesToComponentDictionary.js"
 export const getComponentsFromModules = (toolkitType : string, modules: [string]) => {
     let components :string[] = [];
     
-    console.log(modules)
     for (const module of modules) {
-        console.log(modulesToComponentDictionary[module])
         let moduleComponents = modulesToComponentDictionary[module].moduleComponents
         for (const moduleComponent of moduleComponents) {
             if (!components.includes(moduleComponent)) {
@@ -16,7 +14,6 @@ export const getComponentsFromModules = (toolkitType : string, modules: [string]
             }
         }
     }
-    console.log("COMPONENTS:", components)
     return components
 }
 

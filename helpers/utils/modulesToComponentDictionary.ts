@@ -13,5 +13,9 @@ const modulesToComponentDictionary = {
 	primaryButton: {
 		moduleComponents: ["primaryButton"],
 	},
+	snapshotBox: {
+		moduleComponents: ["snapshotBox", "primaryButton"],
+		
+	},
 };
 export default modulesToComponentDictionary

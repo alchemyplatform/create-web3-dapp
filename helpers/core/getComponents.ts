@@ -50,7 +50,6 @@ export const getComponents = (
 	const hooks = getHooksFromComponents(components)
 
 	if (hooks.length > 0) {
-		console.log("HOOKS", hooks)
 		for (const hook of hooks) {
 			const fromHookPath = path.join(
 				process.cwd(),

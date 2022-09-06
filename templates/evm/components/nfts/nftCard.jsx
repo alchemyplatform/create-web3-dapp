@@ -24,17 +24,3 @@ export const NFTCard = ({ nft }) => {
 	);
 };
 
-const PrimaryButton = ({ onClickCallback, href, text, newPage = true }) => {
-	return (
-		<div className={styles.button_container}>
-			<a
-				className={styles.button}
-				onClick={() => onClickCallback()}
-				href={href}
-				target={newPage ?? "_blank"}
-			>
-				{text}
-			</a>
-		</div>
-	);
-};

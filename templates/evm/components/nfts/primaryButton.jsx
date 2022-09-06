@@ -4,7 +4,6 @@ export const PrimaryButton = ({ onClickCallback, href, text, newPage = true }) =
 		<div className={styles.button_container}>
 			<a
 				className={styles.button}
-				onClick={() => onClickCallback()}
 				href={href}
 				target={newPage ?? "_blank"}
 			>
