@@ -1,6 +1,5 @@
 import styles from "../../styles/NftDetailsPopUp.module.css";
 import { useState, useEffect } from "react";
-import { PrimaryButton } from "./primaryButton";
 
 export const NFTDetailsPopUp = ({ nft, owner, isOpen, setIsOpen }) => {
 	const [contractMetadata, setContractMetadata] = useState();
@@ -73,7 +72,6 @@ export const NFTDetailsPopUp = ({ nft, owner, isOpen, setIsOpen }) => {
 							})}
 						</div>
 						<div>
-							<PrimaryButton text={"More"} />
 						</div>
 					</div>
 				</div>

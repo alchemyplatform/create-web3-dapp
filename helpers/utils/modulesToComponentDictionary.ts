@@ -4,11 +4,14 @@ const modulesToComponentDictionary = {
 		hooks: [],
     },
     nftCard: {
-        moduleComponents:["nftCard"]
+        moduleComponents:["nftCard", "primaryButton"]
     },
 	nftDetailsPopUp: {
-		moduleComponents: ["nftDetailsPopUp"],
+		moduleComponents: ["nftDetailsPopUp", "primaryButton"],
 		hooks: ["useComponentVisible"],
+	},
+	primaryButton: {
+		moduleComponents: ["primaryButton"],
 	},
 };
 export default modulesToComponentDictionary

@@ -10,7 +10,7 @@ export const getComponents = (
 	useBackend: boolean
 ) => {
 	
-	const components = getComponentsFromModules(modules)
+	const components = getComponentsFromModules(toolkitType, modules)
 
 	for (const component of components) {
 		const fromComponentPath = path.join(
