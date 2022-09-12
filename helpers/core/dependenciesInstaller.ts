@@ -47,13 +47,13 @@ export const installDependencies = async (
 		} else {
 			process.chdir(resolvedProjectPath);
 		}
-		console.log(chalk.yellow("\nChecking dependencies for updates..."));
+		console.log(chalk.yellow("\n Checking dependencies for updates..."));
 		execSync("npx npm-check-updates -u");
 		bar2.update(50);
 		console.log(chalk.yellow("\n Installing other dependencies..."));
 		execSync("npm install --loglevel=error");
 		bar2.update(200);
-		console.log(chalk.green("Dependencies installed ✅"));
+		console.log(chalk.green("\n Dependencies installed ✅"));
 		bar2.stop();
 		process.chdir(resolvedProjectPath);
 
