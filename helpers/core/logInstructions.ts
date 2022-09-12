@@ -10,5 +10,5 @@ export const logInstructions = () => {
         `2. Visit ${chalk.blue(`https://docs.alchemy.com/`)} for the complete tutorial`
     );
 
-    console.log(`3. ${chalk.green("'cd' into your application folder and run 'npm run dev' to start it ⭐️")}`)
+    console.log(`3. ${chalk.green("'cd' into your application folder's frontend directory and run 'npm run dev' to start it ⭐️")}`)
 }
