@@ -1,4 +1,3 @@
-import fs from "fs";
 import { execSync } from "child_process";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
@@ -55,9 +54,6 @@ export const installDependencies = async (
 		bar2.update(100);
 		console.log(chalk.green("\n Dependencies installed ✅"));
 		bar2.stop();
-		process.chdir(resolvedProjectPath);
-
-
 	} catch (e) {
 		selfDestroy(e);
 	}
