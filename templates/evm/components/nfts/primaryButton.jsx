@@ -8,7 +8,6 @@ export const PrimaryButton = ({
 }) => {
 	return (
 		<div
-			className={styles.button_container}
 			onClick={typeof onClickCallback === "function" && (() => {
 				onClickCallback();
 			})}

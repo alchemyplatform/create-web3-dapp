@@ -9,12 +9,15 @@ import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
+import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
+
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import {
 	getModulesInCathegory,
 	selectModulesInCathegory,
 } from "./helpers/utils/getModulesInCathegory.js";
+import { execSync } from "child_process";
 
 console.log(
 	chalk.blue(`
@@ -64,6 +67,8 @@ async function run() {
 
 	let projectName = "";
 	let resolvedProjectPath = "";
+
+	await checkNewPackageUpdates()
 
 	while (!quit) {
 		switch (step) {

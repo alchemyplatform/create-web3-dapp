@@ -99,9 +99,9 @@ export const getComponents = (
 		)
 		let toComponentStylePath = "";
 		if (useBackend) {
-			toComponentStylePath = path.join(process.cwd(),"frontend", "styles", `${route.charAt(0).toUpperCase() + routes.slice(1)}.module.css`);
+			toComponentStylePath = path.join(process.cwd(),"frontend", "styles", `${route.charAt(0).toUpperCase() + route.slice(1)}.module.css`);
 		} else {
-			toComponentStylePath = path.join(process.cwd(), "styles", `${route.charAt(0).toUpperCase() + routes.slice(1)}.module.css`);
+			toComponentStylePath = path.join(process.cwd(), "styles", `${route.charAt(0).toUpperCase() + route.slice(1)}.module.css`);
 		}
 			fse.copySync(fromComponentStylePath, toComponentStylePath);
 		}
