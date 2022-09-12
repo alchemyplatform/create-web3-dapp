@@ -1,6 +1,6 @@
 import { SmartContractInfo } from "./smartContractInfo.js";
 export interface ERC721smartContractInfo extends SmartContractInfo {
-	hasAutoIncrement: boolean;
+	isAutoIncrement: boolean;
 	isEnumerable: boolean;
-	hasURIStorage: boolean;
+	isURIStorage: boolean;
 }

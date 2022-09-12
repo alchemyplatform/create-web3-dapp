@@ -4,6 +4,7 @@ import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { selfDestroy } from "./selfDestroy.js";
 import path from "path";
+import { generatePackageDotJson } from "../utils/generatePackageDotJson.js";
 interface packageData {
 	isEVM: boolean;
 	useBackend: boolean;
@@ -30,9 +31,9 @@ export const installDependencies = async (
 			process.chdir("backend");
 			bar1.update(50);
 			execSync("npx npm-check-updates -u");
-			execSync("npm install");
+			execSync("npm install --loglevel=error");
 			bar1.update(100);
-			console.log("Hardhat dependencies installed ✅");
+			console.log("\nHardhat dependencies installed ✅");
 			bar1.stop();
 
 		}
@@ -40,6 +41,7 @@ export const installDependencies = async (
 			{},
 			cliProgress.Presets.shades_classic
 		);
+		bar2.start(100, 0);
 		if (useBackend) {
 			process.chdir(path.join(resolvedProjectPath, "frontend"));
 		} else {
@@ -48,10 +50,10 @@ export const installDependencies = async (
 		console.log(chalk.yellow("\nChecking dependencies for updates..."));
 		execSync("npx npm-check-updates -u");
 		bar2.update(50);
-		console.log(chalk.yellow("\nInstalling other dependencies..."));
-		execSync("npm install");
+		console.log(chalk.yellow("\n Installing other dependencies..."));
+		execSync("npm install --loglevel=error");
 		bar2.update(200);
-		console.log("\nDependencies installed ✅");
+		console.log(chalk.green("Dependencies installed ✅"));
 		bar2.stop();
 		process.chdir(resolvedProjectPath);
 
@@ -61,96 +63,4 @@ export const installDependencies = async (
 	}
 };
 
-const generatePackageDotJson = (
-	projectName,
-	isEVM,
-	useBackend,
-	backendProvider
-) => {
-	console.log(chalk.yellow("Generating package.json...\n"));
-	
 
-	const packageJsonTemplate = {
-		name: projectName,
-		version: "0.1.0",
-		private: true,
-		scripts: {
-			dev: "next dev",
-			build: "next build",
-			start: "next start",
-			lint: "next lint",
-		},
-		dependencies: {
-			next: "12.2.3",
-			react: "18.2.0",
-			"react-dom": "18.2.0",
-		},
-		devDependencies: {
-			eslint: "8.20.0",
-			"eslint-config-next": "12.2.3",
-		},
-	};
-	const frontEndPackageJson = JSON.parse(JSON.stringify(packageJsonTemplate));
-	if (isEVM) {
-		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
-		frontEndPackageJson["dependencies"]["@rainbow-me/rainbowkit"] =
-			"^0.4.5";
-	} else {
-		frontEndPackageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react-ui"] =
-			"^0.9.11";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-phantom"] =
-			"^0.9.8";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react"] =
-			"^0.15.8";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-base"] =
-			"^0.9.9";
-		frontEndPackageJson["dependencies"]["@solana/web3.js"] = "^1.50.1";
-	}
-
-	if (useBackend) {
-		fs.writeFileSync(
-			path.join("frontend", "package.json"),
-			JSON.stringify(frontEndPackageJson, null, "\t")
-		);
-	} else {
-		fs.writeFileSync(
-			"package.json",
-			JSON.stringify(frontEndPackageJson, null, "\t")
-		);
-	}
-
-	console.log("1/x Package.json generated ✅");
-	if (useBackend) {
-		const backendPackageJson = JSON.parse(
-			JSON.stringify(packageJsonTemplate)
-		);
-		switch (backendProvider) {
-			case "hardhat":
-				backendPackageJson["devDependencies"][
-					"@nomicfoundation/hardhat-toolbox"
-				] = "^1.0.2";
-				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
-				break;
-			case "foundry":
-				console.log(
-					"It will be soon released - reverting to Hardhat as of now"
-				);
-				backendPackageJson["devDependencies"][
-					"@nomicfoundation/hardhat-toolbox"
-				] = "^1.0.2";
-				backendPackageJson["devDependencies"]["@hardhat"] = "^2.10.1";
-				break;
-			case "anchor":
-				break;
-			default:
-				break;
-		}
-
-		fs.writeFileSync(
-			path.join(process.cwd(), "backend", "package.json"),
-			JSON.stringify(backendPackageJson, null, "\t")
-		);
-		console.log("2/2 Package.json generated ✅");
-	}
-};

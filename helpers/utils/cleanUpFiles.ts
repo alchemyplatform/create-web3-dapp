@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 export const cleanUpFiles = (useBackend: boolean) => {
-	console.log(chalk.yellow("Deleting template files..."));
+	console.log(chalk.yellow("Deleting template files...\n"));
 	fs.rmSync(path.join(process.cwd(), "templates"), {
 		recursive: true,
 		force: true,
@@ -66,5 +66,5 @@ export const cleanUpFiles = (useBackend: boolean) => {
 			force: true,
 		});
 	}
-	console.log("Project cleaned up ✅\n");
+	console.log("Project cleaned up ✅ ");
 };

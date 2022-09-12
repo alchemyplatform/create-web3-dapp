@@ -18,10 +18,6 @@ export const selectLibrariesForStandard = (
 const libraries = {
 	ERC721: [
 		{
-			title: "Mintable",
-			value: "isMintable",
-		},
-		{
 			title: "Burnable",
 			value: "isBurnable",
 		},
@@ -43,7 +39,7 @@ const libraries = {
 		},
 		{
 			title: "Auto Increment",
-			value: "hasAutoIncrement",
+			value: "isAutoIncrement",
 		},
 		{
 			title: "Enumerable",
@@ -51,7 +47,7 @@ const libraries = {
 		},
 		{
 			title: "URIStorage",
-			value: "hasURIStorage",
+			value: "isURIStorage",
 		},
 	],
 };

@@ -3,7 +3,7 @@ export const smartContractInfoToDependenciesDictionary = {
 	isBurnable: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";`,
-			extends: "ERC721",
+			extends: "ERC721Burnable",
 		},
 		ERC20: {
 			libraryURL: `import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";`,
@@ -13,7 +13,7 @@ export const smartContractInfoToDependenciesDictionary = {
 	isPausable: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/security/Pausable.sol";`,
-			extends: "ERC721",
+			extends: "Pausable",
 		},
 		ERC20: {
 			libraryURL: `import "@openzeppelin/contracts/security/Pausable.sol";`,
@@ -30,7 +30,7 @@ export const smartContractInfoToDependenciesDictionary = {
 	isRoles: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/access/AccessControl.sol";`,
-			extends: "ERC721",
+			extends: "AccessControl",
 		},
 		ERC20: `import "@openzeppelin/contracts/access/AccessControl.sol"`,
 	},
@@ -40,7 +40,7 @@ export const smartContractInfoToDependenciesDictionary = {
 	isVotes: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";\nimport "@openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol";`,
-			extends: "ERC721",
+			extends: "ERC721Votes",
 		},
 	},
 	isMintable: {
@@ -55,7 +55,7 @@ export const smartContractInfoToDependenciesDictionary = {
 	isSnapshots: {
 		ERC20: `import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Snapshot.sol";`,
 	},
-	hasAutoIncrement: {
+	isAutoIncrement: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/utils/Counters.sol";`,
 			extends: "ERC721",
@@ -64,13 +64,13 @@ export const smartContractInfoToDependenciesDictionary = {
 	isEnumerable: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";`,
-			extends: "ERC721",
+			extends: "ERC721Enumerable",
 		},
 	},
-	hasURIStorage: {
+	isURIStorage: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";`,
+			extends: "ERC721URIStorage",
 		},
-		extends: "ERC721",
 	},
 };

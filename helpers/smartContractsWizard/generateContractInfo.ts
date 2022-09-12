@@ -9,22 +9,26 @@ export const generateContractInfo = (
 	standard: SmartContractStandard,
 	selectedLibraries: string[]
 ): SmartContractInfo => {
-	let contractInfo: ERC721smartContractInfo = {
-		name: contractName,
+	const name = `${contractName.slice(0, 1).toUpperCase()}${contractName.slice(1)}`;
+	const contractInfo: ERC721smartContractInfo = {
+		name,
 		symbol: symbol,
 		standard: standard,
-		isMintable: false,
+		isMintable: true,
 		isBurnable: false,
 		isPausable: false,
 		isVotes: false,
 		isOwnable: false,
 		isRoles: false,
-		hasAutoIncrement: false,
+		isAutoIncrement: false,
 		isEnumerable: false,
-		hasURIStorage: false,
+		isURIStorage: false,
 	};
 	for (const library of selectedLibraries) {
 		contractInfo[library] = true;
+	}
+	if (contractInfo.isOwnable && contractInfo.isRoles) {
+		contractInfo.isOwnable = false;
 	}
 	return contractInfo;
 }

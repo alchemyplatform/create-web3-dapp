@@ -1,21 +1,16 @@
 export const generateERC721Template = (smartContractInfo, superClasses) => {
 	return `contract ${smartContractInfo.name} ${
 		superClasses.length ? "is" : ""
-	} ${superClasses.map((superClass, i, superClasses) => {
-		if (i + 1 !== superClasses.length) {
-			return `${superClass},`;
-		} else {
-			return `${superClass}`;
-		}
-	})} {
+	} ${superClasses.join(", ")} {
     ${
-		smartContractInfo.hasAutoIncrement
+		smartContractInfo.isAutoIncrement
 			? `using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;`
 			: ""
 	}
+
     ${
-		smartContractInfo.hasRoles
+		smartContractInfo.isRoles
 			? `bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
         bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");`
 			: ""
@@ -24,11 +19,7 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 
     constructor()ERC721("${smartContractInfo.name}","${
 		smartContractInfo.symbol
-	}")${
-		smartContractInfo.isVotes
-			? `EIP712(${smartContractInfo.name}, "1")`
-			: ""
-	} {
+	}")${smartContractInfo.isVotes ? `EIP712("${smartContractInfo.name}", "1")` : ""}{
         ${
 			smartContractInfo.isRoles
 				? `_grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -60,7 +51,7 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 					smartContractInfo.isRoles ? `onlyRole(PAUSER_ROLE)` : ""
 			  } ${smartContractInfo.isOwnable ? `onlyOwner` : ""} {
             ${
-				smartContractInfo.hasAutoIncrement
+				smartContractInfo.isAutoIncrement
 					? `uint256 tokenId = _tokenIdCounter.current();
             _tokenIdCounter.increment();`
 					: ""
@@ -68,7 +59,7 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
             
             _safeMint(to, tokenId);
             ${
-				smartContractInfo.hasURIStorage
+				smartContractInfo.isURIStorage
 					? `_setTokenURI(tokenId, uri);`
 					: ""
 			}
@@ -104,14 +95,14 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
     
     ${
 		smartContractInfo.isBurnable
-			? `function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+			? `function _burn(uint256 tokenId) internal override(ERC721 ${smartContractInfo.isURIStorage ? ", ERC721URIStorage" : "" }) {
         super._burn(tokenId);
     }`
 			: ""
 	}
    
     ${
-		smartContractInfo.hasURIStorage
+		smartContractInfo.isURIStorage
 			? `function tokenURI(uint256 tokenId)
     public
     view
@@ -131,7 +122,7 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
     view
     override(ERC721 ${
 		smartContractInfo.isEnumerable ? `, ERC721Enumerable` : ""
-	} ${smartContractInfo.hasRoles ? `, AccessControl` : ""})
+	} ${smartContractInfo.isRoles ? `, AccessControl` : ""})
     returns (bool)
 {
     return super.supportsInterface(interfaceId);

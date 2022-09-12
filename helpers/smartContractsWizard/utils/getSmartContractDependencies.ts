@@ -5,17 +5,15 @@ import { SmartContractStandard } from "./smartContractStandards.js";
 export function getSmartContractDependencies(
 	smartContractInfo: SmartContractInfo
 ): string[] {
-	let libraries: string[] = [];
+	const libraries: string[] = [];
 	const { standard } = smartContractInfo;
-	console.log("GETTING DEPENDENCIES FOR", standard);
 	switch (standard) {
 		case SmartContractStandard.ERC20:
 			libraries.push(`import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
             `);
 			break;
 		case SmartContractStandard.ERC721:
-			console.log("pushing main ERC721 dependencies");
-			libraries.push(`import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+			libraries.push(`import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
             `);
 			break;
 		default:
@@ -24,16 +22,13 @@ export function getSmartContractDependencies(
 	}
 
 	for (const [key, value] of Object.entries(smartContractInfo)) {
-		console.log(key, value);
-
-		if (typeof value == "boolean" && value && key != "isMintable") {
+		if (typeof value == "boolean" && value) {
 			libraries.push(
 				smartContractInfoToDependenciesDictionary[key][standard]
 					.libraryURL
 			);
 		}
 	}
-	console.log("LIBRARIES::");
-	console.log(libraries);
+
 	return libraries;
 }

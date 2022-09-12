@@ -1,5 +1,5 @@
 import { ERC721smartContractInfo } from "../interfaces/ERC721smartContractInfo"
-import { SmartContractStandard } from "../utils/smartContractStandards.js";
+import { SmartContractStandard } from "./smartContractStandards.js";
 
 export function isERC721(
 	smartContractInfo: any

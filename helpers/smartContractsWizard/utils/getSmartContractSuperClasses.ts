@@ -1,11 +1,11 @@
-import { SmartContractInfo } from "../interfaces/smartContractInfo.js"
-import {smartContractInfoToDependenciesDictionary} from "../smartContractInfoToDependenciesDictionary.js"
+import { SmartContractInfo } from "../interfaces/smartContractInfo.js";
+import { smartContractInfoToDependenciesDictionary } from "../smartContractInfoToDependenciesDictionary.js";
 
 export function getSmartContractSuperClasses(
 	smartContractInfo: SmartContractInfo
 ): string[] {
-	let superClasses: string[] = [];
-	let standard = smartContractInfo.standard;
+	const superClasses: string[] = [];
+	const standard = smartContractInfo.standard;
 
 	for (const [key, value] of Object.entries(smartContractInfo)) {
 		if (typeof value == "boolean" && value) {
@@ -17,7 +17,5 @@ export function getSmartContractSuperClasses(
 			}
 		}
 	}
-	console.log("SUPERCLASSES::");
-	console.log(superClasses);
 	return superClasses;
 }

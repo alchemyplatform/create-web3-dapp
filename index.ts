@@ -2,24 +2,20 @@
 import prompts from "prompts";
 import path from "path";
 import { installDependencies } from "./helpers/core/dependenciesInstaller.js";
-import { appendFile, existsSync } from "fs";
+import { existsSync } from "fs";
 import { mkdir } from "./helpers/utils/mkdir.js";
 import { getProjectFiles } from "./helpers/core/getProjectFiles.js";
 import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
-import {
-	getAvailableLibrariesForStandard,
-	selectLibrariesForStandard,
-} from "./helpers/SCWizard/getAvailableLibrariesForStandard.js";
-import { buildSmartContract } from "./helpers/SCWizard/smartContractBuilder.js";
+import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
+import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import {
 	getModulesInCathegory,
 	selectModulesInCathegory,
 } from "./helpers/utils/getModulesInCathegory.js";
-import { SmartContractInfo } from "./helpers/SCWizard/interfaces/smartContractInfo.js";
-import { generateContractInfo } from "./helpers/SCWizard/generateContractInfo.js";
+
 console.log(
 	chalk.blue(`
 MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
@@ -54,7 +50,7 @@ let projectPath = "";
 async function run() {
 	let step = 0;
 	let quit = false;
-
+	let contractInfo;
 	const dappInfo: dappInfo = {
 		chain: "",
 		isEVM: true,
@@ -65,7 +61,6 @@ async function run() {
 		modules: null,
 		alchemyAPIKey: "demo",
 	};
-	let contractInfo;
 
 	let projectName = "";
 	let resolvedProjectPath = "";
@@ -377,7 +372,7 @@ async function run() {
 						dappInfo.useBackend = useBackend;
 
 						if (dappInfo.useBackend) {
-							let backendProvider = await prompts({
+							const backendProvider = await prompts({
 								type: "select",
 								name: "backendProvider",
 								message:
@@ -398,7 +393,7 @@ async function run() {
 							}
 							dappInfo.backendProvider = backendProvider;
 
-							let wantsContract: boolean = await prompts({
+							const wantsContract: boolean = await prompts({
 								type: "select",
 								name: "wantsContract",
 								message:
@@ -416,69 +411,8 @@ async function run() {
 								initial: 0,
 								hint: "- This will install the needed dependencies to your project",
 							}).then((data) => data.wantsContract);
-
 							if (wantsContract) {
-								const contractName = await prompts({
-									type: "text",
-									name: "contractName",
-									initial: `myContract`,
-									message: "Choose a name for your contract",
-								}).then((data) =>
-									data.contractName
-										.trim()
-										.replace(/[\W_]+/g, "-")
-								);
-								const symbol = await prompts({
-									type: "text",
-									name: "contractSymbol",
-									initial: `ALC`,
-									message:
-										"Choose a symbol for your contract",
-								}).then((data) =>
-									data.contractSymbol
-										.trim()
-										.replace(/[\W_]+/g, "")
-								);
-								const standard = await prompts({
-									type: "multiselect",
-									name: "contractStandard",
-									message:
-										"What kind of smart contract do you want to create?",
-									choices: [
-										{
-											title: "ERC721",
-											value: "ERC721",
-										},
-										{
-											title: "ERC20",
-											value: "ERC20",
-										},
-									],
-									hint: "- Space to select. Return to submit",
-								}).then((data) => data.contractStandard[0]);
-								const librariesForStandard =
-									getAvailableLibrariesForStandard(standard);
-								const selectedLibraries = await prompts({
-									type: "multiselect",
-									name: "selectedLibraries",
-									message:
-										"Select the features you want to implement",
-									choices: [...librariesForStandard],
-									hint: "- Space to select. Return to submit",
-								}).then((data) => data.selectedLibraries);
-								console.log(selectedLibraries);
-
-								selectLibrariesForStandard(
-									standard,
-									selectedLibraries
-								);
-								contractInfo =
-									generateContractInfo(
-										contractName,
-										symbol,
-										standard,
-										selectedLibraries
-									);
+								contractInfo = await smartContractWizard();
 							}
 						}
 					}
@@ -513,8 +447,12 @@ async function run() {
 	try {
 		mkdir(resolvedProjectPath);
 		getProjectFiles(resolvedProjectPath, dappInfo);
-		buildSmartContract(contractInfo);
-		installDependencies(projectName, resolvedProjectPath, dappInfo);
+
+		if (contractInfo) {
+			buildSmartContract(contractInfo);
+		}
+
+		await installDependencies(projectName, resolvedProjectPath, dappInfo);
 		logInstructions();
 	} catch (e) {
 		selfDestroy(e);
