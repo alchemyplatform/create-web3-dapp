@@ -429,7 +429,7 @@ async function run() {
 						type: "text",
 						name: "apiKey",
 						message:
-							"Insert your Alchemy API Key (if none, 'demo' will be used)",
+							"Insert your Alchemy API Key (from https://dashboard.alchemy.com -- default: 'demo')",
 						initial: "demo",
 					}).then((data) => data.apiKey);
 
