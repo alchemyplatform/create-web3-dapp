@@ -52,7 +52,7 @@ export const installDependencies = async (
 		bar2.update(50);
 		console.log(chalk.yellow("\n Installing other dependencies..."));
 		execSync("npm install --loglevel=error");
-		bar2.update(200);
+		bar2.update(100);
 		console.log(chalk.green("\n Dependencies installed ✅"));
 		bar2.stop();
 		process.chdir(resolvedProjectPath);
