@@ -6,9 +6,11 @@ import { getSmartContractDependencies } from "./utils/getSmartContractDependenci
 import { getSmartContractSuperClasses } from "./utils/getSmartContractSuperClasses.js";
 import { isERC721 } from "./utils/isERC721.js";
 import chalk from "chalk";
+import { mkdir } from "../utils/mkdir.js";
 
 export const buildSmartContract = (smartContractInfo: SmartContractInfo) => {
 	console.log(chalk.yellow("Creating Smart Contracts..."))
+	mkdir(path.join(process.cwd(), "backend", "contracts"))
 	const writeStream = fs.createWriteStream(
 		path.join(process.cwd(), "backend", "contracts", `${smartContractInfo.name}.sol`)
 	);
