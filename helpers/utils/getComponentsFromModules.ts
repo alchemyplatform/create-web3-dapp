@@ -1,7 +1,7 @@
 import modulesToComponentDictionary from "./modulesToComponentDictionary.js"
 
 export const getComponentsFromModules = (toolkitType : string, modules: [string]) => {
-    const components :string[] = [];
+    const components : string[] = [];
     
     for (const module of modules) {
         const moduleComponents = modulesToComponentDictionary[module].moduleComponents
