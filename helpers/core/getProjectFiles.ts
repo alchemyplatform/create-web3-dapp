@@ -47,7 +47,6 @@ export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
 
 		}
 		if (dappInfo.toolkitType && dappInfo.modules) {
-			console.log("getting components")
 			getComponents(
 				dappInfo.toolkitType,
 				dappInfo.modules,

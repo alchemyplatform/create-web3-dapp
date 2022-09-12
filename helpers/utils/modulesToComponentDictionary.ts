@@ -1,10 +1,11 @@
-const modulesToComponentDictionary = {
+import { Interface } from "readline";
+
+const modulesToComponentDictionary: ModulesToComponentDictionary = {
 	nftGallery: {
 		moduleComponents: ["nftGallery", "nftCard"],
-		hooks: [],
     },
     nftCard: {
-        moduleComponents:["nftCard", "primaryButton"]
+		moduleComponents: ["nftCard", "primaryButton"]
     },
 	nftDetailsPopUp: {
 		moduleComponents: ["nftDetailsPopUp", "primaryButton"],
@@ -15,7 +16,17 @@ const modulesToComponentDictionary = {
 	},
 	snapshotBox: {
 		moduleComponents: ["snapshotBox", "primaryButton"],
-		
+		routes: ["snapshots"],		
 	},
 };
 export default modulesToComponentDictionary
+
+interface ModulesToComponentDictionary {
+	[key:string]: ModulesToComponentDictionaryElement,
+}
+
+interface ModulesToComponentDictionaryElement{
+	moduleComponents: string[],
+	hooks?: string[],
+	routes?: string[],
+} 

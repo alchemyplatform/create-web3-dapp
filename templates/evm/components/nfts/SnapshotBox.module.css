@@ -1,0 +1,13 @@
+.form_container{
+    display: flex;
+    width: 45rem;
+    align-items: center;
+    column-gap: .2rem;
+}
+
+.form_input{
+    padding: 0.7rem 1.2rem;
+    width: 40%;
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221);
+}

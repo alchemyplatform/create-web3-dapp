@@ -1,4 +1,3 @@
-import styles from "../../styles/PrimaryButton.module.css";
 
 export const PrimaryButton = ({
 	onClickCallback,
@@ -7,16 +6,12 @@ export const PrimaryButton = ({
 	newPage = true,
 }) => {
 	return (
-		<div
-			className={styles.button_container}
-			onClick={typeof onClickCallback === "function" && (() => {
-				onClickCallback();
-			})}
-		>
+		<div className={styles.button_container}>
 			<a
 				className={styles.button}
 				href={href}
 				target={newPage ?? "_blank"}
+				onClick={()=>onClickCallback()}
 			>
 				{text}
 			</a>

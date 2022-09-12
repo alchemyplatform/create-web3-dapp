@@ -2,6 +2,7 @@ import fse from "fs-extra";
 import path from "path";
 import { getComponentsFromModules } from "../utils/getComponentsFromModules.js"
 import { getHooksFromComponents } from "../utils/getHooksFromComponents.js"
+import { getRoutesFromComponents } from "../utils/getRoutesFromComponents.js"
 
 export const getComponents = (
 	toolkitType: string,
@@ -65,6 +66,27 @@ export const getComponents = (
 				toHookPath = path.join(process.cwd(), "hooks", `${hook + ".js"}`);
 			}
 			fse.copySync(fromHookPath, toHookPath);
+		}
+	}
+	const routes = getRoutesFromComponents(components)
+
+	if (routes.length > 0) {
+		for (const route of routes) {
+			const fromRoutePath = path.join(
+				process.cwd(),
+				"templates",
+				isEVM ? "evm" : "solana",
+				"components",
+				toolkitType,
+				`${route}`
+			);
+	
+			let toRoutePath = "";
+			if (useBackend) {
+				toRoutePath = path.join(process.cwd(),"frontend", "pages", `${route}`);
+			} else {
+				toRoutePath = path.join(process.cwd(), "pages", `${route}`);			}
+			fse.copySync(fromRoutePath, toRoutePath);
 		}
 	}
 	
