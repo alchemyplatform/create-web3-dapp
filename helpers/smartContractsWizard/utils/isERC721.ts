@@ -1,4 +1,4 @@
-import { ERC721smartContractInfo } from "../interfaces/ERC721smartContractInfo"
+import { ERC721smartContractInfo } from "../../../interfaces/ERC721smartContractInfo.js"
 import { SmartContractStandard } from "./smartContractStandards.js";
 
 export function isERC721(

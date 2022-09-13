@@ -1,4 +1,4 @@
-import { SmartContractStandard } from "../utils/smartContractStandards.js";
+import { SmartContractStandard } from "../helpers/smartContractsWizard/utils/smartContractStandards.js";
 export interface SmartContractInfo {
 	name: string;
 	symbol: string;

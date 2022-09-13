@@ -1,5 +1,5 @@
-import { ERC20smartContractInfo } from "../interfaces/ERC20smartContractInfo.js"
-import { SmartContractStandard } from "../utils/smartContractStandards.js";
+import { ERC20smartContractInfo } from "../../../interfaces/ERC20smartContractInfo.js"
+import { SmartContractStandard } from "./smartContractStandards.js";
 
 export function isERC20(arg: any): arg is ERC20smartContractInfo {
 	return (

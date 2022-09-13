@@ -1,4 +1,4 @@
-import { SmartContractInfo } from "../interfaces/smartContractInfo.js";
+import { SmartContractInfo } from "../../../interfaces/smartContractInfo.js";
 import { smartContractInfoToDependenciesDictionary } from "../smartContractInfoToDependenciesDictionary.js";
 import { SmartContractStandard } from "./smartContractStandards.js";
 

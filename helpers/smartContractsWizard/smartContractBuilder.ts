@@ -1,7 +1,7 @@
 import fs from "fs";
 import { generateERC721Template } from "./ERC721Template.js";
 import path from "path";
-import { SmartContractInfo } from "./interfaces/smartContractInfo.js";
+import { SmartContractInfo } from "../../interfaces/smartContractInfo.js";
 import { getSmartContractDependencies } from "./utils/getSmartContractDependencies.js";
 import { getSmartContractSuperClasses } from "./utils/getSmartContractSuperClasses.js";
 import { isERC721 } from "./utils/isERC721.js";

@@ -2,7 +2,7 @@ import {
 	getAvailableLibrariesForStandard,
 	selectLibrariesForStandard,
 } from "./getAvailableLibrariesForStandard.js";
-import { SmartContractInfo } from "./interfaces/smartContractInfo.js";
+import { SmartContractInfo } from "../../interfaces/smartContractInfo.js";
 import { generateContractInfo } from "./generateContractInfo.js";
 import prompts from "prompts";
 
