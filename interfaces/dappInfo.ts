@@ -1,7 +1,7 @@
 
 
 
-export interface dappInfo {
+export interface DappInfo {
 	chain: string;
 	isEVM: boolean;
 	isTestnet: boolean;

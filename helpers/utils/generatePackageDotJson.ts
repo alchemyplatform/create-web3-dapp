@@ -7,7 +7,8 @@ export const generatePackageDotJson = (
 	isEVM,
 	useBackend,
 	backendProvider,
-	hasSmartContract
+	hasSmartContract,
+	contractName?
 ) => {
 	console.log(chalk.yellow("Generating package.json..."));
 
@@ -71,10 +72,10 @@ export const generatePackageDotJson = (
 				] = "^1.0.2";
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
 				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
-				// scripts:
-				// "build": "npx hardhat compile",
-				// "deploy-testnet": "npx hardhat run ./scripts/deploy.js --network goerli",
-				// "deploy": "npx hardhat run ./scripts/deploy.js --network ethereum"
+				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
+				backendPackageJson["scripts"]["deploy-testnet"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network goerli`;
+				backendPackageJson["scripts"]["deploy"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network ethereum`;
+			
 				break;
 			case "foundry":
 				console.log(

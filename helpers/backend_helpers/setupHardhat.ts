@@ -3,11 +3,11 @@ import cliProgress from "cli-progress";
 import path from "path";
 import { createEnv } from "../utils/createEnv.js";
 import fse from "fs-extra";
-import { dappInfo } from "../../interfaces/dappInfo.js";
+import { DappInfo } from "../../interfaces/dappInfo.js";
 import { createWriteStream } from "fs";
 import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 
-export const setUpHardhat = (dappInfo: dappInfo, projectPath) => {
+export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	console.log(chalk.yellow("Generating hardhat config files..."));
 	const bar2 = new cliProgress.SingleBar(
 		{},
@@ -44,8 +44,8 @@ export const setUpHardhat = (dappInfo: dappInfo, projectPath) => {
 		},
 	};
 
-	if (dappInfo.isTestnet) {
-		modules.networks[dappInfo.testnet!] = {
+	if (dappInfo.isTestnet && dappInfo.testnet) {
+		modules.networks[dappInfo.testnet] = {
 			accounts: "[`0x${process.env.PRIVATE_KEY}`]",
 			url: generateAlchemyURL(
 				dappInfo.testnet,

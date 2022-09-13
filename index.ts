@@ -7,8 +7,9 @@ import { mkdir } from "./helpers/utils/mkdir.js";
 import { getProjectFiles } from "./helpers/core/getProjectFiles.js";
 import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
-import { dappInfo } from "./interfaces/dappInfo.js";
 import { logInstructions } from "./helpers/core/logInstructions.js";
+import context from "./helpers/core/getContext.js";
+
 import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
 
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
@@ -17,7 +18,6 @@ import {
 	getModulesInCathegory,
 	selectModulesInCathegory,
 } from "./helpers/utils/getModulesInCathegory.js";
-import { execSync } from "child_process";
 
 console.log(
 	chalk.blue(`
@@ -53,23 +53,8 @@ let projectPath = "";
 async function run() {
 	let step = 0;
 	let quit = false;
-	let contractInfo;
-	const dappInfo: dappInfo = {
-		chain: "",
-		isEVM: true,
-		isTestnet: false,
-		useBackend: false,
-		backendProvider: "",
-		toolkitType: undefined,
-		hasSmartContract: false,
-		modules: null,
-		alchemyAPIKey: "demo",
-	};
 
-	let projectName = "";
-	let resolvedProjectPath = "";
-
-	await checkNewPackageUpdates()
+	await checkNewPackageUpdates();
 
 	while (!quit) {
 		switch (step) {
@@ -91,9 +76,10 @@ async function run() {
 
 					//Reformat project's name
 					projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
-
-					resolvedProjectPath = path.resolve(projectPath);
-					let dirExists: boolean = existsSync(resolvedProjectPath);
+					context.resolvedProjectPath = path.resolve(projectPath);
+					let dirExists: boolean = existsSync(
+						context.resolvedProjectPath
+					);
 
 					let i = 1;
 					// Check if project
@@ -107,12 +93,14 @@ async function run() {
 						}).then((data) =>
 							data.projectPath.trim().replace(/[\W_]+/g, "-")
 						);
-						resolvedProjectPath = path.resolve(projectPath);
-						dirExists = existsSync(resolvedProjectPath);
+						context.resolvedProjectPath = path.resolve(projectPath);
+						dirExists = existsSync(context.resolvedProjectPath);
 						i += 1;
 					}
-					projectName = path.basename(resolvedProjectPath);
-					setRoot(resolvedProjectPath);
+					context.projectName = path.basename(
+						context.resolvedProjectPath
+					);
+					setRoot(context.resolvedProjectPath);
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -147,17 +135,17 @@ async function run() {
 					}).then((data) => data.builderTemplate);
 
 					if (builderTemplate == "evm_app") {
-						dappInfo.chain = "ethereum";
-						dappInfo.isEVM = true;
-						dappInfo.isTestnet = true;
-						dappInfo.testnet = "goerli"
+						context.dappInfo.chain = "ethereum";
+						context.dappInfo.isEVM = true;
+						context.dappInfo.isTestnet = true;
+						context.dappInfo.testnet = "goerli";
 
 						step = 5;
 					} else if (builderTemplate == "sol_app") {
-						dappInfo.chain = "solana";
-						dappInfo.isEVM = false;
-						dappInfo.isTestnet = false;
-						dappInfo.testnet = "devnet"
+						context.dappInfo.chain = "solana";
+						context.dappInfo.isEVM = false;
+						context.dappInfo.isTestnet = false;
+						context.dappInfo.testnet = "devnet";
 
 						step = 5;
 					} else if (builderTemplate == "custom") {
@@ -186,17 +174,17 @@ async function run() {
 					],
 					initial: 0,
 					hint: "- This will make sure to copy the right dependencies and template files",
-				}).then((data) => (dappInfo.chain = data.chain));
-				if (dappInfo.chain == "back") {
+				}).then((data) => (context.dappInfo.chain = data.chain));
+				if (context.dappInfo.chain == "back") {
 					step--;
 					break;
 				}
 
-				dappInfo.isEVM =
-					dappInfo.chain == "ethereum" ||
-					dappInfo.chain == "polygon" ||
-					dappInfo.chain == "arbitrum" ||
-					dappInfo.chain == "optimism"
+				context.dappInfo.isEVM =
+					context.dappInfo.chain == "ethereum" ||
+					context.dappInfo.chain == "polygon" ||
+					context.dappInfo.chain == "arbitrum" ||
+					context.dappInfo.chain == "optimism"
 						? true
 						: false;
 				step++;
@@ -205,8 +193,8 @@ async function run() {
 			case 3:
 				try {
 					if (
-						dappInfo.chain === "ethereum" ||
-						dappInfo.chain === "polygon"
+						context.dappInfo.chain === "ethereum" ||
+						context.dappInfo.chain === "polygon"
 					) {
 						const isTestnet: boolean | string = await prompts({
 							type: "select",
@@ -227,14 +215,14 @@ async function run() {
 							step--;
 							break;
 						} else {
-							dappInfo.isTestnet = isTestnet;
+							context.dappInfo.isTestnet = isTestnet;
 							if (isTestnet) {
-								switch (dappInfo.chain) {
+								switch (context.dappInfo.chain) {
 									case "ethereum":
-										dappInfo.testnet = "goerli";
+										context.dappInfo.testnet = "goerli";
 										break;
 									case "polygon":
-										dappInfo.testnet = "mumbai";
+										context.dappInfo.testnet = "mumbai";
 								}
 							}
 						}
@@ -247,7 +235,7 @@ async function run() {
 				break;
 			case 4:
 				try {
-					if (dappInfo.chain !== "solana") {
+					if (context.dappInfo.chain !== "solana") {
 						await prompts({
 							type: "select",
 							name: "toolkitType",
@@ -270,20 +258,22 @@ async function run() {
 							initial: 0,
 							hint: "- Select Blank to start from scratch",
 						}).then(
-							(data) => (dappInfo.toolkitType = data.toolkitType)
+							(data) =>
+								(context.dappInfo.toolkitType =
+									data.toolkitType)
 						);
 
 						if (
-							dappInfo.toolkitType &&
-							typeof dappInfo.toolkitType === "string"
+							context.dappInfo.toolkitType &&
+							typeof context.dappInfo.toolkitType === "string"
 						) {
-							if (dappInfo.toolkitType == "back") {
+							if (context.dappInfo.toolkitType == "back") {
 								step--;
 								break;
 							}
 
 							const modules = getModulesInCathegory(
-								dappInfo.toolkitType
+								context.dappInfo.toolkitType
 							);
 
 							await prompts({
@@ -293,7 +283,8 @@ async function run() {
 								choices: [...modules],
 								hint: "- Space to select. Return to submit",
 							}).then(
-								(data) => (dappInfo.modules = data.modules)
+								(data) =>
+									(context.dappInfo.modules = data.modules)
 							);
 							const continueComponentSelection = await prompts({
 								type: "toggle",
@@ -304,20 +295,26 @@ async function run() {
 								inactive: "no",
 							}).then((data) => data.continueComponentSelection);
 							if (!continueComponentSelection) {
-								if (dappInfo.toolkitType && dappInfo.modules) {
+								if (
+									context.dappInfo.toolkitType &&
+									context.dappInfo.modules
+								) {
 									selectModulesInCathegory(
-										dappInfo.toolkitType,
-										dappInfo.modules
+										context.dappInfo.toolkitType,
+										context.dappInfo.modules
 									);
 								}
 								break;
 							}
 						}
 					}
-					if (dappInfo.toolkitType && dappInfo.modules) {
+					if (
+						context.dappInfo.toolkitType &&
+						context.dappInfo.modules
+					) {
 						selectModulesInCathegory(
-							dappInfo.toolkitType,
-							dappInfo.modules
+							context.dappInfo.toolkitType,
+							context.dappInfo.modules
 						);
 					}
 
@@ -330,7 +327,7 @@ async function run() {
 			case 5:
 				try {
 					let useBackend;
-					if (dappInfo.chain == "solana") {
+					if (context.dappInfo.chain == "solana") {
 						useBackend = await prompts({
 							type: "select",
 							name: "useBackend",
@@ -352,7 +349,7 @@ async function run() {
 							step--;
 							break;
 						} else {
-							dappInfo.backendProvider = "anchor";
+							context.dappInfo.backendProvider = "anchor";
 						}
 					} else {
 						useBackend = await prompts({
@@ -377,9 +374,9 @@ async function run() {
 							step--;
 							break;
 						}
-						dappInfo.useBackend = useBackend;
+						context.dappInfo.useBackend = useBackend;
 
-						if (dappInfo.useBackend) {
+						if (context.dappInfo.useBackend) {
 							const backendProvider = await prompts({
 								type: "select",
 								name: "backendProvider",
@@ -399,7 +396,7 @@ async function run() {
 							if (backendProvider == "back") {
 								break;
 							}
-							dappInfo.backendProvider = backendProvider;
+							context.dappInfo.backendProvider = backendProvider;
 
 							const hasContract: boolean = await prompts({
 								type: "select",
@@ -420,9 +417,10 @@ async function run() {
 								hint: "- This will install the needed dependencies to your project",
 							}).then((data) => data.hasContract);
 
-							dappInfo.hasSmartContract = hasContract;
+							context.dappInfo.hasSmartContract = hasContract;
 							if (hasContract) {
-								contractInfo = await smartContractWizard();
+								context.contractInfo =
+									await smartContractWizard();
 							}
 						}
 					}
@@ -443,7 +441,7 @@ async function run() {
 						initial: "demo",
 					}).then((data) => data.apiKey);
 
-					dappInfo.alchemyAPIKey = alchemyAPIKey;
+					context.dappInfo.alchemyAPIKey = alchemyAPIKey;
 
 					quit = true;
 				} catch (e) {
@@ -455,16 +453,15 @@ async function run() {
 	}
 
 	try {
-		console.log(dappInfo)
-		mkdir(resolvedProjectPath);
-		getProjectFiles(resolvedProjectPath, dappInfo);
+		mkdir(context.resolvedProjectPath);
+		getProjectFiles(context);
 
-		if (contractInfo) {
-			buildSmartContract(contractInfo);
+		if (context.contractInfo) {
+			buildSmartContract(context.contractInfo);
 		}
 
-		await installDependencies(projectName, resolvedProjectPath, dappInfo);
-		logInstructions(dappInfo.useBackend);
+		await installDependencies(context);
+		logInstructions(context.dappInfo.useBackend);
 	} catch (e) {
 		selfDestroy(e);
 	}

@@ -19,7 +19,11 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 
     constructor()ERC721("${smartContractInfo.name}","${
 		smartContractInfo.symbol
-	}")${smartContractInfo.isVotes ? `EIP712("${smartContractInfo.name}", "1")` : ""}{
+	}")${
+		smartContractInfo.isVotes
+			? `EIP712("${smartContractInfo.name}", "1")`
+			: ""
+	}{
         ${
 			smartContractInfo.isRoles
 				? `_grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -95,7 +99,9 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
     
     ${
 		smartContractInfo.isBurnable
-			? `function _burn(uint256 tokenId) internal override(ERC721 ${smartContractInfo.isURIStorage ? ", ERC721URIStorage" : "" }) {
+			? `function _burn(uint256 tokenId) internal override(ERC721 ${
+					smartContractInfo.isURIStorage ? ", ERC721URIStorage" : ""
+			  }) {
         super._burn(tokenId);
     }`
 			: ""

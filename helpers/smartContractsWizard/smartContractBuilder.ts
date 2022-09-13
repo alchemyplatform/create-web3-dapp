@@ -32,6 +32,9 @@ export const buildSmartContract = (smartContractInfo: SmartContractInfo) => {
         ${smartContractTemplate}
     `);
 	}
+
 	console.log(chalk.green("Smart contract created ✅"))
+
+	// createDeployScript();
 
 };

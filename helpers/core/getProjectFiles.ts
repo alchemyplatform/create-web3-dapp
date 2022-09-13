@@ -5,13 +5,13 @@ import fse from "fs-extra";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
-import { dappInfo } from "../../interfaces/dappInfo.js";
 import { getComponents } from "./getComponents.js";
 import { createEnv } from "../utils/createEnv.js";
 import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
+import { Context } from "vm";
 
-export const getProjectFiles = (projectPath: string, dappInfo: dappInfo) => {
+export const getProjectFiles = ({projectPath, dappInfo}:Context) => {
 	try {
 		process.chdir(projectPath);
 		console.log(chalk.yellow("Downloading files..."));

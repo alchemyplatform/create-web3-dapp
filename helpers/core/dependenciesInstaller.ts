@@ -4,26 +4,35 @@ import cliProgress from "cli-progress";
 import { selfDestroy } from "./selfDestroy.js";
 import path from "path";
 import { generatePackageDotJson } from "../utils/generatePackageDotJson.js";
-interface packageData {
-	isEVM: boolean;
-	useBackend: boolean;
-	hasSmartContract: boolean
-	backendProvider?: string;
+import { Context } from "vm";
 
-}
 
 export const installDependencies = async (
-	projectName: string,
-	resolvedProjectPath,
-	{ isEVM, useBackend, hasSmartContract, backendProvider = "" }: packageData
+	{
+		isEVM,
+		useBackend,
+		hasSmartContract,
+		projectName,
+		resolvedProjectPath,
+		backendProvider = "",
+	}: Context,
 ) => {
 	try {
-		
-
-		generatePackageDotJson(projectName, isEVM, useBackend, backendProvider, hasSmartContract);
+		generatePackageDotJson(
+			projectName,
+			isEVM,
+			useBackend,
+			backendProvider,
+			hasSmartContract
+		);
 		// TODO: IMPLEMENT OTHER PROVIDERS
 		if (backendProvider == "hardhat") {
-			console.log(`Installing ${backendProvider.charAt(0).toUpperCase() + backendProvider.slice(1)} dependencies...`)
+			console.log(
+				`Installing ${
+					backendProvider.charAt(0).toUpperCase() +
+					backendProvider.slice(1)
+				} dependencies...`
+			);
 			const bar1 = new cliProgress.SingleBar(
 				{},
 				cliProgress.Presets.shades_classic
@@ -36,7 +45,6 @@ export const installDependencies = async (
 			bar1.update(100);
 			console.log("\nHardhat dependencies installed ✅");
 			bar1.stop();
-
 		}
 		const bar2 = new cliProgress.SingleBar(
 			{},
@@ -61,5 +69,3 @@ export const installDependencies = async (
 		selfDestroy(e);
 	}
 };
-
-

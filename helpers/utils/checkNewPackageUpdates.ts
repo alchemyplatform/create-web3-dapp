@@ -35,12 +35,12 @@ export const checkNewPackageUpdates = async () => {
 						const command = `echo ${password}| sudo -S npm install npm@latest -g create-web3-dapp`;
 						execSync(command);
 					} catch (error: any) {
-						console.log(error)
+						console.log(error);
 					}
 				}
 			}
-        } else {
-            return
-        }
+		} else {
+			return;
+		}
 	}
 };
