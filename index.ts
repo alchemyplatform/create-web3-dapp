@@ -61,6 +61,7 @@ async function run() {
 		useBackend: false,
 		backendProvider: "",
 		toolkitType: undefined,
+		hasSmartContract: false,
 		modules: null,
 		alchemyAPIKey: "demo",
 	};
@@ -149,12 +150,14 @@ async function run() {
 						dappInfo.chain = "ethereum";
 						dappInfo.isEVM = true;
 						dappInfo.isTestnet = true;
+						dappInfo.testnet = "goerli"
 
 						step = 5;
 					} else if (builderTemplate == "sol_app") {
 						dappInfo.chain = "solana";
 						dappInfo.isEVM = false;
 						dappInfo.isTestnet = false;
+						dappInfo.testnet = "devnet"
 
 						step = 5;
 					} else if (builderTemplate == "custom") {
@@ -398,9 +401,9 @@ async function run() {
 							}
 							dappInfo.backendProvider = backendProvider;
 
-							const wantsContract: boolean = await prompts({
+							const hasContract: boolean = await prompts({
 								type: "select",
-								name: "wantsContract",
+								name: "hasContract",
 								message:
 									"Do you want to create a new contract?",
 								choices: [
@@ -415,8 +418,10 @@ async function run() {
 								],
 								initial: 0,
 								hint: "- This will install the needed dependencies to your project",
-							}).then((data) => data.wantsContract);
-							if (wantsContract) {
+							}).then((data) => data.hasContract);
+
+							dappInfo.hasSmartContract = hasContract;
+							if (hasContract) {
 								contractInfo = await smartContractWizard();
 							}
 						}
@@ -450,6 +455,7 @@ async function run() {
 	}
 
 	try {
+		console.log(dappInfo)
 		mkdir(resolvedProjectPath);
 		getProjectFiles(resolvedProjectPath, dappInfo);
 
@@ -458,7 +464,7 @@ async function run() {
 		}
 
 		await installDependencies(projectName, resolvedProjectPath, dappInfo);
-		logInstructions();
+		logInstructions(dappInfo.useBackend);
 	} catch (e) {
 		selfDestroy(e);
 	}

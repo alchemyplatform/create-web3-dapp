@@ -11,8 +11,7 @@ export const NFTGallery = ({ address, nftsData }) => {
 
 	useEffect(() => {
 		(async () => {
-			console.log(address);
-			if (address) {
+			if (address && !nftsData) {
 				const nfts = await fetch("/api/getNftsForOwner", {
 					method: "POST",
 					body: JSON.stringify({ address: address }),

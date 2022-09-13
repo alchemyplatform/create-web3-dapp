@@ -2,7 +2,7 @@ import styles from "../../styles/NftDetailsPopUp.module.css";
 import { useState, useEffect } from "react";
 import { PrimaryButton } from "./primaryButton";
 
-export const NFTDetailsPopUp = ({ nft, owner, isOpen, setIsOpen }) => {
+export const NFTDetailsPopUp = ({ nft, isOpen, setIsOpen }) => {
 	const [contractMetadata, setContractMetadata] = useState();
 	useEffect(() => {
 		(async () => {
@@ -44,7 +44,7 @@ export const NFTDetailsPopUp = ({ nft, owner, isOpen, setIsOpen }) => {
 						<h3>Description</h3>
 						<p className={styles.description}>{nft.description}</p>
 					</div>
-					<p>{owner}</p>
+				
 
 					<div>
 						<div>

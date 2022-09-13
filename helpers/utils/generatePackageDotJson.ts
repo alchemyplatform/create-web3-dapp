@@ -6,32 +6,30 @@ export const generatePackageDotJson = (
 	projectName,
 	isEVM,
 	useBackend,
-	backendProvider
+	backendProvider,
+	hasSmartContract
 ) => {
 	console.log(chalk.yellow("Generating package.json..."));
-	
 
 	const packageJsonTemplate = {
 		name: projectName,
 		version: "0.1.0",
 		private: true,
-		scripts: {
-			dev: "next dev",
-			build: "next build",
-			start: "next start",
-			lint: "next lint",
-		},
-		dependencies: {
-			next: "12.2.3",
-			react: "18.2.0",
-			"react-dom": "18.2.0",
-		},
-		devDependencies: {
-			eslint: "8.20.0",
-			"eslint-config-next": "12.2.3",
-		},
+		scripts: {},
+		dependencies: {},
+		devDependencies: {},
 	};
 	const frontEndPackageJson = JSON.parse(JSON.stringify(packageJsonTemplate));
+	frontEndPackageJson["dependencies"]["next"] = "12.2.3";
+	frontEndPackageJson["dependencies"]["react"] = "18.2.0";
+	frontEndPackageJson["dependencies"]["react-dom"] = "18.2.0";
+	frontEndPackageJson["scripts"]["dev"] = "next dev";
+	frontEndPackageJson["scripts"]["build"] = "next build";
+	frontEndPackageJson["scripts"]["start"] = "next start";
+	frontEndPackageJson["scripts"]["lint"] = "next link";
+	frontEndPackageJson["devDependencies"]["eslint"] = "8.20.0";
+	frontEndPackageJson["devDependencies"]["eslint-config-next"] = "12.2.3";
+
 	if (isEVM) {
 		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
 		frontEndPackageJson["dependencies"]["@rainbow-me/rainbowkit"] =
@@ -72,6 +70,11 @@ export const generatePackageDotJson = (
 					"@nomicfoundation/hardhat-toolbox"
 				] = "^1.0.2";
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
+				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
+				// scripts:
+				// "build": "npx hardhat compile",
+				// "deploy-testnet": "npx hardhat run ./scripts/deploy.js --network goerli",
+				// "deploy": "npx hardhat run ./scripts/deploy.js --network ethereum"
 				break;
 			case "foundry":
 				console.log(
@@ -86,6 +89,10 @@ export const generatePackageDotJson = (
 				break;
 			default:
 				break;
+		}
+		if (hasSmartContract) {
+			backendPackageJson["dependencies"]["@openzeppelin/contracts"] =
+				"^4.7.3";
 		}
 
 		fs.writeFileSync(

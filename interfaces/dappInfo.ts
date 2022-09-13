@@ -9,6 +9,7 @@ export interface dappInfo {
 	useBackend: boolean;
 	backendProvider?: string;
 	toolkitType?: string;
+	hasSmartContract: boolean;
 	modules: [string] | null;
 	alchemyAPIKey: string | 'demo';
 }

@@ -7,18 +7,20 @@ import { generatePackageDotJson } from "../utils/generatePackageDotJson.js";
 interface packageData {
 	isEVM: boolean;
 	useBackend: boolean;
+	hasSmartContract: boolean
 	backendProvider?: string;
+
 }
 
 export const installDependencies = async (
 	projectName: string,
 	resolvedProjectPath,
-	{ isEVM, useBackend, backendProvider = "" }: packageData
+	{ isEVM, useBackend, hasSmartContract, backendProvider = "" }: packageData
 ) => {
 	try {
 		
 
-		generatePackageDotJson(projectName, isEVM, useBackend, backendProvider);
+		generatePackageDotJson(projectName, isEVM, useBackend, backendProvider, hasSmartContract);
 		// TODO: IMPLEMENT OTHER PROVIDERS
 		if (backendProvider == "hardhat") {
 			console.log(`Installing ${backendProvider.charAt(0).toUpperCase() + backendProvider.slice(1)} dependencies...`)
@@ -54,6 +56,7 @@ export const installDependencies = async (
 		bar2.update(100);
 		console.log(chalk.green("\n Dependencies installed ✅"));
 		bar2.stop();
+		process.chdir(resolvedProjectPath);
 	} catch (e) {
 		selfDestroy(e);
 	}

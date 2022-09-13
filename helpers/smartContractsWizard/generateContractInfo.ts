@@ -20,7 +20,7 @@ export const generateContractInfo = (
 		isVotes: false,
 		isOwnable: false,
 		isRoles: false,
-		isAutoIncrement: false,
+		isAutoIncrement: true,
 		isEnumerable: false,
 		isURIStorage: false,
 	};
