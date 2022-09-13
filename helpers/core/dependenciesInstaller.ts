@@ -4,26 +4,24 @@ import cliProgress from "cli-progress";
 import { selfDestroy } from "./selfDestroy.js";
 import path from "path";
 import { generatePackageDotJson } from "../utils/generatePackageDotJson.js";
-import { Context } from "vm";
-
-
-export const installDependencies = async (
-	{
-		isEVM,
-		useBackend,
-		hasSmartContract,
-		projectName,
-		resolvedProjectPath,
-		backendProvider = "",
-	}: Context,
-) => {
+import { BuilderContext } from "../../interfaces/BuilderContext";
+export const installDependencies = async ({
+	dappInfo,
+	contractInfo,
+	projectName,
+	resolvedProjectPath
+}: BuilderContext) => {
 	try {
+		const { isEVM, useBackend, backendProvider, hasSmartContract } =
+			dappInfo;
+
 		generatePackageDotJson(
 			projectName,
 			isEVM,
 			useBackend,
 			backendProvider,
-			hasSmartContract
+			hasSmartContract,
+			contractInfo?.name
 		);
 		// TODO: IMPLEMENT OTHER PROVIDERS
 		if (backendProvider == "hardhat") {

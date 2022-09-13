@@ -8,7 +8,6 @@ import { generateERC721DeploymentScript } from "./generateERC721DeploymentScript
 
 export const createDeployScript = (smartContractInfo: SmartContractInfo) => {
 	console.log(chalk.yellow("Creating Smart Contracts..."));
-	mkdir(path.join(process.cwd(), "backend", "scripts"));
 	const writeStream = fs.createWriteStream(
 		path.join(
 			process.cwd(),
@@ -17,10 +16,14 @@ export const createDeployScript = (smartContractInfo: SmartContractInfo) => {
 			`${smartContractInfo.name}_deploy.js`
 		)
     );
+    let content;
 
     if (isERC721(smartContractInfo)) {
-        generateERC721DeploymentScript(smartContractInfo.name)
+        content = generateERC721DeploymentScript(smartContractInfo.name)
     }
     
+    writeStream.write(content)
+    writeStream.end();
+
 
 };

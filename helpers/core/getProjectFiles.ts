@@ -10,10 +10,11 @@ import { createEnv } from "../utils/createEnv.js";
 import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import { Context } from "vm";
+import BuilderContext from "../../interfaces/BuilderContext.js";
 
-export const getProjectFiles = ({projectPath, dappInfo}:Context) => {
+export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) => {
 	try {
-		process.chdir(projectPath);
+		process.chdir(resolvedProjectPath);
 		console.log(chalk.yellow("Downloading files..."));
 		const bar1 = new cliProgress.SingleBar(
 			{},
@@ -67,7 +68,7 @@ export const getProjectFiles = ({projectPath, dappInfo}:Context) => {
 			);
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
-					setUpHardhat(dappInfo, projectPath);
+					setUpHardhat(dappInfo, resolvedProjectPath);
 					break;
 
 				case "foundry":

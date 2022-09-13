@@ -8,10 +8,8 @@ import { getProjectFiles } from "./helpers/core/getProjectFiles.js";
 import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { logInstructions } from "./helpers/core/logInstructions.js";
-import context from "./helpers/core/getContext.js";
-
+import context from "./helpers/core/context.js";
 import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
-
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import {

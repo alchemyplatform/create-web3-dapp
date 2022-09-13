@@ -1,20 +1,9 @@
+import { SmartContractStandard } from "../smartContractsWizard/utils/smartContractStandards.js";
 import { SmartContractInfo } from "../smartContractsWizard/interfaces/smartContractInfo.js";
 import { ERC721smartContractInfo } from "../smartContractsWizard/interfaces/ERC721smartContractInfo.js";
 import { ERC20smartContractInfo } from "../smartContractsWizard/interfaces/ERC20smartContractInfo.js";
-import { SmartContractStandard } from "../smartContractsWizard/utils/smartContractStandards.js";
+import { BuilderContext } from "../../interfaces/BuilderContext.js";
 import { DappInfo } from "../../interfaces/dappInfo.js";
-
-interface Context {
-	contractInfo:
-		| SmartContractInfo
-		| ERC721smartContractInfo
-		| ERC20smartContractInfo
-		| undefined;
-	dappInfo: DappInfo;
-	projectName: string;
-	resolvedProjectPath: string;
-}
-
 const contractInfo:
 	| SmartContractInfo
 	| ERC721smartContractInfo
@@ -45,11 +34,11 @@ const dappInfo: DappInfo = {
 const projectName = "";
 const resolvedProjectPath = "";
 
-const context: Context = {
+const context: BuilderContext = {
 	contractInfo,
 	dappInfo,
 	projectName,
 	resolvedProjectPath,
 };
 
-export default context;
+export default context

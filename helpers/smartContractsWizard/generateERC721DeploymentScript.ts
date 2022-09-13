@@ -1,7 +1,4 @@
-
-export const generateERC721DeploymentScript = (
-	name: string
-) => {
+export const generateERC721DeploymentScript = (name: string) => {
 	return `
 const hre = require("hardhat");
 
