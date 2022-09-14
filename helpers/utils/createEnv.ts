@@ -1,5 +1,5 @@
 import fs from "fs";
-import { APIKeys } from "../../interfaces/apiKeys";
+import { APIKeys } from "../../interfaces/ApiKeys";
 import path from "path";
 
 export const createEnv = (

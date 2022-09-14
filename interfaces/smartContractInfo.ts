@@ -10,5 +10,3 @@ export interface SmartContractInfo {
 	isOwnable: boolean;
 	isRoles: boolean;
 }
-
-

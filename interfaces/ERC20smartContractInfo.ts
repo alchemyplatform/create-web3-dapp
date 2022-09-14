@@ -1,4 +1,4 @@
-import { SmartContractInfo } from "./smartContractInfo.js";
+import { SmartContractInfo } from "./SmartContractInfo.js";
 
 export interface ERC20smartContractInfo extends SmartContractInfo {
 	premint: number;

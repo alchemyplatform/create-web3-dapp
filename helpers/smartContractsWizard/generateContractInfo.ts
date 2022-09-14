@@ -1,7 +1,7 @@
 
 import { SmartContractStandard } from "./utils/smartContractStandards.js";
 import { ERC721smartContractInfo } from "../../interfaces/ERC721smartContractInfo.js";
-import { SmartContractInfo } from "../../interfaces/smartContractInfo.js";
+import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
 
 export const generateContractInfo = (
 	contractName: string,

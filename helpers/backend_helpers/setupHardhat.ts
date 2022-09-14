@@ -3,7 +3,7 @@ import cliProgress from "cli-progress";
 import path from "path";
 import { createEnv } from "../utils/createEnv.js";
 import fse from "fs-extra";
-import { DappInfo } from "../../interfaces/dappInfo.js";
+import { DappInfo } from "../../interfaces/DappInfo.js";
 import { createWriteStream } from "fs";
 import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 
