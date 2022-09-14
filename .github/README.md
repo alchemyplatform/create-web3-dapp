@@ -164,7 +164,6 @@ Every time you run Create web3 DApp, the CLI builder will take care of updating 
 Your environment will have everything you need to build a modern single-page React app:
 
 -  NextJS, React, JSX, ES6, TypeScript and Flow syntax support.
--  
 -   Hassle-free updates for the above tools with a single dependency.
 
 Check out [this guide (coming soon)]() to learn how to build with Create Web3 Dapp.
