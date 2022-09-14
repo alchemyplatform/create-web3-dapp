@@ -7,12 +7,15 @@ export default async function handler(req, res) {
 
 	if (method == "POST") {
 		const { contractAddress } = JSON.parse(req.body);
-		console.log(contractAddress);
-		const contractMetadata = await alchemy.nft.getContractMetadata(
-			contractAddress
-		);
-		res.status(200).json(contractMetadata);
-		console.log(contractMetadata);
+		const url = `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.ETHERSCAN_API_KEY}`;
+
+        console.log(contractAddress);
+        
+		const contractABI = await fetch(url, {
+			method: "GET",
+		}).then((data) => data.json());
+		res.status(200).json(contractABI);
+
 		return;
 	}
 
