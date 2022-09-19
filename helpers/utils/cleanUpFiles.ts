@@ -51,6 +51,10 @@ export const cleanUpFiles = (useBackend: boolean) => {
 		recursive: true,
 		force: true,
 	});
+	fs.rmSync(path.join(process.cwd(), ".github"), {
+		recursive: true,
+		force: true,
+	});
 
 	if (useBackend) {
 		fs.rmSync(path.join(process.cwd(), ".prettierignore"), {

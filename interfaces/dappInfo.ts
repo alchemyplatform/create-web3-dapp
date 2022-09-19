@@ -1,3 +1,5 @@
+import { APIKeys } from "./ApiKeys";
+
 export interface DappInfo {
 	chain: string;
 	isEVM: boolean;
@@ -8,5 +10,5 @@ export interface DappInfo {
 	toolkitType?: string;
 	hasSmartContract: boolean;
 	modules: [string] | null;
-	alchemyAPIKey: string | "demo";
+	apiKeys: APIKeys;
 }

@@ -2,43 +2,43 @@ export const generateAlchemyURL = (chain): string => {
 	let rpcUrl = "";
 
 	switch (chain) {
-		case "ethereum":
+		case "ETH_MAINNET":
 			rpcUrl =
 				"`https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "goerli":
+		case "ETH_GOERLI":
 			rpcUrl =
 				"`https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "polygon":
+		case "MATIC_MAINNET":
 			rpcUrl =
 				"`https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "mumbai":
+		case "MATIC_MUMBAI":
 			rpcUrl =
 				"`https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "arbitrum":
+		case "ARB_MAINNET":
 			rpcUrl =
 				"`https://arb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "arbitrum-goerli":
+		case "ARB_GOERLI":
 			rpcUrl =
 				"`https://arb-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "optimism":
+		case "OPT_MAINNET":
 			rpcUrl =
 				"`https://opt-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "optimism-goerli":
+		case "OPT_GOERLI":
 			rpcUrl =
 				"`https://opt-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "solana":
+		case "SOL_MAINNET":
 			rpcUrl =
 				"`https://solana-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "solana-devnet":
+		case "SOL_MAINNET":
 			rpcUrl =
 				"`https://solana-devnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
