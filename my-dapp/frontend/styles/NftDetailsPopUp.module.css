@@ -1,0 +1,70 @@
+.nftDetails_container{
+    width: 55%;
+    border: 2px solid rgb(236, 236, 236);
+    border-radius: 9px;
+    padding: 2rem 2rem;
+    background:rgb(252, 254, 255);
+    position: fixed;
+    top: 10%;
+    right: 23%;
+}
+
+.close{
+    display: none;
+}
+.closeButton{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+}
+
+.title{
+    font-size: 2rem;
+}
+
+.nftDetails_flexbox{
+    display: flex;
+    column-gap: 2.5rem;
+}
+
+.nftImage{
+    object-fit: cover;
+    width: 40%;
+    height: 25rem;
+}
+
+.metadata_container{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    text-align: justify;
+}
+
+.nftAttributes_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: .2rem;
+    
+}
+
+.nftAttribute{
+    border: 1px solid rgb(196, 216, 247);
+    background-color: rgb(228, 248, 254);
+    width: 32%;
+    text-align: center;
+    border-radius: 6px;
+    padding: .3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nftAttribute_trait_type{
+    font-size: .7rem;
+}
+.nftAttribute_trait_value{
+    font-size: .9rem;
+}
+

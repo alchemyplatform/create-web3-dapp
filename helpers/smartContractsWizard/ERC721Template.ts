@@ -51,7 +51,7 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 
     ${
 		smartContractInfo.isMintable
-			? `function safeMint(address to, string memory uri) public ${
+			? `function safeMint(address to${smartContractInfo.isURIStorage ? ", string memory uri" : ""}) public ${
 					smartContractInfo.isRoles ? `onlyRole(PAUSER_ROLE)` : ""
 			  } ${smartContractInfo.isOwnable ? `onlyOwner` : ""} {
             ${

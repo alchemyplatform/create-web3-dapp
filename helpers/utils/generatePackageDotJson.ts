@@ -75,6 +75,9 @@ export const generatePackageDotJson = (
 				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
 				backendPackageJson["scripts"]["deploy-testnet"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network goerli`;
 				backendPackageJson["scripts"]["deploy"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network ethereum`;
+				backendPackageJson["scripts"]["node"] = `npx hardhat node`;
+				backendPackageJson["scripts"]["deploy-local"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network localhost`;
+
 			
 				break;
 			case "foundry":

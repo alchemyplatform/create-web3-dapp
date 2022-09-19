@@ -135,17 +135,17 @@ async function run() {
 					}).then((data) => data.builderTemplate);
 
 					if (builderTemplate == "evm_app") {
-						context.dappInfo.chain = "ethereum";
+						context.dappInfo.chain = "ETH_MAINNET";
 						context.dappInfo.isEVM = true;
 						context.dappInfo.isTestnet = true;
-						context.dappInfo.testnet = "goerli";
+						context.dappInfo.testnet = "ETH_GOERLI";
 
 						step = 5;
 					} else if (builderTemplate == "sol_app") {
-						context.dappInfo.chain = "solana";
+						context.dappInfo.chain = "SOL_MAINNET";
 						context.dappInfo.isEVM = false;
 						context.dappInfo.isTestnet = false;
-						context.dappInfo.testnet = "devnet";
+						context.dappInfo.testnet = "SOL_DEVNET";
 
 						step = 5;
 					} else if (builderTemplate == "custom") {
@@ -165,11 +165,11 @@ async function run() {
 					name: "chain",
 					message: "For which VM are you building for?",
 					choices: [
-						{ title: "Ethereum", value: "ethereum" },
-						{ title: "Polygon", value: "polygon" },
-						{ title: "Artbitrum", value: "arbitrum" },
-						{ title: "Optimism", value: "optimism" },
-						{ title: "Solana", value: "solana" },
+						{ title: "Ethereum", value: "ETH_MAINNET" },
+						{ title: "Polygon", value: "MATIC_MAINNET" },
+						{ title: "Artbitrum", value: "ARB_MAINNET" },
+						{ title: "Optimism", value: "OPT_MAINNET" },
+						{ title: "Solana", value: "SOL_MAINNET" },
 						{ title: "Back", value: "back" },
 					],
 					initial: 0,
@@ -181,10 +181,11 @@ async function run() {
 				}
 
 				context.dappInfo.isEVM =
-					context.dappInfo.chain == "ethereum" ||
-					context.dappInfo.chain == "polygon" ||
-					context.dappInfo.chain == "arbitrum" ||
-					context.dappInfo.chain == "optimism"
+					context.dappInfo.chain == "ETH_MAINNET" ||
+					context.dappInfo.chain == "MATIC_MAINNET" ||
+					context.dappInfo.chain == "ARB_MAINNET" ||
+					context.dappInfo.chain == "OPT_MAINNET" ||
+					context.dappInfo.chain == "SOL_MAINNET"
 						? true
 						: false;
 				step++;
@@ -192,41 +193,47 @@ async function run() {
 
 			case 3:
 				try {
-					if (
-						context.dappInfo.chain === "ethereum" ||
-						context.dappInfo.chain === "polygon"
-					) {
-						const isTestnet: boolean | string = await prompts({
-							type: "select",
-							name: "testnet",
-							message: "Do you want to use a testnet?",
-							choices: [
-								{
-									title: "Yes",
-									value: true,
-								},
-								{ title: "No", value: false },
-								{ title: "Back", value: "back" },
-							],
-							initial: 0,
-							hint: "- You can change it later",
-						}).then((data) => data.testnet);
-						if (typeof isTestnet == "string") {
-							step--;
-							break;
-						} else {
-							context.dappInfo.isTestnet = isTestnet;
-							if (isTestnet) {
-								switch (context.dappInfo.chain) {
-									case "ethereum":
-										context.dappInfo.testnet = "goerli";
-										break;
-									case "polygon":
-										context.dappInfo.testnet = "mumbai";
-								}
+					const isTestnet: boolean | string = await prompts({
+						type: "select",
+						name: "testnet",
+						message: "Do you want to use a testnet?",
+						choices: [
+							{
+								title: "Yes",
+								value: true,
+							},
+							{ title: "No", value: false },
+							{ title: "Back", value: "back" },
+						],
+						initial: 0,
+						hint: "- You can change it later",
+					}).then((data) => data.testnet);
+					if (typeof isTestnet == "string") {
+						step--;
+						break;
+					} else {
+						context.dappInfo.isTestnet = isTestnet;
+						if (isTestnet) {
+							switch (context.dappInfo.chain) {
+								case "ETH_MAINNET":
+									context.dappInfo.testnet = "ETH_GOERLI";
+									break;
+
+								case "MATIC_MAINNET":
+									context.dappInfo.testnet = "MATIC_MUMBAI";
+									break;
+								case "ARB_MAINNET":
+									context.dappInfo.testnet = "ARB_MAINNET";
+									break;
+								case "OPT_MAINNET":
+									context.dappInfo.testnet = "OPT_MAINNET";
+									break;
+								case "SOL_MAINNET":
+									context.dappInfo.testnet = "SOL_DEVNET"
 							}
 						}
 					}
+
 					step++;
 				} catch (e) {
 					selfDestroy(e);
@@ -235,7 +242,7 @@ async function run() {
 				break;
 			case 4:
 				try {
-					if (context.dappInfo.chain !== "solana") {
+					if (context.dappInfo.chain !== "SOL_MAINNET") {
 						await prompts({
 							type: "select",
 							name: "toolkitType",
@@ -327,7 +334,7 @@ async function run() {
 			case 5:
 				try {
 					let useBackend;
-					if (context.dappInfo.chain == "solana") {
+					if (context.dappInfo.chain == "SOL_MAINNET") {
 						useBackend = await prompts({
 							type: "select",
 							name: "useBackend",
@@ -441,7 +448,7 @@ async function run() {
 						initial: "demo",
 					}).then((data) => data.apiKey);
 
-					context.dappInfo.alchemyAPIKey = alchemyAPIKey;
+					context.dappInfo.apiKeys.ALCHEMY_API_KEY = alchemyAPIKey;
 
 					quit = true;
 				} catch (e) {

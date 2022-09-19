@@ -30,11 +30,11 @@ export const buildSmartContract = (smartContractInfo: SmartContractInfo) => {
 			smartContractInfo,
 			getSmartContractSuperClasses(smartContractInfo)
 		);
-		writeStream.write(`
-        ${licenseIdentifier}
-        ${pragmaDeclaration}    
-        ${dependencies.join("\n")}
-        ${smartContractTemplate}
+		writeStream.write(`${licenseIdentifier}
+${pragmaDeclaration}    w
+${dependencies.join("\n")}
+
+${smartContractTemplate}
     `);
 	}
 	writeStream.end();

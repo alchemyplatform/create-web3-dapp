@@ -1,21 +1,26 @@
 {
 	"name": "create-web3-dapp",
-	"version": "0.1.81",
+	"version": "0.1.820",
 	"private": false,
 	"keywords": [
 		"create-web3-dapp",
-		"web3",
+		"create web3 dapp",
 		"boilerplate",
 		"nextjs",
 		"react",
+		"create-react-app",
 		"wagmi",
 		"alchemy",
 		"hardhat",
 		"foundry",
 		"ethereum",
+		"polygon",
 		"solana",
+		"optimism",
+		"arbitrum",
 		"anchor",
 		"tailwind",
+		"metaplex",
 		"chakra-ui"
 	],
 	"scripts": {

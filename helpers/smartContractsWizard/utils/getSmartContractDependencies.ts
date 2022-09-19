@@ -13,8 +13,7 @@ export function getSmartContractDependencies(
             `);
 			break;
 		case SmartContractStandard.ERC721:
-			libraries.push(`import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-            `);
+			libraries.push(`import "@openzeppelin/contracts/token/ERC721/ERC721.sol";`);
 			break;
 		default:
 			return [];
@@ -23,12 +22,15 @@ export function getSmartContractDependencies(
 
 	for (const [key, value] of Object.entries(smartContractInfo)) {
 		if (typeof value == "boolean" && value) {
-			libraries.push(
-				smartContractInfoToDependenciesDictionary[key][standard]
-					.libraryURL
-			);
+			const libraryURL = smartContractInfoToDependenciesDictionary[key][standard]
+				.libraryURL
+			if (libraryURL.length > 0) {
+				libraries.push(
+					libraryURL
+				);
+			}
+			
 		}
 	}
-
 	return libraries;
 }

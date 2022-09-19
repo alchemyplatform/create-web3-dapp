@@ -12,7 +12,7 @@ export const createEnv = (
 		);
 	
 		for (const [key, value] of Object.entries(apiKeys)) {
-			writeStream.write(`${key.toUpperCase()}= ${value}\n`);
+			writeStream.write(`${key.toUpperCase()}=${value}\n`);
 		}
 		writeStream.end();
 	}
