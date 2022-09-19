@@ -3,6 +3,8 @@ import { PrimaryButton } from "./primaryButton";
 import alchemy from "../alchemy";
 import { ethers } from "ethers";
 
+//TEMP WHILE NOT INTERNET
+
 export const SmartContractPlayground = () => {
 	const [contractAddress, setContractAddress] = useState("");
 	const [isLoading, setLoading] = useState(false);

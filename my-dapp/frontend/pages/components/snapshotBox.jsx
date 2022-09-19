@@ -28,7 +28,7 @@ export const SnapshotBox = () => {
 			<input
 				className={styles.form_input}
 				type={"text"}
-				placeholder="Insert block number - leave blank for 'latest'"
+				placeholder="Insert block number - blank for 'latest'"
 				value={block}
 				onChange={(e) => {
 					setBlock(e.target.value);

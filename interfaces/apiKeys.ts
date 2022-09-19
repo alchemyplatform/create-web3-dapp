@@ -1,4 +1,7 @@
 export interface APIKeys {
-	alchemy_api_key?: string | null;
-	private_key?: string | null;
+	ALCHEMY_API_KEY?: string | null;
+	PRIVATE_KEY?: string | null;
+	ETHERSCAN_API_KEY?: string | null;
+	ALCHEMY_NETWORK?: string | null;
+
 }

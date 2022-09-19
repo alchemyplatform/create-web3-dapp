@@ -5,7 +5,9 @@
 	"scripts": {
 		"build": "npx hardhat compile",
 		"deploy-testnet": "npx hardhat run ./scripts/MyContract_deploy.js --network goerli",
-		"deploy": "npx hardhat run ./scripts/MyContract_deploy.js --network ethereum"
+		"deploy-local": "npx hardhat run ./scripts/MyContract_deploy.js --network localhost",
+		"deploy": "npx hardhat run ./scripts/MyContract_deploy.js --network ethereum",
+		"node": "npx hardhat node"
 	},
 	"dependencies": {
 			"@nomiclabs/hardhat-etherscan": "^3.1.0",

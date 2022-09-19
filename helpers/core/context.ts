@@ -28,7 +28,9 @@ const dappInfo: DappInfo = {
 	toolkitType: undefined,
 	hasSmartContract: false,
 	modules: null,
-	alchemyAPIKey: "demo",
+	apiKeys: {
+		ALCHEMY_API_KEY: "demo"
+	}
 };
 
 const projectName = "";

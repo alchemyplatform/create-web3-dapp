@@ -3,6 +3,8 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Panel } from "./components/panels";
 import { Section } from "./layout/section";
 import { SmartContractPlayground } from "./components/smartContractPlayground";
+import { NFTMinter } from "./components/NFTMinter";
+import { SnapshotBox } from "./components/snapshotBox";
 
 export default function Home() {
 	/* WARNING:: the API key will be exposed on the browser - ideally you should get your key through server side rendering
@@ -27,7 +29,10 @@ or get the data directly from your APIs */
 					<Panel></Panel>
 				</Section>
 				<Section>
-					<SmartContractPlayground></SmartContractPlayground>
+					<NFTMinter></NFTMinter>
+				</Section>
+				<Section>
+					<SnapshotBox></SnapshotBox>
 				</Section>
 			</main>
 		</div>

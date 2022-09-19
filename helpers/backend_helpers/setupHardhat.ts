@@ -21,7 +21,7 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	fse.copySync(hardhatTemplate, path.join(projectPath, "backend"));
 
 	
-	createEnv({alchemy_api_key: dappInfo.alchemyAPIKey, private_key:"0x"}, path.join(projectPath, "backend"));
+	createEnv({...dappInfo.apiKeys, ETHERSCAN_API_KEY: "", PRIVATE_KEY: ""}, path.join(projectPath, "backend"));
 	
 
 	const writeStream = createWriteStream(
@@ -36,17 +36,20 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 		networks: {
 			hardhat: {},
 			[dappInfo.chain]: {
-				accounts: "[`0x${process.env.PRIVATE_KEY}`]",
+				accounts: "[`${process.env.PRIVATE_KEY}`]",
 				url: generateAlchemyURL(
 					dappInfo.chain,
 				),
 			},
 		},
+		etberscan: {
+			apiKey: "`${process.env.ETHERSCAN_API_KEY}`"
+		}
 	};
 
 	if (dappInfo.isTestnet && dappInfo.testnet) {
 		modules.networks[dappInfo.testnet] = {
-			accounts: "[`0x${process.env.PRIVATE_KEY}`]",
+			accounts: "[`${process.env.PRIVATE_KEY}`]",
 			url: generateAlchemyURL(
 				dappInfo.testnet,
 			),

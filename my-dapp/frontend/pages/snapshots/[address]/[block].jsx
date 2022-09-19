@@ -1,4 +1,4 @@
-import styles from "../../../styles/Snapshot.module.css";
+import styles from "../../../styles/Snapshots.module.css";
 import { PrimaryButton } from "../../components/primaryButton";
 import { Section } from "../../layout/section";
 
