@@ -28,11 +28,10 @@ or get the data directly from your APIs */
 				<Section>
 					<Panel></Panel>
 				</Section>
+				
 				<Section>
-					<NFTMinter></NFTMinter>
-				</Section>
-				<Section>
-					<SnapshotBox></SnapshotBox>
+					<SmartContractPlayground/>
+					
 				</Section>
 			</main>
 		</div>

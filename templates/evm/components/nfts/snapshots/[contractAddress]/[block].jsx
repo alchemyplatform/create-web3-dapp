@@ -1,22 +1,21 @@
-import styles from "../../../styles/Snapshot.module.css";
+import styles from "../../../styles/Snapshots.module.css";
 import { PrimaryButton } from "../../components/primaryButton";
 import { Section } from "../../layout/section";
 
 export async function getServerSideProps({ params }) {
-	const { address, block } = params;
+	const { contractAddress, block } = params;
 	const contractMetadata = await fetch(
-		"http://localhost:3001/api/getContractMetadata",
+		"http://localhost:3002/api/getContractMetadata",
 		{
 			method: "POST",
-			body: JSON.stringify({ contractAddress: address }),
+			body: JSON.stringify({ contractAddress: contractAddress }),
 		}
 	).then((data) => data.json());
-	console.log(contractMetadata);
 	const fetchedOwnerAddresses = await fetch(
-		"http://localhost:3001/api/getSnapshot",
+		"http://localhost:3002/api/getSnapshot",
 		{
 			method: "POST",
-			body: JSON.stringify({ contractAddress: address, block: block }),
+			body: JSON.stringify({ contractAddress: contractAddress, block: block }),
 		}
 	).then((data) => data.json());
 
@@ -28,8 +27,13 @@ export async function getServerSideProps({ params }) {
 			},
 		};
 
-		return;
 	}
+	return {
+		props: {
+			fetchedOwnerAddresses: null,
+			contractMetadata: null,
+		},
+	};
 }
 
 export default function SnapshotReview({
@@ -56,7 +60,8 @@ export default function SnapshotReview({
 	};
 
 	return (
-		<Section>
+		<Section>{
+			fetchedOwnerAddresses && contractMetadata ? 
 			<div className={styles.container}>
 				<div className={styles.contract_metadata}>
 					<h1>{contractMetadata.name}</h1>
@@ -82,7 +87,7 @@ export default function SnapshotReview({
 						onClickCallback={copyWallets}
 					></PrimaryButton>
 				</div>
-			</div>
+			</div> : <div>404</div>}
 		</Section>
 	);
 }

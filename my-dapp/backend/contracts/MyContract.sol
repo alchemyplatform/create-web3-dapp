@@ -1,5 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
+
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
@@ -41,7 +42,6 @@ contract MyContract is
 
 	function safeMint(address to, string memory uri)
 		public
-		onlyRole(PAUSER_ROLE)
 	{
 		uint256 tokenId = _tokenIdCounter.current();
 		_tokenIdCounter.increment();

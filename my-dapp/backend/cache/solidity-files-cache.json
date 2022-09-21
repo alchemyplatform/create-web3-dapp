@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/vittoriorivabella/create-web3-dapp/my-dapp/backend/contracts/MyContract.sol": {
-      "lastModificationDate": 1663122301446,
-      "contentHash": "bc29368a5878e89226e40bcf00af42b9",
+      "lastModificationDate": 1663784420934,
+      "contentHash": "e9080700e8bbc0612ecfe6b7f408b247",
       "sourceName": "contracts/MyContract.sol",
       "solcConfig": {
         "version": "0.8.9",

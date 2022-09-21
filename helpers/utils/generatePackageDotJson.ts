@@ -73,10 +73,10 @@ export const generatePackageDotJson = (
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
 				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
 				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
-				backendPackageJson["scripts"]["deploy-testnet"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network goerli`;
-				backendPackageJson["scripts"]["deploy"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network ethereum`;
+				backendPackageJson["scripts"]["deploy-testnet"] = `npx hardhat run ./scripts/${hasSmartContract ? (`${contractName}_deploy.js`) : "YOUR_DEPLOY_SCRIPT"} --network ETH_GOERLI`;
+				backendPackageJson["scripts"]["deploy"] = `npx hardhat run ./scripts/${hasSmartContract ? (`${contractName}_deploy.js`) : "YOUR_DEPLOY_SCRIPT"} --network ETH_MAINNET`;
 				backendPackageJson["scripts"]["node"] = `npx hardhat node`;
-				backendPackageJson["scripts"]["deploy-local"] = `npx hardhat run ./scripts/${hasSmartContract ? contractName : ""}_deploy.js --network localhost`;
+				backendPackageJson["scripts"]["deploy-local"] = `npx hardhat run ./scripts/${hasSmartContract ? (`${contractName}_deploy.js`) : "YOUR_DEPLOY_SCRIPT"} --network localhost`;
 
 			
 				break;

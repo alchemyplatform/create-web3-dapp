@@ -1,16 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import alchemy from "../alchemy";
+import alchemy from "../utils/alchemy";
 
 export default async function handler(req, res) {
 	const { method } = req;
 
 	if (method == "POST") {
-		const { contractAddress } = JSON.parse(req.body);
-		const url = `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.ETHERSCAN_API_KEY}`;
+		const { contractAddress, chain } = JSON.parse(req.body);
+		const chainEtherscanURL = getEtherscanEndpointURL(chain);
+		const url = `${chainEtherscanURL}api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.ETHERSCAN_API_KEY}`;
 
-        console.log(contractAddress);
-        
 		const contractABI = await fetch(url, {
 			method: "GET",
 		}).then((data) => data.json());
@@ -21,3 +20,20 @@ export default async function handler(req, res) {
 
 	res.status(400).json({ error: "Request not supported" });
 }
+
+const getEtherscanEndpointURL = (chain) => {
+	switch (chain) {
+		case "ETH_MAINNET":
+			return "https://api.etherscan.io/";
+			break;
+		case "ETH_GOERLI":
+			return "https://api-goerli.etherscan.io/";
+			break;
+		case "MATIC_MAINNET":
+			return "https://api.polygonscan.com/";
+			break;
+		case "MATIC_MUMBAI":
+			return "https://api.polygonscan.com/";
+			break;
+	}
+};

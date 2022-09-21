@@ -69,7 +69,8 @@ export const SmartContractPlayground = () => {
 
 			{components && (
 				<div className={styles.functions_container}>
-					{[...components.readOnlyComponents]} <h2> Write</h2> {[...components.writeComponents]}
+					{[...components.readOnlyComponents]} <h2> Write</h2>{" "}
+					{[...components.writeComponents]}
 				</div>
 			)}
 		</div>

@@ -223,13 +223,13 @@ async function run() {
 									context.dappInfo.testnet = "MATIC_MUMBAI";
 									break;
 								case "ARB_MAINNET":
-									context.dappInfo.testnet = "ARB_MAINNET";
+									context.dappInfo.testnet = "ARB_GOERLI";
 									break;
 								case "OPT_MAINNET":
-									context.dappInfo.testnet = "OPT_MAINNET";
+									context.dappInfo.testnet = "OPT_GOERLI";
 									break;
 								case "SOL_MAINNET":
-									context.dappInfo.testnet = "SOL_DEVNET"
+									context.dappInfo.testnet = "SOL_GOERLI";
 							}
 						}
 					}
@@ -276,6 +276,10 @@ async function run() {
 						) {
 							if (context.dappInfo.toolkitType == "back") {
 								step--;
+								break;
+							}
+							if (context.dappInfo.toolkitType == "blank") {
+								step++;
 								break;
 							}
 
@@ -424,6 +428,10 @@ async function run() {
 								hint: "- This will install the needed dependencies to your project",
 							}).then((data) => data.hasContract);
 
+							if (typeof hasContract == "string") {
+								step--;
+								break;
+							}
 							context.dappInfo.hasSmartContract = hasContract;
 							if (hasContract) {
 								context.contractInfo =
@@ -460,10 +468,11 @@ async function run() {
 	}
 
 	try {
+		console.log(context);
 		mkdir(context.resolvedProjectPath);
 		getProjectFiles(context);
 
-		if (context.contractInfo) {
+		if (context.dappInfo.hasSmartContract && context.contractInfo) {
 			buildSmartContract(context.contractInfo);
 		}
 
