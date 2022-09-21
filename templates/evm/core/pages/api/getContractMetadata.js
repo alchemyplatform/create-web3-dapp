@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import alchemy from "../alchemy";
+import alchemy from "../utils/alchemy";
 
 export default async function handler(req, res) {
 	const { method } = req;

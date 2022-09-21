@@ -1,9 +1,11 @@
-
 export const getModulesInCathegory = (toolkitType: string) => {
 	return components[toolkitType];
 };
 
-export const selectModulesInCathegory = (toolkitType: string, modules: [string]) => {
+export const selectModulesInCathegory = (
+	toolkitType: string,
+	modules: [string]
+) => {
 	for (const component of components[toolkitType]) {
 		if (modules.includes(component.value)) {
 			component.selected = true;
@@ -11,8 +13,7 @@ export const selectModulesInCathegory = (toolkitType: string, modules: [string])
 			component.selected = false;
 		}
 	}
-}
-
+};
 
 const components = {
 	nfts: [
@@ -27,6 +28,12 @@ const components = {
 		{
 			title: "Snapshot Box",
 			value: "snapshotBox",
+		},
+	],
+	utils: [
+		{
+			title: "Smart Contracts Tester",
+			value: "smartContractPlayground",
 		},
 	],
 	defi: [{}],

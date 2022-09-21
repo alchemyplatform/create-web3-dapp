@@ -18,6 +18,9 @@ const modulesToComponentDictionary: ModulesToComponentDictionary = {
 		moduleComponents: ["snapshotBox", "primaryButton"],
 		routes: ["snapshots"],		
 	},
+	smartContractPlayground: {
+		moduleComponents: ["smartContractPlayground","contractFunctions", "primaryButton"],
+	},
 };
 export default modulesToComponentDictionary
 

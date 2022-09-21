@@ -1,5 +1,5 @@
 import { useState } from "react";
-import alchemy from "../utils/alchemy";
+import alchemy from "../../core/pages/utils/alchemy";
 import { ethers } from "ethers";
 import styles from "../../styles/ContractFunction.module.css";
 import { PrimaryButton } from "./primaryButton";

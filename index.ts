@@ -249,6 +249,7 @@ async function run() {
 							message: "What kind of DApp are you building?",
 							choices: [
 								{ title: "NFTs", value: "nfts" },
+								{ title: "Utils", value: "utils" },
 								{
 									title: "DeFi (coming soon)",
 									value: undefined,
