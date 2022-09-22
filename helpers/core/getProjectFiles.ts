@@ -44,7 +44,7 @@ export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) 
 			fse.copySync(template, process.cwd());
 
 		}
-		if (dappInfo.toolkitType && dappInfo.modules) {
+		if (dappInfo.modules) {
 			getComponents(
 				dappInfo.modules,
 				dappInfo.isEVM,

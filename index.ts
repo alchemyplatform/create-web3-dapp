@@ -304,7 +304,6 @@ async function run() {
 
 							if (!continueComponentSelection) {
 								if (
-									context.dappInfo.toolkitType &&
 									context.dappInfo.modules
 								) {
 									selectModulesInCathegory(
@@ -315,7 +314,6 @@ async function run() {
 								break;
 							} else {
 								if (
-									context.dappInfo.toolkitType &&
 									context.dappInfo.modules
 								) {
 									selectModulesInCathegory(

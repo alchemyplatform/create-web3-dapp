@@ -7,7 +7,6 @@ export interface DappInfo {
 	testnet?: string;
 	useBackend: boolean;
 	backendProvider?: string;
-	toolkitType?: string;
 	hasSmartContract: boolean;
 	modules: string[] | null;
 	apiKeys: APIKeys;
