@@ -31,7 +31,7 @@ export const buildSmartContract = (smartContractInfo: SmartContractInfo) => {
 			getSmartContractSuperClasses(smartContractInfo)
 		);
 		writeStream.write(`${licenseIdentifier}
-${pragmaDeclaration}    w
+${pragmaDeclaration}
 ${dependencies.join("\n")}
 
 ${smartContractTemplate}

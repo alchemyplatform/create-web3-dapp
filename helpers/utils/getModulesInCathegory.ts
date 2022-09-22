@@ -6,11 +6,11 @@ export const getModulesInCathegory = (toolkitType: string) => {
 
 export const selectModulesInCathegory = (
 	componentCathegory: string,
-	modulesList: string[]
+	selectedModulesList: string[]
 ) => {
 	
 		for (const component of modulesList[componentCathegory]) {
-			if (modulesList.includes(component.value)) {
+			if (selectedModulesList.includes(component.value)) {
 				component.selected = true;
 			} else {
 				component.selected = false;

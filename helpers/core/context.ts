@@ -25,7 +25,6 @@ const dappInfo: DappInfo = {
 	isTestnet: false,
 	useBackend: false,
 	backendProvider: "",
-	toolkitType: undefined,
 	hasSmartContract: false,
 	modules: null,
 	apiKeys: {

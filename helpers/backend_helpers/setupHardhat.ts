@@ -42,7 +42,7 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 				),
 			},
 		},
-		etberscan: {
+		etherscan: {
 			apiKey: "`${process.env.ETHERSCAN_API_KEY}`"
 		}
 	};

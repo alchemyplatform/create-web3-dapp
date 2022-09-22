@@ -1,10 +1,8 @@
 .container{
     display: flex;
     width: 45rem;
-    align-items: center;
-    justify-content: center;
+
     flex-direction: column;
-    row-gap: .5rem;
 }
 
 .searchBox{
@@ -21,4 +19,12 @@
     width: 60%;
     border-radius: 5px;
     border: 1px solid rgb(221, 221, 221);
+}
+
+
+.functions_container{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
 }

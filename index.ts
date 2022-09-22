@@ -261,12 +261,12 @@ async function run() {
 									value: undefined,
 									disabled: true,
 								},
-								{ title: "Blank", value: undefined },
+								{ title: "Blank", value: "blank" },
 								{ title: "Back", value: "back" },
 							],
 							initial: 0,
 							hint: "- Select Blank to start from scratch",
-						}).then((data) => data);
+						}).then((data) => data.toolkitType);
 
 						if (
 							componentCathegory &&
@@ -290,42 +290,36 @@ async function run() {
 								message: "Select the components to import",
 								choices: [...modules],
 								hint: "- Space to select. Return to submit",
-							}).then((data) => data);
+							}).then((data) => data.modules);
+
+							if (selectedModules) {
+								selectModulesInCathegory(
+									componentCathegory,
+									selectedModules
+								);
+							}
+
 							const continueComponentSelection = await prompts({
 								type: "toggle",
 								name: "continueComponentSelection",
-								message:
-									"Have you completed the components selection?",
+								message: "Continue the components selection?",
 								initial: true,
 								active: "yes",
 								inactive: "no",
 							}).then((data) => data.continueComponentSelection);
-							console.log(context.dappInfo.modules);
 
 							if (!continueComponentSelection) {
-								if (
-									context.dappInfo.modules
-								) {
-									selectModulesInCathegory(
-										componentCathegory,
-										selectedModules
-									);
-								}
+								context.dappInfo.modules = getSelectedModules();
+								step++;
 								break;
 							} else {
-								if (
-									context.dappInfo.modules
-								) {
-									selectModulesInCathegory(
-										componentCathegory,
-										selectedModules
-									);
-								}
-								context.dappInfo.modules = getSelectedModules();
+								break;
 							}
 						}
+					} else {
+						step++;
+						break;
 					}
-					step++;
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -353,11 +347,11 @@ async function run() {
 							hint: "- This will install the needed dependencies to your project",
 						}).then((data) => data.useBackend);
 						if (typeof useBackend == "string") {
-							step--;
+							console.log("going back")
+							step = step-2;
 							break;
-						} else {
-							context.dappInfo.backendProvider = "anchor";
 						}
+						context.dappInfo.backendProvider = "anchor";
 					} else {
 						useBackend = await prompts({
 							type: "select",
@@ -464,7 +458,6 @@ async function run() {
 	}
 
 	try {
-		console.log(context);
 		mkdir(context.resolvedProjectPath);
 		getProjectFiles(context);
 

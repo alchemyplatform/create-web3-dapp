@@ -23,7 +23,7 @@ export const smartContractInfoToDependenciesDictionary = {
 	isOwnable: {
 		ERC721: {
 			libraryURL: `import "@openzeppelin/contracts/access/Ownable.sol";`,
-			extends: "ERC721",
+			extends: "Ownable",
 		},
 		ERC20: `import "@openzeppelin/contracts/access/Ownable.sol";`,
 	},

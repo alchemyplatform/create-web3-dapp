@@ -1,18 +1,35 @@
-import { useState } from "react";
-import alchemy from "../../core/pages/utils/alchemy";
+import { useState, useEffect } from "react";
+import alchemy from "../utils/alchemy";
 import { ethers } from "ethers";
 import styles from "../../styles/ContractFunction.module.css";
 import { PrimaryButton } from "./primaryButton";
 
-export const ContractViewFunction = ({
-	address,
-	resultValue,
-	name,
-	inputs,
-	abi,
-}) => {
+export const ContractViewFunction = ({ address, name, inputs, abi }) => {
 	const [output, setOutput] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	const callNoInputContractFunction = () => {
+		setLoading(true);
+		try {
+			alchemy.config.getProvider().then((provider) => {
+				setLoading(true);
+				const contract = new ethers.Contract(address, abi, provider);
+				contract[name]().then((output) => {
+					setLoading(false);
+					setOutput(output.toString());
+				});
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	useEffect(() => {
+		if (!inputs) {
+			callNoInputContractFunction();
+		}
+	}, []);
 
 	const callContractFunction = (functionName, params) => {
 		alchemy.config
@@ -35,6 +52,21 @@ export const ContractViewFunction = ({
 			})
 			.catch((e) => console.log(e));
 	};
+	if (loading)
+		return (
+			<>
+				<div
+					onClick={() => {
+						setIsOpen(!isOpen);
+						console.log(isOpen);
+					}}
+					className={styles.accordion}
+				>
+					<h4>{name}</h4>
+				</div>
+				<p>Loading...</p>
+			</>
+		);
 
 	return (
 		<>
@@ -56,10 +88,16 @@ export const ContractViewFunction = ({
 						}
 					)}
 
-				{resultValue && <p>{resultValue}</p>}
 				<div className={styles.output_container}>
 					{output && <p>{output}</p>}
 				</div>
+
+				{!inputs && (
+					<PrimaryButton
+						text={"Refresh"}
+						onClickCallback={callNoInputContractFunction}
+					></PrimaryButton>
+				)}
 			</div>
 		</>
 	);

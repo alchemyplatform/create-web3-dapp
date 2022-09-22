@@ -5,14 +5,14 @@ import { Section } from "../../layout/section";
 export async function getServerSideProps({ params }) {
 	const { contractAddress, block } = params;
 	const contractMetadata = await fetch(
-		"http://localhost:3002/api/getContractMetadata",
+		"http://localhost:3001/api/getContractMetadata",
 		{
 			method: "POST",
 			body: JSON.stringify({ contractAddress: contractAddress }),
 		}
 	).then((data) => data.json());
 	const fetchedOwnerAddresses = await fetch(
-		"http://localhost:3002/api/getSnapshot",
+		"http://localhost:3001/api/getSnapshot",
 		{
 			method: "POST",
 			body: JSON.stringify({ contractAddress: contractAddress, block: block }),

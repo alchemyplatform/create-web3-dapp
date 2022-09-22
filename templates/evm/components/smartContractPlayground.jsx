@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { PrimaryButton } from "./primaryButton";
-import alchemy from "../utils/alchemy";
 import { ethers } from "ethers";
 import styles from "../../styles/SmartContractPlayground.module.css";
 
@@ -189,18 +188,14 @@ const generateReadOnlyComponent = async (
 	address
 ) => {
 	let components = [];
-	const provider = await alchemy.config.getProvider();
-	const contract = new ethers.Contract(address, abi, provider);
+
 	for (const tempAbi of viewFunctionsABIList.withoutInput) {
 		try {
-			const output = await contract[tempAbi.name]();
-			if (typeof output == "object") {
-				output = output.toString();
-			}
 			const component = (
 				<ContractViewFunction
-					resultValue={output.toString()}
+					address={address}
 					name={tempAbi.name}
+					abi={abi}
 				/>
 			);
 			components.push(component);
