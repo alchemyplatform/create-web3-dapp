@@ -1,41 +1,32 @@
+import { modulesList } from "./modulesList.js";
+
 export const getModulesInCathegory = (toolkitType: string) => {
-	return components[toolkitType];
+	return modulesList[toolkitType];
 };
 
 export const selectModulesInCathegory = (
-	toolkitType: string,
-	modules: [string]
+	componentCathegory: string,
+	modulesList: string[]
 ) => {
-	for (const component of components[toolkitType]) {
-		if (modules.includes(component.value)) {
-			component.selected = true;
-		} else {
-			component.selected = false;
+	
+		for (const component of modulesList[componentCathegory]) {
+			if (modulesList.includes(component.value)) {
+				component.selected = true;
+			} else {
+				component.selected = false;
+			}
+		}
+	};
+
+export const getSelectedModules = () => {
+	const selectedModules: string[] = [];
+	for (const [key, value] of Object.entries(modulesList)) {
+		for (const module of value) {
+			if (module.selected) {
+				selectedModules.push(module.value);
+			}
 		}
 	}
+	return selectedModules;
 };
 
-const components = {
-	nfts: [
-		{
-			title: "NFTs Gallery",
-			value: "nftGallery",
-		},
-		{
-			title: "NFT Details PopUp",
-			value: "nftDetailsPopUp",
-		},
-		{
-			title: "Snapshot Box",
-			value: "snapshotBox",
-		},
-	],
-	utils: [
-		{
-			title: "Smart Contracts Tester",
-			value: "smartContractPlayground",
-		},
-	],
-	defi: [{}],
-	governance: [{}],
-};

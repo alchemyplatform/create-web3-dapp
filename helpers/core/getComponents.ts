@@ -1,25 +1,24 @@
 import fse from "fs-extra";
+import { Module } from "../../interfaces/Module"
 import path from "path";
 import { getComponentsFromModules } from "../utils/getComponentsFromModules.js"
 import { getHooksFromComponents } from "../utils/getHooksFromComponents.js"
 import { getRoutesFromComponents } from "../utils/getRoutesFromComponents.js"
 
 export const getComponents = (
-	toolkitType: string,
-	modules: [string],
+	modules: string[],
 	isEVM: boolean,
 	useBackend: boolean
 ) => {
 	
-	const components = getComponentsFromModules(toolkitType, modules)
-
+	const components = getComponentsFromModules(modules)
+	console.log(components)
 	for (const component of components) {
 		const fromComponentPath = path.join(
 			process.cwd(),
 			"templates",
 			isEVM ? "evm" : "solana",
 			"components",
-			toolkitType,
 			`${component + ".jsx"}`
 		);
 
@@ -36,7 +35,6 @@ export const getComponents = (
 			"templates",
 			isEVM ? "evm" : "solana",
 			"components",
-			toolkitType,
 			`${component.charAt(0).toUpperCase() + component.slice(1)}.module.css`
 		)
 		let toComponentStylePath = "";
@@ -77,7 +75,6 @@ export const getComponents = (
 				"templates",
 				isEVM ? "evm" : "solana",
 				"components",
-				toolkitType,
 				`${route}`
 			);
 	
@@ -94,7 +91,6 @@ export const getComponents = (
 			"templates",
 			isEVM ? "evm" : "solana",
 			"components",
-			toolkitType,
 			`${route.charAt(0).toUpperCase() + route.slice(1)}.module.css`
 		)
 		let toComponentStylePath = "";

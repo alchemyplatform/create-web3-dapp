@@ -1,6 +1,7 @@
 import modulesToComponentDictionary from "./modulesToComponentDictionary.js"
+import { Module } from "../../interfaces/Module"
 
-export const getComponentsFromModules = (toolkitType : string, modules: [string]) => {
+export const getComponentsFromModules = (modules: string[]) => {
     const components : string[] = [];
     
     for (const module of modules) {
@@ -9,6 +10,7 @@ export const getComponentsFromModules = (toolkitType : string, modules: [string]
             if (!components.includes(moduleComponent)) {
                 components.push(moduleComponent)
             }
+            
             if (!modules.includes(moduleComponent)) {
                 modules.push(moduleComponent)
             }

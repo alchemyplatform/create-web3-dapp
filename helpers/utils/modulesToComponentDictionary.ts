@@ -1,4 +1,3 @@
-import { Interface } from "readline";
 
 const modulesToComponentDictionary: ModulesToComponentDictionary = {
 	nftGallery: {

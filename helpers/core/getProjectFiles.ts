@@ -46,13 +46,11 @@ export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) 
 		}
 		if (dappInfo.toolkitType && dappInfo.modules) {
 			getComponents(
-				dappInfo.toolkitType,
 				dappInfo.modules,
 				dappInfo.isEVM,
 				dappInfo.useBackend
 			);
 
-			// getHooks()
 		}
 
 		bar1.update(200);

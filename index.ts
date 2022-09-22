@@ -16,6 +16,7 @@ import { smartContractWizard } from "./helpers/smartContractsWizard/smartContrac
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import {
 	getModulesInCathegory,
+	getSelectedModules,
 	selectModulesInCathegory,
 } from "./helpers/utils/getModulesInCathegory.js";
 
@@ -243,10 +244,10 @@ async function run() {
 			case 4:
 				try {
 					if (context.dappInfo.chain !== "SOL_MAINNET") {
-						await prompts({
+						const componentCathegory = await prompts({
 							type: "select",
 							name: "toolkitType",
-							message: "What kind of DApp are you building?",
+							message: "Select a components cathegory",
 							choices: [
 								{ title: "NFTs", value: "nfts" },
 								{ title: "Utils", value: "utils" },
@@ -265,71 +266,67 @@ async function run() {
 							],
 							initial: 0,
 							hint: "- Select Blank to start from scratch",
-						}).then(
-							(data) =>
-								(context.dappInfo.toolkitType =
-									data.toolkitType)
-						);
+						}).then((data) => data);
 
 						if (
-							context.dappInfo.toolkitType &&
-							typeof context.dappInfo.toolkitType === "string"
+							componentCathegory &&
+							typeof componentCathegory === "string"
 						) {
-							if (context.dappInfo.toolkitType == "back") {
+							if (componentCathegory == "back") {
 								step--;
 								break;
 							}
-							if (context.dappInfo.toolkitType == "blank") {
+							if (componentCathegory == "blank") {
 								step++;
 								break;
 							}
 
-							const modules = getModulesInCathegory(
-								context.dappInfo.toolkitType
-							);
+							const modules =
+								getModulesInCathegory(componentCathegory);
 
-							await prompts({
+							const selectedModules = await prompts({
 								type: "multiselect",
 								name: "modules",
-								message: "Import template react components",
+								message: "Select the components to import",
 								choices: [...modules],
 								hint: "- Space to select. Return to submit",
-							}).then(
-								(data) =>
-									(context.dappInfo.modules = data.modules)
-							);
+							}).then((data) => data);
 							const continueComponentSelection = await prompts({
 								type: "toggle",
 								name: "continueComponentSelection",
-								message: "Confirm components selection?",
+								message:
+									"Have you completed the components selection?",
 								initial: true,
 								active: "yes",
 								inactive: "no",
 							}).then((data) => data.continueComponentSelection);
+							console.log(context.dappInfo.modules);
+
 							if (!continueComponentSelection) {
 								if (
 									context.dappInfo.toolkitType &&
 									context.dappInfo.modules
 								) {
 									selectModulesInCathegory(
-										context.dappInfo.toolkitType,
-										context.dappInfo.modules
+										componentCathegory,
+										selectedModules
 									);
 								}
 								break;
+							} else {
+								if (
+									context.dappInfo.toolkitType &&
+									context.dappInfo.modules
+								) {
+									selectModulesInCathegory(
+										componentCathegory,
+										selectedModules
+									);
+								}
+								context.dappInfo.modules = getSelectedModules();
 							}
 						}
 					}
-					if (
-						context.dappInfo.toolkitType &&
-						context.dappInfo.modules
-					) {
-						selectModulesInCathegory(
-							context.dappInfo.toolkitType,
-							context.dappInfo.modules
-						);
-					}
-
 					step++;
 				} catch (e) {
 					selfDestroy(e);

@@ -9,6 +9,6 @@ export interface DappInfo {
 	backendProvider?: string;
 	toolkitType?: string;
 	hasSmartContract: boolean;
-	modules: [string] | null;
+	modules: string[] | null;
 	apiKeys: APIKeys;
 }
