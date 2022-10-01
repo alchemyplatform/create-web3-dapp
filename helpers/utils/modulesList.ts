@@ -19,7 +19,7 @@ export const modulesList: ModulesList = {
 	utils: [
 		{
 			title: "Smart Contracts Tester",
-			value: "smartContractPlayground",
+			value: "smartContractTester",
 		},
 	],
 };

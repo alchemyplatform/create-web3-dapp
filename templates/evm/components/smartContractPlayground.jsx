@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PrimaryButton } from "./primaryButton";
 import { ethers } from "ethers";
-import styles from "../../styles/SmartContractPlayground.module.css";
+import styles from "../../styles/SmartContractTester.module.css";
 
 import {
 	ContractViewFunction,
@@ -9,7 +9,7 @@ import {
 } from "./contractFunction";
 import { useSigner } from "wagmi";
 
-export const SmartContractPlayground = () => {
+export const SmartContractPlayground = ({ chain }) => {
 	const [contractAddress, setContractAddress] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [components, setComponents] = useState(null);
@@ -22,7 +22,7 @@ export const SmartContractPlayground = () => {
 				method: "POST",
 				body: JSON.stringify({
 					contractAddress: contractAddress,
-					chain: "ETH_GOERLI",
+					chain: typeof chain == "string" ? chain : "ETH_MAINNET",
 				}),
 			})
 				.then((res) => res.json())

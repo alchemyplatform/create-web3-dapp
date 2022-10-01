@@ -42,10 +42,22 @@ export const smartContractWizard = async (): Promise<
 				description: "Create a NFTs Smart Contract",
 			},
 			{
+				title: "ERC721A",
+				value: "ERC721A",
+				disabled: true,
+				description: "Coming soon",
+			},
+			{
+				title: "ERC1155",
+				value: "ERC1155",
+				disabled: true,
+				description: "Coming soon",
+			},
+			{
 				title: "ERC20",
 				value: "ERC20",
 				disabled: true,
-				description: "Create a Token Smart Contract",
+				description: "Coming soon",
 			},
 		],
 		hint: "- Space to select. Return to submit",
