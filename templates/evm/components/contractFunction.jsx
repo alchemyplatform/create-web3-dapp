@@ -11,18 +11,18 @@ export const ContractViewFunction = ({ address, name, inputs, abi }) => {
 
 	const callNoInputContractFunction = () => {
 		setLoading(true);
-		try {
-			alchemy.config.getProvider().then((provider) => {
-				setLoading(true);
-				const contract = new ethers.Contract(address, abi, provider);
-				contract[name]().then((output) => {
+		alchemy.config.getProvider().then((provider) => {
+			setLoading(true);
+			const contract = new ethers.Contract(address, abi, provider);
+			contract[name]()
+				.then((output) => {
 					setLoading(false);
 					setOutput(output.toString());
+				})
+				.catch((e) => {
+					console.log("NETWORK ERROR: CHANGE ALCHEMY NETWORK");
 				});
-			});
-		} catch (e) {
-			console.log(e);
-		}
+		});
 	};
 
 	useEffect(() => {
@@ -35,10 +35,12 @@ export const ContractViewFunction = ({ address, name, inputs, abi }) => {
 		alchemy.config
 			.getProvider()
 			.then((provider) => {
+				console.log("calling contract function");
 				const contract = new ethers.Contract(address, abi, provider);
 				console.log(...params);
 				contract[functionName](...params)
 					.then((output) => {
+						console.log(output.toString());
 						if (typeof output == "object") {
 							output = output.toString();
 						}
@@ -88,9 +90,7 @@ export const ContractViewFunction = ({ address, name, inputs, abi }) => {
 						}
 					)}
 
-				<div className={styles.output_container}>
-					{output && <p>{output}</p>}
-				</div>
+				{output && <p className={styles.output_container}>{output}</p>}
 
 				{!inputs && (
 					<PrimaryButton
@@ -109,17 +109,23 @@ export const ContractWriteFunction = ({ contract, name, inputs }) => {
 
 	const callContractFunction = (functionName, params) => {
 		contract[functionName](...params)
-			.then((output) => {
-				if (typeof output == "object") {
-					output = output.toString();
-				}
-				setOutput(output);
+			.then((tx) => {
+				setOutput("Waiting for transaction to be confirmed...");
+				tx.wait().then((tx) => {
+					console.log(tx);
+					setOutput(JSON.stringify(tx));
+					// if (typeof tx == "object") {
+					// 	output = output.toString();
+					// }
+					// setOutput(output);
+				});
 			})
-			.catch((e) =>
+			.catch((e) => {
+				console.log(e);
 				setOutput(
 					"Something went wrong, check your inputs and try again."
-				)
-			);
+				);
+			});
 	};
 
 	return (
@@ -141,7 +147,8 @@ export const ContractWriteFunction = ({ contract, name, inputs }) => {
 							return inputField;
 						}
 					)}
-				{output && <p>{output}</p>}
+
+				{output && <p className={styles.output_container}>{output}</p>}
 			</div>
 		</>
 	);

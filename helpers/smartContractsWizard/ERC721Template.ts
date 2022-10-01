@@ -98,7 +98,7 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 	}
     
     ${
-		smartContractInfo.isBurnable
+		(smartContractInfo.isBurnable || smartContractInfo.isURIStorage)
 			? `function _burn(uint256 tokenId) internal override(ERC721 ${
 					smartContractInfo.isURIStorage ? ", ERC721URIStorage" : ""
 			  }) {

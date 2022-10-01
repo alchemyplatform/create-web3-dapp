@@ -41,7 +41,10 @@ export const SmartContractPlayground = ({ chain }) => {
 					).then((components) => {
 						setComponents(components);
 					});
-				}).catch(e=>{console.log("Error:", e)});
+				})
+				.catch((e) => {
+					console.log("Error:", e);
+				});
 		} catch (e) {
 			setComponents();
 		}
@@ -68,7 +71,9 @@ export const SmartContractPlayground = ({ chain }) => {
 
 			{components && (
 				<div className={styles.functions_container}>
-					{[...components.readOnlyComponents]} <h2> Write</h2>{" "}
+					<h2> Read</h2>
+					{[...components.readOnlyComponents]}
+					<h2> Write</h2>
 					{[...components.writeComponents]}
 				</div>
 			)}
@@ -93,11 +98,9 @@ const filterList = (smartContractABI) => {
 				case "view":
 					if (abi.inputs.length) {
 						const { name, inputs, outputs } = abi;
-						console.log("pushing readfunction", name);
 						readFunctions.withInput.push({ name, inputs, outputs });
 					} else {
 						const { name, inputs } = abi;
-						console.log(name);
 						readFunctions.withoutInput.push({ name, inputs });
 					}
 					break;
@@ -106,7 +109,6 @@ const filterList = (smartContractABI) => {
 				case "nonpayable":
 					if (abi.inputs.length) {
 						const { name, inputs, outputs } = abi;
-						console.log("pushing", name);
 
 						writeFunctions.withInput.push({
 							name,
@@ -152,7 +154,6 @@ const generateWriteComponent = async (
 	signer
 ) => {
 	let components = [];
-	console.log(writeFunctionsABIList.withInput);
 	const contract = new ethers.Contract(contractAddress, abi, signer);
 	for (const tempAbi of writeFunctionsABIList.withoutInput) {
 		try {
@@ -178,7 +179,6 @@ const generateWriteComponent = async (
 		);
 		components.push(component);
 	}
-	console.log(components);
 	return components;
 };
 

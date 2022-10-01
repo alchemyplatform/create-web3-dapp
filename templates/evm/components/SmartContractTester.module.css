@@ -26,5 +26,5 @@
     width:100%;
     display: flex;
     flex-direction: column;
-    row-gap: .5rem;
+    row-gap: .8rem;
 }

@@ -2,17 +2,17 @@ import styles from "../../../styles/Snapshots.module.css";
 import { PrimaryButton } from "../../components/primaryButton";
 import { Section } from "../../layout/section";
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req }) {
 	const { contractAddress, block } = params;
 	const contractMetadata = await fetch(
-		"http://localhost:3001/api/getContractMetadata",
+		`http://${req.headers.host}/api/getContractMetadata`,
 		{
 			method: "POST",
 			body: JSON.stringify({ contractAddress: contractAddress }),
 		}
 	).then((data) => data.json());
 	const fetchedOwnerAddresses = await fetch(
-		"http://localhost:3001/api/getSnapshot",
+		`http://${req.headers.host}/api/getSnapshot`,
 		{
 			method: "POST",
 			body: JSON.stringify({ contractAddress: contractAddress, block: block }),

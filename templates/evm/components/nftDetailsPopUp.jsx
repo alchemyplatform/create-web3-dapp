@@ -37,14 +37,17 @@ export const NFTDetailsPopUp = ({ nft, isOpen, setIsOpen }) => {
 			<div className={styles.nftDetails_flexbox}>
 				<img
 					className={styles.nftImage}
-					src={nft.media[0].gateway}
+					src={
+						nft.media[0] && nft.media[0].gateway
+							? nft.media[0].gateway
+							: ""
+					}
 				></img>
 				<div className={styles.metadata_container}>
 					<div>
 						<h3>Description</h3>
 						<p className={styles.description}>{nft.description}</p>
 					</div>
-				
 
 					<div>
 						<div>

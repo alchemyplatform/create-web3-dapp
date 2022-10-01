@@ -1,12 +1,15 @@
+import useComponentVisible from "../../hooks/useComponentVisible";
 import styles from "../../styles/NftCard.module.css";
-import {PrimaryButton} from "./primaryButton"
+import { PrimaryButton } from "./primaryButton"
+import { NFTDetailsPopUp } from "./nftDetailsPopUp";
 export const NFTCard = ({ nft }) => {
+	const {ref, isComponentVisible, setIsComponentVisible} = useComponentVisible()
 	return (
 		<div id={nft.id} className={styles.card_container}>
 			<div className={styles.image_container}>
 				<img
 					className={styles.nft_image}
-					src={nft.media[0].gateway}
+					src={nft.media[0] && nft.media[0].gateway ? nft.media[0].gateway  : "" }
 				></img>
 			</div>
 
@@ -18,7 +21,10 @@ export const NFTCard = ({ nft }) => {
 				</p>
 			</div>
 			<div className={styles.card_button_container}>
-				<PrimaryButton text={"More"}></PrimaryButton>
+				<PrimaryButton text={"More"} onClickCallback={()=>{setIsComponentVisible(true)}}></PrimaryButton>
+			</div>
+			<div ref={ref}>
+				<NFTDetailsPopUp nft={nft} isOpen={isComponentVisible} setIsOpen={setIsComponentVisible}></NFTDetailsPopUp>
 			</div>
 		</div>
 	);

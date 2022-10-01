@@ -1,48 +1,52 @@
 .accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 0.7rem 1.2rem;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.open{
+
+  display: flex !important;
+  gap: .5rem;
+  margin: .5rem 0;
+  flex-wrap: wrap;
+  align-items: center;
+  transition: 0.4s;
+
+}
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 1rem;
+  background-color: white;
+  display: none;
+  width: 100%;
+
+}
+
+
+.input{
     padding: 0.7rem 1.2rem;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-  }
-  
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-  .active, .accordion:hover {
-    background-color: #ccc; 
-  }
-  
-  .open{
+    width: 40%;
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221);
 
-    display: flex !important;
-    gap: .5rem;
-    margin: .5rem 0;
-    flex-wrap: wrap;
-    align-items: center;
-    transition: 0.4s;
+}
 
-  }
-  /* Style the accordion panel. Note: hidden by default */
-  .panel {
-    padding: 0 1rem;
-    background-color: white;
-    display: none;
-    width: 100%;
-  
-  }
-
-
-  .input{
-      padding: 0.7rem 1.2rem;
-      width: 40%;
-      border-radius: 5px;
-      border: 1px solid rgb(221, 221, 221);
-  
-  }
-
-  .output_container{
-    
-  }
+.output_container{
+  background-color: rgb(241, 241, 241);
+  padding: 0.7rem 1.2rem;
+  width: 100%;
+  overflow: scroll;
+  margin-top: .5rem;
+}
