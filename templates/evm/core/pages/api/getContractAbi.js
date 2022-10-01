@@ -12,7 +12,9 @@ export default async function handler(req, res) {
         
 		const contractABI = await fetch(url, {
 			method: "GET",
-		}).then((data) => data.json());
+		}).then((data) => data.json()).catch(e => {
+			res.status(500).json({ message: "Etherscan error, check the service status" })
+		});
 		res.status(200).json(contractABI);
 
 		return;

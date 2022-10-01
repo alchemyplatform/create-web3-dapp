@@ -41,7 +41,7 @@ export const SmartContractPlayground = ({ chain }) => {
 					).then((components) => {
 						setComponents(components);
 					});
-				});
+				}).catch(e=>{console.log("Error:", e)});
 		} catch (e) {
 			setComponents();
 		}

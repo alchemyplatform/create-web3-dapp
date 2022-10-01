@@ -73,7 +73,7 @@ export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) 
 			}
 		}
 
-		createEnv({...dappInfo.apiKeys, ALCHEMY_NETWORK: dappInfo.isTestnet ? dappInfo.testnet : dappInfo.chain, ETHERSCAN_API_KEY: ""}, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
+		createEnv({...dappInfo.apiKeys, ETHERSCAN_API_KEY: ""}, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
 		copyFile("utils", "README.md", process.cwd());
 		cleanUpFiles(dappInfo.useBackend)
 		console.log("Project files copied ✅");
