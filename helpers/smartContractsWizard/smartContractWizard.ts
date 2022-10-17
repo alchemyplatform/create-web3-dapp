@@ -16,21 +16,7 @@ export const smartContractWizard = async (): Promise<
 		message: "Choose a name for your contract",
 	}).then((data) => data.contractName.trim().replace(/[\W_]+/g, "-"));
 
-	while (contractName.length < 3) {
-		contractName = await prompts({
-			type: "text",
-			name: "contractName",
-			initial: `MyContract`,
-			message:
-				"Choose a name for your contract - Name must be longer than 3 character",
-		}).then((data) => data.contractName.trim().replace(/[\W_]+/g, "-"));
-	}
-	const symbol = await prompts({
-		type: "text",
-		name: "contractSymbol",
-		initial: contractName.slice(0, 3).toUpperCase(),
-		message: "Choose a symbol for your contract",
-	}).then((data) => data.contractSymbol.trim().replace(/[\W_]+/g, ""));
+
 	let standard = await prompts({
 		type: "select",
 		name: "contractStandard",
@@ -107,6 +93,21 @@ export const smartContractWizard = async (): Promise<
 			return;
 		}
 	}
+	while (contractName.length < 3) {
+		contractName = await prompts({
+			type: "text",
+			name: "contractName",
+			initial: `MyContract`,
+			message:
+				"Choose a name for your contract - Name must be longer than 3 character",
+		}).then((data) => data.contractName.trim().replace(/[\W_]+/g, "-"));
+	}
+	const symbol = await prompts({
+		type: "text",
+		name: "contractSymbol",
+		initial: contractName.slice(0, 3).toUpperCase(),
+		message: "A short version of the name of your smart contract",
+	}).then((data) => data.contractSymbol.trim().replace(/[\W_]+/g, ""));
 
 	const librariesForStandard = getAvailableLibrariesForStandard(standard);
 	const selectedLibraries = await prompts({

@@ -277,6 +277,8 @@ async function run() {
 								break;
 							}
 							if (componentCathegory == "blank") {
+								context.dappInfo.modules = getSelectedModules();
+								console.log(context.dappInfo.modules);
 								step++;
 								break;
 							}
@@ -310,6 +312,7 @@ async function run() {
 
 							if (!continueComponentSelection) {
 								context.dappInfo.modules = getSelectedModules();
+								console.log(context.dappInfo.modules);
 								step++;
 								break;
 							} else {
@@ -337,18 +340,18 @@ async function run() {
 								{
 									title: "Yes",
 									description:
-										"This option has a description",
+									"It will install the needed dependencies",
 									value: true,
 								},
 								{ title: "No", value: false },
 								{ title: "Back", value: "back" },
 							],
 							initial: 0,
-							hint: "- This will install the needed dependencies to your project",
+							hint: "- Used to compile, deploy, and test smart contracts.",
 						}).then((data) => data.useBackend);
 						if (typeof useBackend == "string") {
-							console.log("going back")
-							step = step-2;
+							console.log("going back");
+							step = step - 2;
 							break;
 						}
 						context.dappInfo.backendProvider = "anchor";
@@ -362,14 +365,14 @@ async function run() {
 								{
 									title: "Yes",
 									description:
-										"This option has a description",
+										"It will install the needed dependencies",
 									value: true,
 								},
 								{ title: "No", value: false },
 								{ title: "Back", value: "back" },
 							],
 							initial: 0,
-							hint: "- This will install the needed dependencies to your project",
+							hint: "- Used to compile, deploy, and test smart contracts.",
 						}).then((data) => data.useBackend);
 						if (typeof useBackend == "string") {
 							step--;
@@ -415,7 +418,7 @@ async function run() {
 									{ title: "Back", value: "back" },
 								],
 								initial: 0,
-								hint: "- This will install the needed dependencies to your project",
+								hint: "- Create smart contracts directly from the CLI.",
 							}).then((data) => data.hasContract);
 
 							if (typeof hasContract == "string") {
@@ -442,7 +445,7 @@ async function run() {
 						type: "text",
 						name: "apiKey",
 						message:
-							"Insert your Alchemy API Key (from https://dashboard.alchemy.com -- default: 'demo')",
+							"Insert your Alchemy API Key or create an account at https://alchemy.com/?a=create-web3-dapp ",
 						initial: "demo",
 					}).then((data) => data.apiKey);
 

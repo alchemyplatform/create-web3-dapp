@@ -5,11 +5,11 @@ export const logInstructions = (useBackend) => {
     console.log("⚡️ Quick start:")
     let step = 1;
     console.log(
-        `${step}. Create a new free account on ${chalk.blue(`https://alchemy.com`)}`
+        `${step}. Create a new free account on ${chalk.blue(`https://alchemy.com/?a=create-web3-dapp`)}`
     );
     step++
     console.log(
-        `${step}. Visit ${chalk.blue(`https://docs.alchemy.com/`)} for the documentation`
+        `${step}. Visit ${chalk.blue(`https://docs.alchemy.com/?a=create-web3-dapp`)} for the documentation`
     );
     step++
     if (useBackend) {

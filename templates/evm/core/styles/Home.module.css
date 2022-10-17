@@ -25,10 +25,11 @@
 
 .navbar {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	width: 100%;
 	margin-bottom: 3rem;
-	padding: 2rem 4rem 0.8rem 2rem;
+	padding: 2rem 2rem 0.8rem 2rem;
+	gap: 2rem;
 }
 
 .logo_container {
@@ -42,4 +43,24 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+}
+
+.docs_box{
+	color: rgb(23, 23, 23);
+	background-color: #0664de1b;
+	padding: .5rem 1.4rem;
+	border-radius: 6px;
+	transition: background-color 0.3s ease;
+
+	
+}
+
+.alchemy_logo{
+	width: 8rem;
+	cursor: pointer;
+}
+
+.docs_box:hover{
+	background-color: #0664de32;
+	
 }
