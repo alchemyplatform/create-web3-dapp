@@ -3,6 +3,7 @@ import {
 	ConnectionProvider,
 	WalletProvider,
 } from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import * as web3 from "@solana/web3.js";
 import { useMemo } from "react";
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<ConnectionProvider endpoint={endpoint}>
 			<WalletProvider wallets={wallets}>
-				<Component {...pageProps} />
+				<WalletModalProvider>
+					<Component {...pageProps} />
+				</WalletModalProvider>
 			</WalletProvider>
 		</ConnectionProvider>
 	);
