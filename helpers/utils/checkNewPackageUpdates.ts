@@ -8,6 +8,7 @@ export const checkNewPackageUpdates = async () => {
 		const command = "npm outdated --location=global";
 		const output = execSync(command);
 	} catch (error: any) {
+		console.log(error.stdout.toString())
 		if (error.stdout.toString().includes("create-web3-dapp")) {
 			const wantsToUpdate: boolean | string = await prompts({
 				type: "select",

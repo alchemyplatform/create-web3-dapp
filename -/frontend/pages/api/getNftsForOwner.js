@@ -7,18 +7,14 @@ export default async function handler(req, res) {
 
 	if (method == "POST") {
 		const { address } = JSON.parse(req.body);
-		if (address) {
-			const nfts = await alchemy.nft
-				.getNftsForOwner(address)
-				.then((data) => data.ownedNfts);
-			res.status(200).json(nfts);
-		} else {
-			res.status(500).json({ error: "Missing contract address" });
-		}
+
+		const nfts = await alchemy.nft
+			.getNftsForOwner(address)
+			.then((data) => data.ownedNfts);
+		res.status(200).json(nfts);
 
 		return;
 	}
 
 	res.status(400).json({ error: "Request not supported" });
-	return;
 }

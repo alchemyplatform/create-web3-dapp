@@ -9,7 +9,7 @@ import {
 } from "./contractFunction";
 import { useSigner } from "wagmi";
 
-export const SmartContractTester = ({ chain }) => {
+export const SmartContractPlayground = ({ chain }) => {
 	const [contractAddress, setContractAddress] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [components, setComponents] = useState(null);

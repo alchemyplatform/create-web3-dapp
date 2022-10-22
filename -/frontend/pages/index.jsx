@@ -4,11 +4,13 @@ import { Panel } from "./components/panels";
 import { Section } from "./layout/section";
 
 export default function Home() {
+	/* WARNING:: the API key will be exposed on the browser - ideally you should get your key through server side rendering
+or get the data directly from your APIs */
+
 	return (
 		<div>
 			<header className={styles.header_container}>
 				<nav className={styles.navbar}>
-					// The following content can be deleted
 					<a
 						href="https://alchemy.com/?a=create-web3-dapp"
 						target={"_blank"}
@@ -18,10 +20,9 @@ export default function Home() {
 							src="/alchemy_logo.svg"
 						></img>
 					</a>
-					// The above content can be deleted
+
 					<ConnectButton></ConnectButton>
 				</nav>
-				// The following content can be deleted
 				<div className={styles.logo_container}>
 					<h1 className={styles.logo}>🔮</h1>
 					<h1>create-web3-dapp</h1>
@@ -29,14 +30,12 @@ export default function Home() {
 						Visit the documentation to get started
 					</a>
 				</div>
-				// The above content can be deleted
 			</header>
 			<main className={styles.main}>
 				<Section>
 					<Panel></Panel>
 				</Section>
 			</main>
-			// The above content can be deleted
 		</div>
 	);
 }

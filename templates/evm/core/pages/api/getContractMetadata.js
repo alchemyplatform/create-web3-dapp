@@ -7,13 +7,18 @@ export default async function handler(req, res) {
 
 	if (method == "POST") {
 		const { contractAddress } = JSON.parse(req.body);
-		console.log(contractAddress);
-		const contractMetadata = await alchemy.nft.getContractMetadata(
-			contractAddress
-		);
-		res.status(200).json(contractMetadata);
-		console.log(contractMetadata);
+		if (contractAddress) {
+			const contractMetadata = await alchemy.nft.getContractMetadata(
+				contractAddress
+			);
+			res.status(200).json(contractMetadata);
+			console.log(contractMetadata);
+		} else {
+			res.status(500).json({ error: "Missing contract address" });
+
+		}
 		return;
+
 	}
 
 	res.status(400).json({ error: "Request not supported" });

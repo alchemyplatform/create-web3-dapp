@@ -1,0 +1,22 @@
+{
+	"name": "-",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next link"
+	},
+	"dependencies": {
+		"next": "12.3.1",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"alchemy-sdk": "^2.1.1",
+		"@rainbow-me/rainbowkit": "^0.7.2"
+	},
+	"devDependencies": {
+		"eslint": "8.25.0",
+		"eslint-config-next": "12.3.1"
+	}
+}
