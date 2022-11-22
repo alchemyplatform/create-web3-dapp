@@ -38,14 +38,14 @@ export const generatePackageDotJson = (
 	} else {
 		frontEndPackageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
 		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react-ui"] =
-			"^0.9.11";
+			"^0.9.19-rc.4";
 		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-phantom"] =
 			"^0.9.8";
 		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react"] =
-			"^0.15.8";
+			"^0.15.21-rc.4";
 		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-base"] =
 			"^0.9.9";
-		frontEndPackageJson["dependencies"]["@solana/web3.js"] = "^1.50.1";
+		frontEndPackageJson["dependencies"]["@solana/web3.js"] = "^1.58.0";
 	}
 
 	if (useBackend) {
