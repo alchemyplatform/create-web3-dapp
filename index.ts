@@ -11,7 +11,7 @@ import { logInstructions } from "./helpers/core/logInstructions.js";
 import context from "./helpers/core/context.js";
 import process from "process";
 import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
-
+import open from "open";
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import {
@@ -68,9 +68,7 @@ async function run() {
 					}
 					while (!projectPath) {
 						if (exit >= 2) {
-							console.log(
-								chalk.blue("See you soon! 👋")
-							);
+							console.log(chalk.blue("See you soon! 👋"));
 							process.exit();
 						}
 						exit++;
@@ -116,7 +114,6 @@ async function run() {
 				break;
 			case 1:
 				try {
-				
 					const builderTemplate: string = await prompts({
 						type: "select",
 						name: "builderTemplate",
@@ -138,6 +135,13 @@ async function run() {
 								value: "custom",
 								message:
 									"Compatible with: Ethereum, Polygon, Solana, etc.",
+							},
+							{
+								title: "Start from a template",
+								value: "custom",
+								disabled: true,
+								message:
+									"Create a dapp starting from a template",
 							},
 							{
 								title: "Back",
@@ -454,15 +458,36 @@ async function run() {
 				break;
 			case 6:
 				try {
+					const hasAccount: string = await prompts({
+						type: "toggle",
+						name: "hasAccount",
+						message: "Do you already have an Alchemy account?",
+						initial: true,
+						active: "yes",
+						inactive: "no",
+					}).then((data) => data.hasAccount);
+					if (!hasAccount) {
+						open("https://alchemy.com/?a=create-web3-dapp ");
+					}
+					step++;
+				} catch (e) {
+					selfDestroy(e);
+				}
+
+				break;
+
+			case 7:
+				try {
 					const alchemyAPIKey: string = await prompts({
 						type: "text",
 						name: "apiKey",
 						message:
-							"Insert your Alchemy API Key or create an account at https://alchemy.com/?a=create-web3-dapp ",
-						initial: "demo",
+							"Insert your Alchemy API Key (create an account at https://alchemy.com/?a=create-web3-dapp):",
+						initial: "",
 					}).then((data) => data.apiKey);
 
-					context.dappInfo.apiKeys.ALCHEMY_API_KEY = alchemyAPIKey;
+					context.dappInfo.apiKeys.ALCHEMY_API_KEY =
+						alchemyAPIKey.length ? "demo" : alchemyAPIKey;
 
 					quit = true;
 				} catch (e) {
