@@ -44,6 +44,7 @@
 		"chalk": "^5.0.1",
 		"cli-progress": "^3.11.2",
 		"fs-extra": "^10.1.0",
+		"open": "^8.4.0",
 		"prompts": "^2.4.2",
 		"typescript": "^4.7.4",
 		"yargs": "^17.6.0"

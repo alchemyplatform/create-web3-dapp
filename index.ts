@@ -9,7 +9,7 @@ import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { logInstructions } from "./helpers/core/logInstructions.js";
 import context from "./helpers/core/context.js";
-
+import process from "process";
 import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
 
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
@@ -45,7 +45,6 @@ l.       'kWNx.                       .l
 console.log("\n");
 console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
 console.log("\n");
-
 let projectPath = "";
 
 // Gets project name
@@ -58,6 +57,7 @@ async function run() {
 	await checkNewPackageUpdates();
 
 	while (!quit) {
+		let exit = 0;
 		switch (step) {
 			case 0:
 				try {
@@ -67,6 +67,13 @@ async function run() {
 						projectPath = projectPath.trim();
 					}
 					while (!projectPath) {
+						if (exit >= 2) {
+							console.log(
+								chalk.blue("See you soon! 👋")
+							);
+							process.exit();
+						}
+						exit++;
 						projectPath = await prompts({
 							type: "text",
 							name: "projectPath",
@@ -109,22 +116,28 @@ async function run() {
 				break;
 			case 1:
 				try {
+				
 					const builderTemplate: string = await prompts({
 						type: "select",
 						name: "builderTemplate",
 						message: "Choose how to start:",
 						choices: [
 							{
-								title: "Create a default EVM application",
+								title: "Create a default EVM-compatible application",
 								value: "evm_app",
+								message:
+									"Compatible with: Ethereum, Polygon, etc.",
 							},
 							{
 								title: "Create a default Solana application",
 								value: "sol_app",
+								message: "Compatible with: Solana",
 							},
 							{
 								title: "Create a custom application",
 								value: "custom",
+								message:
+									"Compatible with: Ethereum, Polygon, Solana, etc.",
 							},
 							{
 								title: "Back",
@@ -340,7 +353,7 @@ async function run() {
 								{
 									title: "Yes",
 									description:
-									"It will install the needed dependencies",
+										"It will install the needed dependencies",
 									value: true,
 								},
 								{ title: "No", value: false },
