@@ -1,4 +1,5 @@
 import "@rainbow-me/rainbowkit/styles.css";
+import process from "process";
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
@@ -7,7 +8,14 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 export const { chains, provider } = configureChains(
-	[chain.mainnet, chain.goerli, chain.polygonMumbai, chain.polygon, chain.optimism, chain.arbitrum ],
+	[
+		chain.mainnet,
+		chain.goerli,
+		chain.polygonMumbai,
+		chain.polygon,
+		chain.optimism,
+		chain.arbitrum,
+	],
 	[
 		alchemyProvider({ alchemyId: process.env.ALCHEMY_API_KEY }),
 		publicProvider(),

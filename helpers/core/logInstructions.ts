@@ -1,6 +1,7 @@
 import chalk from "chalk";
+import { DappInfo } from "../../interfaces/DappInfo";
 
-export const logInstructions = (useBackend) => {
+export const logInstructions = (dappInfo: DappInfo, projectPath:string) => {
     console.log("\n\n\n")
     console.log("⚡️ Quick start:")
     let step = 1;
@@ -12,7 +13,7 @@ export const logInstructions = (useBackend) => {
         `${step}. Visit ${chalk.blue(`https://docs.alchemy.com/?a=create-web3-dapp`)} for the documentation`
     );
     step++
-    if (useBackend) {
+    if (dappInfo.useBackend) {
         console.log(
             `${step}. Add your private key in the .env file inside the backend folder`
         );
@@ -20,5 +21,5 @@ export const logInstructions = (useBackend) => {
     }
     
     
-    console.log(`${step}. ${chalk.green(`'cd' into your application ${useBackend ? "folder's frontend" : ""} directory and run 'npm run dev' to start it ⭐️`)}`)
+    console.log(`${step}. ${chalk.green(`'cd' into ${dappInfo.useBackend ? `${projectPath}/frontend`:`${projectPath}`} and run 'npm run dev' to start it ⭐️`)}`)
 }

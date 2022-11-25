@@ -2,9 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import styles from "../styles/Home.module.css";
-import { Panel } from "./components/panels";
-import { Section } from "./layout/section";
-require("@solana/wallet-adapter-react-ui/styles.css");
+import Panel from "./components/panels";
+import Section from "./layout/section";
 
 const WalletMultiButtonDynamic = dynamic(
 	async () =>

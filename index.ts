@@ -9,7 +9,7 @@ import { selfDestroy, setRoot } from "./helpers/core/selfDestroy.js";
 import chalk from "chalk";
 import { logInstructions } from "./helpers/core/logInstructions.js";
 import context from "./helpers/core/context.js";
-import process from "process";
+import ON_DEATH from "death";
 import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
 import open from "open";
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
@@ -19,6 +19,7 @@ import {
 	getSelectedModules,
 	selectModulesInCathegory,
 } from "./helpers/utils/getModulesInCathegory.js";
+import kill from "./helpers/utils/kill.js";
 
 console.log(
 	chalk.blue(`
@@ -48,8 +49,9 @@ console.log("\n");
 let projectPath = "";
 
 // Gets project name
-
-// Starts creation process
+ON_DEATH(function (signal, err) {
+	console.log("yo");
+});
 async function run() {
 	let step = 0;
 	let quit = false;
@@ -69,7 +71,7 @@ async function run() {
 					while (!projectPath) {
 						if (exit >= 2) {
 							console.log(chalk.blue("See you soon! 👋"));
-							process.exit();
+							kill();
 						}
 						exit++;
 						projectPath = await prompts({
@@ -172,6 +174,8 @@ async function run() {
 					} else if (builderTemplate == "back") {
 						step--;
 						break;
+					} else {
+						kill();
 					}
 				} catch (e) {
 					selfDestroy(e);
@@ -196,6 +200,9 @@ async function run() {
 				if (context.dappInfo.chain == "back") {
 					step--;
 					break;
+				}
+				if (!context.dappInfo.chain?.length) {
+					process.exit();
 				}
 
 				context.dappInfo.isEVM =
@@ -229,7 +236,7 @@ async function run() {
 					if (typeof isTestnet == "string") {
 						step--;
 						break;
-					} else {
+					} else if (typeof isTestnet == "boolean") {
 						context.dappInfo.isTestnet = isTestnet;
 						if (isTestnet) {
 							switch (context.dappInfo.chain) {
@@ -250,6 +257,8 @@ async function run() {
 									context.dappInfo.testnet = "SOL_GOERLI";
 							}
 						}
+					} else {
+						kill();
 					}
 
 					step++;
@@ -321,13 +330,13 @@ async function run() {
 							const continueComponentSelection = await prompts({
 								type: "toggle",
 								name: "continueComponentSelection",
-								message: "Continue the components selection?",
+								message: "Complete components selection?",
 								initial: true,
 								active: "yes",
 								inactive: "no",
 							}).then((data) => data.continueComponentSelection);
 
-							if (!continueComponentSelection) {
+							if (continueComponentSelection) {
 								context.dappInfo.modules = getSelectedModules();
 								console.log(context.dappInfo.modules);
 								step++;
@@ -335,6 +344,8 @@ async function run() {
 							} else {
 								break;
 							}
+						} else {
+							kill();
 						}
 					} else {
 						step++;
@@ -367,11 +378,14 @@ async function run() {
 							hint: "- Used to compile, deploy, and test smart contracts.",
 						}).then((data) => data.useBackend);
 						if (typeof useBackend == "string") {
-							console.log("going back");
 							step = step - 2;
 							break;
 						}
-						context.dappInfo.backendProvider = "anchor";
+						if (typeof useBackend == "boolean") {
+							context.dappInfo.backendProvider = "anchor";
+						} else {
+							kill();
+						}
 					} else {
 						useBackend = await prompts({
 							type: "select",
@@ -395,7 +409,11 @@ async function run() {
 							step--;
 							break;
 						}
-						context.dappInfo.useBackend = useBackend;
+						if (typeof useBackend == "boolean") {
+							context.dappInfo.useBackend = useBackend;
+						} else {
+							kill();
+						}
 
 						if (context.dappInfo.useBackend) {
 							const backendProvider = await prompts({
@@ -414,10 +432,15 @@ async function run() {
 								],
 								initial: 0,
 							}).then((data) => data.backendProvider);
+							if (typeof backendProvider != "string") {
+								kill();
+							}
 							if (backendProvider == "back") {
 								break;
+							} else {
+								context.dappInfo.backendProvider =
+									backendProvider;
 							}
-							context.dappInfo.backendProvider = backendProvider;
 
 							const hasContract: boolean = await prompts({
 								type: "select",
@@ -441,11 +464,14 @@ async function run() {
 							if (typeof hasContract == "string") {
 								step--;
 								break;
-							}
-							context.dappInfo.hasSmartContract = hasContract;
-							if (hasContract) {
-								context.contractInfo =
-									await smartContractWizard();
+							} else if (typeof hasContract == "boolean") {
+								context.dappInfo.hasSmartContract = hasContract;
+								if (hasContract) {
+									context.contractInfo =
+										await smartContractWizard();
+								}
+							} else {
+								process.exit();
 							}
 						}
 					}
@@ -466,15 +492,18 @@ async function run() {
 						active: "yes",
 						inactive: "no",
 					}).then((data) => data.hasAccount);
-					if (!hasAccount) {
-						open("https://alchemy.com/?a=create-web3-dapp ");
+					if (typeof hasAccount == "boolean") {
+						if (!hasAccount) {
+							open("https://alchemy.com/?a=create-web3-dapp ");
+						}
+						step++;
+						break;
+					} else {
+						process.exit();
 					}
-					step++;
 				} catch (e) {
 					selfDestroy(e);
 				}
-
-				break;
 
 			case 7:
 				try {
@@ -487,7 +516,7 @@ async function run() {
 					}).then((data) => data.apiKey);
 
 					context.dappInfo.apiKeys.ALCHEMY_API_KEY =
-						alchemyAPIKey.length ? "demo" : alchemyAPIKey;
+						alchemyAPIKey.length ? alchemyAPIKey: "demo";
 
 					quit = true;
 				} catch (e) {
@@ -507,7 +536,7 @@ async function run() {
 		}
 
 		await installDependencies(context);
-		logInstructions(context.dappInfo.useBackend);
+		logInstructions(context.dappInfo, projectPath);
 	} catch (e) {
 		selfDestroy(e);
 	}

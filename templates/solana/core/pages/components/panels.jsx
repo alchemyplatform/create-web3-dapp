@@ -1,5 +1,5 @@
 import styles from "../../styles/Panel.module.css";
-export const Panel = () => {
+export default function Panel() {
 	return (
 		<div className={styles.panel_container}>
 			<div className={styles.panel}>
@@ -75,4 +75,4 @@ export const Panel = () => {
 			</div>
 		</div>
 	);
-};
+}
