@@ -9,7 +9,7 @@
    Everything you need to create Web3 Dapps.
 
 -   [Creating an App](#creating-an-app) – How to create a new app.
--   [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create React App.
+-   [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create Web3 Dapp
 
 Create Web3 DApp works on macOS, Windows, and Linux.<br>
 If something doesn’t work, please [file an issue](https://github.com/alchemyplatform/create-web3-dapp/issues/new).<br>
@@ -18,19 +18,19 @@ If you have questions or need help, please ask in [GitHub Discussions](https://g
 
 ## About The Project
 
-Create Web3 DApp is an npx package that allows developers to **create anything** from **a simple, barebones dApp** to a **feature-rich decentralized platform**, in ~2 minutes.
+create-web3-dapp is an npx package that allows developers to **create any web3 application** in ~2 minutes.
 
-The create-web3-dapp package is a NextJs-based framework, **compatible with the most used blockchains including Ethereum, Polygon, Optimism, Arbitrum, Solana**, that helps web3 developers build a decentralized production-ready application at lightning speed, using pre-made React components, webhooks, and APIs.
+The create-web3-dapp package is a NextJS-based framework, **compatible with the most used blockchains such as Ethereum, Polygon, Optimism, Arbitrum, and Solana**, that helps web3 developers build production-ready  decentralized applications at lightning speed, using pre-made React components, webhooks, and APIs.
 
 ## Quick Overview
 
 ```sh
-npx create-web3-dapp
+npx create-web3-dapp@latest
 cd my-dapp
 npm run dev
 ```
 
-If you've previously installed `create-react-app` globally via `npm install -g create-react-app`, the CLI builder will notify you if a new version has been released. We always suggest you to run using the latest available version.
+If you've previously installed `create-web3-dapp` globally via `npx create-web3-dapp`, the CLI builder will notify you if a new version has been released. In any case, we always suggest you to run using the latest available version by running `npx create-web3-dapp@latest`.
 
 _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher, see [instructions for older npm versions](https://gist.github.com/gaearon/4064d3c23a77c74a3614c498a8bb1c5f))_
 
@@ -43,9 +43,9 @@ Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
 ### Get Started Immediately
 
 You **don’t** need to install or configure tools like Rainbowkit, Phantom connect, Hardhat, or Anchor<br>
-They will be automatically added and preconfigured so that you can focus on the code.
+They will be automatically added and preconfigured for you to focus on the code.
 
-Create a project, and you’re good to go.
+Create a new project, and you’re good to go.
 
 ## Creating an App
 
@@ -53,29 +53,21 @@ Create a project, and you’re good to go.
 
 To create a new app, go through the following steps:
 
-1. Create a new account on [Alchemy.com](https://alchemy.com)
-2. Create a new Alchemy application.
-
-3. In your terminal run:
+1. In your terminal run:
 
 ```sh
-  npx create-web3-dapp
+  npx create-web3-dapp@latest
 ```
 
-4. The first time you run this command, it will install the package.
-
-5. Once installed, run the following command again - This will start the DApp creation flow.:
-
-```sh
-    npx create-web3-dapp
-```
-
-6. Select the dependencies and components you want to include in your web3 application:
+2. Select the dependencies and components you want to include in your web3 application:
    ![product-screenshot-2]
 
 
-It will create a directory called with the give name inside the current folder.<br>
-Inside that directory, it will generate the initial project structure and install the transitive dependencies:
+It will create a directory called with the given name inside the current folder.<br>
+
+Inside that directory, Create Web3 Dapp it will generate the initial project structure and install the needed dependencies:
+
+### Folder Structure
 
 Without Blockchain Development Environment
 ```
@@ -121,7 +113,7 @@ my-dapp
     └── setupTests.js
 ```
 
-No configuration or complicated folder structures, only the files you need to build your DApp.<br>
+No configuration or complicated folder structures, only the files you need to build your Dapp.<br>
 Once the installation is done, you can open your project folder:
 
 ```sh
@@ -147,10 +139,6 @@ You will see the build errors and lint warnings in the console.
 
 You can find detailed instructions on using Create Web3 DApp and many tips in [its documentation]().
 
-## How to Update to New Versions?
-
-Every time you run Create web3 DApp, the CLI builder will take care of updating your package to the latest version available.
-
 ## Philosophy
 
 -   **One Dependency:** There is only one build dependency. It uses webpack, Babel, ESLint, and other amazing projects, but provides a cohesive curated experience on top of them.
@@ -161,20 +149,19 @@ Every time you run Create web3 DApp, the CLI builder will take care of updating 
 
 ## What’s Included?
 
-Your environment will have everything you need to build a modern single-page React app:
+Your environment will have everything you need to build a dapp:
 
--  NextJS, React, JSX, ES6, TypeScript and Flow syntax support.
--  
+-  NextJS, React, Alchemy Enhanced APIs, Alchemy SDK, Rainbowkit, Wagmi
 -   Hassle-free updates for the above tools with a single dependency.
 
 Check out [this guide (coming soon)]() to learn how to build with Create Web3 Dapp.
 
-Check out [this guide (coming soon)]() for an overview of how to a full overview of the code base.
+Check out [this guide (coming soon)]() for an overview of the full overview of the code base.
 
 
 ## Popular Alternatives
 
-Create React App is a great fit for:
+Create Web3 Dapp is a great fit for:
 
 -   **Learning Web3** in a comfortable and feature-rich development environment.
 -   **Starting new Web3 Applications**
