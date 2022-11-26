@@ -12,7 +12,6 @@ export const getComponents = (
 ) => {
 	
 	const components = getComponentsFromModules(modules)
-	console.log(components)
 	for (const component of components) {
 		const fromComponentPath = path.join(
 			process.cwd(),

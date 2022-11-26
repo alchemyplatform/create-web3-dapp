@@ -70,7 +70,6 @@ async function run() {
 					}
 					while (!projectPath) {
 						if (exit >= 2) {
-							console.log(chalk.blue("See you soon! 👋"));
 							kill();
 						}
 						exit++;
