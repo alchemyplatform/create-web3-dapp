@@ -9,7 +9,7 @@
    Everything you need to create Web3 Dapps.
 
 -   [Creating an App](#creating-an-app) – How to create a new app.
--   [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create Web3 Dapp
+-   [Docs](https://docs.alchemy.com/create-web3-dapp) – How to develop apps bootstrapped with Create Web3 Dapp
 
 Create Web3 DApp works on macOS, Windows, and Linux.<br>
 If something doesn’t work, please [file an issue](https://github.com/alchemyplatform/create-web3-dapp/issues/new).<br>
@@ -36,9 +36,8 @@ _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7
 
 Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
 
-<p align='center'>
-<img src='https://cdn.jsdelivr.net/gh/facebook/create-react-app@27b42ac7efa018f2541153ab30d63180f5fa39e0/screencast.svg' width='600' alt='npm start'>
-</p>
+![alt text](./images/cli_builder.gif)
+
 
 ### Get Started Immediately
 
@@ -123,7 +122,7 @@ And, in case you've installed a blockchain development environment, navigate to 
 
 Inside the newly created project, you can run some built-in commands:
 
-### `npm run dev`
+`npm run dev`
 
 Runs the app in development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -131,13 +130,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will automatically reload if you make changes to the code.<br>
 You will see the build errors and lint warnings in the console.
 
-<p align='center'>
-<img src='https://cdn.jsdelivr.net/gh/marionebl/create-react-app@9f6282671c54f0874afd37a72f6689727b562498/screencast-error.svg' width='600' alt='Build errors'>
-</p>
 
 ## User Guide
 
-You can find detailed instructions on using Create Web3 DApp and many tips in [its documentation]().
+You can find detailed instructions on using Create Web3 DApp and many tips in [its documentation](https://docs.alchemy.com/create-web3-dapp).
 
 ## Philosophy
 
