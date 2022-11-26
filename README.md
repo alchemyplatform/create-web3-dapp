@@ -26,7 +26,7 @@ _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7
 
 Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
 
-![alt text](./images/cli_builder.gif)
+![alt text](./.github/images/cli_builder.gif)
 
 
 
@@ -40,26 +40,7 @@ npx create-web3-dapp@latest
 
 **You’ll need to have Node 14.0.0 or later version on your local development machine** (but it’s not required on the server). We recommend using the latest LTS version. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
 
-To create a new app, go through the following steps:
-
-1. In your terminal run:
-
-```sh
-  npx create-web3-dapp@latest
-```
-
-2. Select the dependencies and components you want to include in your web3 application:
-   ![product-screenshot-2]
-
-
-It will create a directory called with the given name inside the current folder.<br>
-
-Inside that directory, Create Web3 Dapp it will generate the initial project structure and install the needed dependencies:
-
-
-## Creating an App
-
-**You’ll need to have Node 14.0.0 or later version on your local development machine** (but it’s not required on the server). We recommend using the latest LTS version. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
+## Create a new dapp
 
 To create a new app, go through the following steps:
 
@@ -69,13 +50,10 @@ To create a new app, go through the following steps:
   npx create-web3-dapp@latest
 ```
 
-2. Select the dependencies and components you want to include in your web3 application:
-   ![product-screenshot-2]
+2. Select and create the dependencies, components, and contracts you want to include in your web3 application.
 
 
-It will create a directory called with the given name inside the current folder.<br>
-
-Inside that directory, Create Web3 Dapp it will generate the initial project structure and install the needed dependencies:
+Create Web3 Dapp will then create a directory containing both the files and the dependencies you'll need to kickstart your project<br>
 
 ### Folder Structure
 
