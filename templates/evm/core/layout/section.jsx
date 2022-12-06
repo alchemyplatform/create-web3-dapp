@@ -1,6 +1,6 @@
-import styles from "../../styles/Section.module.css";
+import styles from "../styles/Section.module.css";
 
-export const Section = ({ children, title, description }) => {
+export default function Section({ children, title, description }) {
 	return (
 		<div className={styles.section}>
 			<div>
@@ -10,4 +10,4 @@ export const Section = ({ children, title, description }) => {
 			{children}
 		</div>
 	);
-};
+}
