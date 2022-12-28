@@ -1,0 +1,32 @@
+name: Development
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    check:
+        name: Set up checks
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out Git repository
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16
+
+            - name: Install Node.js dependencies
+              run: npm ci
+
+            - name: Run linters
+              run: npm run lint
+
+            - name: Run tests
+              run: npm run test
