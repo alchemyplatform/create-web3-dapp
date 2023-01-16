@@ -1,11 +1,6 @@
 {
 	"name": "create-web3-dapp",
-<<<<<<< HEAD
 	"version": "0.1.95",
-=======
-	"version": "0.1.96",
->>>>>>> 122eb7c9f91c445ec616a49d7b7c5a8db5cb59ac
-	"private": false,
 	"keywords": [
 		"create-web3-dapp",
 		"create web3 dapp",
