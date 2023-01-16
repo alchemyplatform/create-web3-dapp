@@ -12,7 +12,10 @@ import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import { Context } from "vm";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 
-export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) => {
+export const getProjectFiles = ({
+	resolvedProjectPath,
+	dappInfo,
+}: BuilderContext) => {
 	try {
 		process.chdir(resolvedProjectPath);
 		console.log(chalk.yellow("Downloading files..."));
@@ -33,25 +36,22 @@ export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) 
 		const template = path.join(
 			process.cwd(),
 			"templates",
-			dappInfo.isEVM
-				? "evm"
-				: "solana",
+			dappInfo.isEVM ? "evm" : "solana",
 			"core"
 		);
 		if (dappInfo.useBackend) {
 			fse.copySync(template, path.join(process.cwd(), "frontend"));
 		} else {
 			fse.copySync(template, process.cwd());
-
 		}
-		if (dappInfo.modules) {
-			getComponents(
-				dappInfo.modules,
-				dappInfo.isEVM,
-				dappInfo.useBackend
-			);
+		// if (dappInfo.modules) {
+		// 	getComponents(
+		// 		dappInfo.modules,
+		// 		dappInfo.isEVM,
+		// 		dappInfo.useBackend
+		// 	);
 
-		}
+		// }
 
 		bar1.update(200);
 
@@ -73,9 +73,14 @@ export const getProjectFiles = ({resolvedProjectPath, dappInfo}:BuilderContext) 
 			}
 		}
 
-		createEnv({...dappInfo.apiKeys, ETHERSCAN_API_KEY: ""}, dappInfo.useBackend ? path.join(process.cwd(), "frontend") : process.cwd());
+		createEnv(
+			{ ...dappInfo.apiKeys, ETHERSCAN_API_KEY: "" },
+			dappInfo.useBackend
+				? path.join(process.cwd(), "frontend")
+				: process.cwd()
+		);
 		copyFile("utils", "README.md", process.cwd());
-		cleanUpFiles(dappInfo.useBackend)
+		cleanUpFiles(dappInfo.useBackend);
 		console.log("Project files copied ✅");
 	} catch (e) {
 		selfDestroy(e);

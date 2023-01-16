@@ -14,7 +14,11 @@ import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.j
 import open from "open";
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
-
+import {
+	getModulesInCathegory,
+	getSelectedModules,
+	selectModulesInCathegory,
+} from "./helpers/utils/getModulesInCathegory.js";
 import kill from "./helpers/utils/kill.js";
 
 console.log(
@@ -77,6 +81,7 @@ async function run() {
 						}).then((data) => data.projectPath);
 					}
 
+					//Reformat project's name
 					projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
 					context.resolvedProjectPath = path.resolve(projectPath);
 					let dirExists: boolean = existsSync(
@@ -84,6 +89,7 @@ async function run() {
 					);
 
 					let i = 1;
+					// Check if project
 					while (dirExists) {
 						projectPath = await prompts({
 							type: "text",
@@ -120,7 +126,11 @@ async function run() {
 								message:
 									"Compatible with: Ethereum, Polygon, etc.",
 							},
-
+							// {
+							// 	title: "Create a default Solana application",
+							// 	value: "sol_app",
+							// 	message: "Compatible with: Solana",
+							// },
 							{
 								title: "Start from a template",
 								value: "new",
@@ -140,6 +150,13 @@ async function run() {
 					if (builderTemplate == "new") {
 						step++;
 						break;
+						// } else if (builderTemplate == "sol_app") {
+						// 	context.dappInfo.chain = "SOL_MAINNET";
+						// 	context.dappInfo.isEVM = false;
+						// 	context.dappInfo.isTestnet = false;
+						// 	context.dappInfo.testnet = "SOL_DEVNET";
+
+						// 	step = 5;
 					} else if (builderTemplate == "back") {
 						step--;
 						break;
@@ -160,6 +177,7 @@ async function run() {
 						{ title: "Polygon", value: "MATIC_MAINNET" },
 						{ title: "Artbitrum", value: "ARB_MAINNET" },
 						{ title: "Optimism", value: "OPT_MAINNET" },
+						// { title: "Solana", value: "SOL_MAINNET" },
 						{ title: "Back", value: "back" },
 					],
 					initial: 0,
@@ -235,11 +253,126 @@ async function run() {
 				}
 
 				break;
+			// case 4:
+			// 	try {
+			// 	if (context.dappInfo.chain !== "SOL_MAINNET") {
+			// 		const componentCathegory = await prompts({
+			// 			type: "select",
+			// 			name: "toolkitType",
+			// 			message: "Select a components cathegory",
+			// 			choices: [
+			// 				{ title: "NFTs", value: "nfts" },
+			// 				{ title: "Utils", value: "utils" },
+			// 				{
+			// 					title: "DeFi (coming soon)",
+			// 					value: undefined,
+			// 					disabled: true,
+			// 				},
+			// 				{
+			// 					title: "Governance (coming soon)",
+			// 					value: undefined,
+			// 					disabled: true,
+			// 				},
+			// 				{ title: "Blank", value: "blank" },
+			// 				{ title: "Back", value: "back" },
+			// 			],
+			// 			initial: 0,
+			// 			hint: "- Select Blank to start from scratch",
+			// 		}).then((data) => data.toolkitType);
 
+			// 		if (
+			// 			componentCathegory &&
+			// 			typeof componentCathegory === "string"
+			// 		) {
+			// 			if (componentCathegory == "back") {
+			// 				step--;
+			// 				break;
+			// 			}
+			// 			if (componentCathegory == "blank") {
+			// 				context.dappInfo.modules = getSelectedModules();
+			// 				console.log(context.dappInfo.modules);
+			// 				step++;
+			// 				break;
+			// 			}
+
+			// 			const modules =
+			// 				getModulesInCathegory(componentCathegory);
+
+			// 			const selectedModules = await prompts({
+			// 				type: "multiselect",
+			// 				name: "modules",
+			// 				message: "Select the components to import",
+			// 				choices: [...modules],
+			// 				hint: "- Space to select. Return to submit",
+			// 			}).then((data) => data.modules);
+
+			// 			if (selectedModules) {
+			// 				selectModulesInCathegory(
+			// 					componentCathegory,
+			// 					selectedModules
+			// 				);
+			// 			}
+
+			// 			const continueComponentSelection = await prompts({
+			// 				type: "toggle",
+			// 				name: "continueComponentSelection",
+			// 				message: "Complete components selection?",
+			// 				initial: true,
+			// 				active: "yes",
+			// 				inactive: "no",
+			// 			}).then((data) => data.continueComponentSelection);
+
+			// 			if (continueComponentSelection) {
+			// 				context.dappInfo.modules = getSelectedModules();
+			// 				console.log(context.dappInfo.modules);
+			// 				step++;
+			// 				break;
+			// 			} else {
+			// 				break;
+			// 			}
+			// 		} else {
+			// 			kill();
+			// 		}
+			// 	} else {
+			// 		step++;
+			// 		break;
+			// 	}
+			// } catch (e) {
+			// 	selfDestroy(e);
+			// }
+
+			// break;
 			case 4:
 				try {
 					let useBackend;
-
+					// if (context.dappInfo.chain == "SOL_MAINNET") {
+					// 	useBackend = await prompts({
+					// 		type: "select",
+					// 		name: "useBackend",
+					// 		message: "Do you want to import Anchor?",
+					// 		choices: [
+					// 			{
+					// 				title: "Yes",
+					// 				description:
+					// 					"It will install the needed dependencies",
+					// 				value: true,
+					// 			},
+					// 			{ title: "No", value: false },
+					// 			{ title: "Back", value: "back" },
+					// 		],
+					// 		initial: 0,
+					// 		hint: "- Used to compile, deploy, and test smart contracts.",
+					// 	}).then((data) => data.useBackend);
+					// 	if (typeof useBackend == "string") {
+					// 		step = step - 2;
+					// 		break;
+					// 	}
+					// 	if (typeof useBackend == "boolean") {
+					// 		context.dappInfo.backendProvider = "anchor";
+					// 	} else {
+					// 		kill();
+					// 	}
+					// } else {
 					useBackend = await prompts({
 						type: "select",
 						name: "useBackend",
@@ -326,14 +459,14 @@ async function run() {
 						}
 						// }
 					}
-					console.log(step)
+
 					step++;
 				} catch (e) {
 					selfDestroy(e);
 				}
 
 				break;
-			case 5:
+			case 6:
 				try {
 					const hasAccount: string = await prompts({
 						type: "toggle",
@@ -356,7 +489,7 @@ async function run() {
 					selfDestroy(e);
 				}
 
-			case 6:
+			case 7:
 				try {
 					const alchemyAPIKey: string = await prompts({
 						type: "text",

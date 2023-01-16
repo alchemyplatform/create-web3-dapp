@@ -21,7 +21,7 @@ export const generatePackageDotJson = (
 		devDependencies: {},
 	};
 	const frontEndPackageJson = JSON.parse(JSON.stringify(packageJsonTemplate));
-	frontEndPackageJson["dependencies"]["next"] = "12.2.3";
+	frontEndPackageJson["dependencies"]["next"] = "13.1.2";
 	frontEndPackageJson["dependencies"]["react"] = "18.2.0";
 	frontEndPackageJson["dependencies"]["react-dom"] = "18.2.0";
 	frontEndPackageJson["scripts"]["dev"] = "next dev";
@@ -32,9 +32,9 @@ export const generatePackageDotJson = (
 	frontEndPackageJson["devDependencies"]["eslint-config-next"] = "12.2.3";
 
 	if (isEVM) {
-		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.0.0";
+		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.3.0";
 		frontEndPackageJson["dependencies"]["@rainbow-me/rainbowkit"] =
-			"^0.4.5";
+			"^0.8.1";
 	} else {
 		frontEndPackageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
 		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react-ui"] =
@@ -73,12 +73,29 @@ export const generatePackageDotJson = (
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
 				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
 				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
-				backendPackageJson["scripts"]["deploy-testnet"] = `npx hardhat run ./scripts/${hasSmartContract ? (`${contractName}_deploy.js`) : "YOUR_DEPLOY_SCRIPT"} --network ETH_GOERLI`;
-				backendPackageJson["scripts"]["deploy"] = `npx hardhat run ./scripts/${hasSmartContract ? (`${contractName}_deploy.js`) : "YOUR_DEPLOY_SCRIPT"} --network ETH_MAINNET`;
+				backendPackageJson["scripts"][
+					"deploy-testnet"
+				] = `npx hardhat run ./scripts/${
+					hasSmartContract
+						? `${contractName}_deploy.js`
+						: "YOUR_DEPLOY_SCRIPT"
+				} --network ETH_GOERLI`;
+				backendPackageJson["scripts"][
+					"deploy"
+				] = `npx hardhat run ./scripts/${
+					hasSmartContract
+						? `${contractName}_deploy.js`
+						: "YOUR_DEPLOY_SCRIPT"
+				} --network ETH_MAINNET`;
 				backendPackageJson["scripts"]["node"] = `npx hardhat node`;
-				backendPackageJson["scripts"]["deploy-local"] = `npx hardhat run ./scripts/${hasSmartContract ? (`${contractName}_deploy.js`) : "YOUR_DEPLOY_SCRIPT"} --network localhost`;
+				backendPackageJson["scripts"][
+					"deploy-local"
+				] = `npx hardhat run ./scripts/${
+					hasSmartContract
+						? `${contractName}_deploy.js`
+						: "YOUR_DEPLOY_SCRIPT"
+				} --network localhost`;
 
-			
 				break;
 			case "foundry":
 				console.log(
