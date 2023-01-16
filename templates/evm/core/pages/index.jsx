@@ -1,7 +1,7 @@
 import styles from "../styles/Home.module.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import  Panel  from "../components/panels";
-import  Section  from "../layout/section";
+import { Section } from "../layout/section";
 
 export default function Home() {
 	return (
@@ -22,7 +22,7 @@ export default function Home() {
 				<div className={styles.logo_container}>
 					<h1 className={styles.logo}>🔮</h1>
 					<h1>create-web3-dapp</h1>
-					<a target={"_blank"} href="#" className={styles.docs_box}>
+					<a target={"_blank"} href="https://github.com/alchemyplatform/create-web3-dapp" className={styles.docs_box}>
 						Visit the documentation to get started
 					</a>
 				</div>
