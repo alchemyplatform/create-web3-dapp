@@ -397,7 +397,10 @@ process.argv.forEach(function (val, index, array) {
 	console.log(index + ": " + val);
 });
 
-if (process.argv[2] == "--marketplace"|| process.argv[2] == "-M") {
+if (
+	process.argv[2].toLowerCase() == "marketplace" ||
+	process.argv[2].toLowerCase() == "m"
+) {
 	try {
 		open("http://localhost:3000/");
 	} catch (e) {

@@ -17,9 +17,14 @@
 	padding: .5rem 1.4rem;
 	border-radius: 6px;
 	transition: background-color 0.3s ease;
-
+	cursor: pointer;
 	
 }
+.docs_box:hover{
+	background-color: #0664de32;
+	
+}
+
 
 
 .logo_container {
@@ -30,12 +35,6 @@
 .logo {
 	font-size: 5rem;
 	margin: 0;
-}
-
-
-.docs_box:hover{
-	background-color: #0664de32;
-	
 }
 
 

@@ -65,6 +65,22 @@
 	flex-grow: 1;
 }
 
+.code_container{
+	background-color: black;
+	border-radius: 3px;
+	padding: 0.7rem 1.5rem;
+	color: white;
+	font-weight: 400;
+	font-size: .95rem;
+	margin-top: 1.5rem;
+	width: 60%;
+	border: none;
+	display: block;
+	text-align: left;
+	cursor: pointer;
+
+}
+
 .button_container {
 	display: flex;
 	width: 60%;
@@ -76,11 +92,14 @@
 	border-radius: 3px;
 	padding: 0.7rem 1rem;
 	color: white;
-	font-weight: 600;
+	font-weight: 400;
+	font-size: .95rem;
 	margin-top: 1.5rem;
 	width: 100%;
 	border: none;
 	cursor: pointer;
+	display: block;
+	text-align: center;
 }
 
 .button:hover {
@@ -103,6 +122,9 @@
 	padding: 4rem 1.5rem;
 	border-radius: 6px;
 	width: 75%;
+	color: rgb(23, 23, 23);
+	background-color: #0664de1b;
+		
 }
 
 .au_text_container{
