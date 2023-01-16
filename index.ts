@@ -326,7 +326,7 @@ async function run() {
 						}
 						// }
 					}
-					console.log(step)
+					console.log(step);
 					step++;
 				} catch (e) {
 					selfDestroy(e);
@@ -393,4 +393,16 @@ async function run() {
 	}
 }
 
-run();
+process.argv.forEach(function (val, index, array) {
+	console.log(index + ": " + val);
+});
+
+if (process.argv[2] == "--marketplace"|| process.argv[2] == "-M") {
+	try {
+		open("http://localhost:3000/");
+	} catch (e) {
+		selfDestroy(e);
+	}
+} else {
+	run();
+}
