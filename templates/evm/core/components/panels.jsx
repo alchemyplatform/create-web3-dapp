@@ -4,10 +4,10 @@ export default function Panels() {
 	return (
 		<div className={styles.panels_container}>
 			<div className={styles.panel_container}>
-				<h2>Modify you next.config.js file</h2>
+				<h2>Update your enviornment variables</h2>
 				<p>
 					You might see rate limits going around, that's because you're using an Alchemy demo key. 
-					Get your key and add it in the next.config.js file.
+					Get your API key and add it in a new .env.local file.
 				</p>
 				<div className={styles.button_container}>
 					<a target={"_blank"} href="https://docs.alchemy.com/" className={styles.button}>Show me how</a>

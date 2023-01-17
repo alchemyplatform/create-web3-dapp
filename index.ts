@@ -39,9 +39,26 @@ l.       'kWNx.                       .l
 `)
 );
 
-console.log("\n");
-console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
-console.log("\n");
+if (
+	process.argv[2] &&
+	(process.argv[2].toLowerCase() == "marketplace" ||
+		process.argv[2].toLowerCase() == "m")
+) {
+	try {
+		console.log("\n");
+		console.log("🔵 Sending you to the components marketplace 🔵");
+		console.log("\n");
+		open("http://localhost:3000/");
+	} catch (e) {
+		selfDestroy(e);
+	}
+} else {
+	console.log("\n");
+	console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
+	console.log("\n");
+	run();
+}
+
 let projectPath = "";
 
 // Gets project name
@@ -365,6 +382,12 @@ async function run() {
 							"Insert your Alchemy API Key (create an account at https://alchemy.com/?a=create-web3-dapp):",
 						initial: "",
 					}).then((data) => data.apiKey);
+					if (
+						alchemyAPIKey.length < 32 ||
+						alchemyAPIKey.length > 33
+					) {
+						break;
+					}
 
 					context.dappInfo.apiKeys.ALCHEMY_API_KEY =
 						alchemyAPIKey.length ? alchemyAPIKey : "demo";
@@ -391,21 +414,4 @@ async function run() {
 	} catch (e) {
 		selfDestroy(e);
 	}
-}
-
-process.argv.forEach(function (val, index, array) {
-	console.log(index + ": " + val);
-});
-
-if (
-	process.argv[2].toLowerCase() == "marketplace" ||
-	process.argv[2].toLowerCase() == "m"
-) {
-	try {
-		open("http://localhost:3000/");
-	} catch (e) {
-		selfDestroy(e);
-	}
-} else {
-	run();
 }
