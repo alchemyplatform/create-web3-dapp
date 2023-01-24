@@ -54,9 +54,9 @@ if (
 	}
 } else {
 	console.log("\n");
-	console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
+	console.log("🔵 Welcome to the create-web3-dapp wizard - coming soon 🔵");
 	console.log("\n");
-	run();
+	// run();
 }
 
 let projectPath = "";
