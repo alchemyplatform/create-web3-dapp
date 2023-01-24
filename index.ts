@@ -54,9 +54,9 @@ if (
 	}
 } else {
 	console.log("\n");
-	console.log("🔵 Welcome to the create-web3-dapp wizard - coming soon 🔵");
+	console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
 	console.log("\n");
-	// run();
+	run();
 }
 
 let projectPath = "";
@@ -362,7 +362,7 @@ async function run() {
 					}).then((data) => data.hasAccount);
 					if (typeof hasAccount == "boolean") {
 						if (!hasAccount) {
-							open("https://alchemy.com/?a=create-web3-dapp ");
+							open("https://auth.alchemy.com/?a=create-web3-dapp ");
 						}
 						step++;
 						break;
@@ -379,7 +379,7 @@ async function run() {
 						type: "text",
 						name: "apiKey",
 						message:
-							"Insert your Alchemy API Key (create an account at https://alchemy.com/?a=create-web3-dapp):",
+							"Insert your Alchemy API Key (create an account at https://auth.alchemy.com/?a=create-web3-dapp):",
 						initial: "",
 					}).then((data) => data.apiKey);
 					if (
