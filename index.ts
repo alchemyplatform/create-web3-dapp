@@ -174,7 +174,7 @@ async function run() {
 					choices: [
 						{ title: "Ethereum", value: "ETH_MAINNET" },
 						{ title: "Polygon", value: "MATIC_MAINNET" },
-						{ title: "Artbitrum", value: "ARB_MAINNET" },
+						{ title: "Arbitrum", value: "ARB_MAINNET" },
 						{ title: "Optimism", value: "OPT_MAINNET" },
 						{ title: "Back", value: "back" },
 					],
