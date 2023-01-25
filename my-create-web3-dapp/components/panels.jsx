@@ -4,13 +4,12 @@ export default function Panels() {
 	return (
 		<div className={styles.panels_container}>
 			<div className={styles.panel_container}>
-				<h2>Update your enviornment variables</h2>
+				<h2>Read the docs</h2>
 				<p>
-					You might see rate limits going around, that's because you're using an Alchemy demo key. 
-					Get your API key and add it in a new .env.local file.
+					Get yourself comfortable with using create-web3-dapp. Learn what you need to know about project setup, components, smart contract building and deployment.
 				</p>
 				<div className={styles.button_container}>
-					<a target={"_blank"} href="https://docs.alchemy.com/" className={styles.button}>Show me how</a>
+					<a target={"_blank"} href="https://docs.alchemy.com/create-web3-dapp" className={styles.button}>Show me how</a>
 				</div>
 			</div>
 			<div className={styles.panel_container}>

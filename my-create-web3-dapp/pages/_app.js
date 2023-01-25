@@ -3,13 +3,13 @@ import "@rainbow-me/rainbowkit/styles.css";
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
+import { mainnet, polygon, optimism, arbitrum, goerli, polygonMumbai  } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import MainLayout from "../layout/mainLayout";
 
 const { chains, provider } = configureChains(
-	[mainnet, goerli, polygon,polygonMumbai, optimism,optimismGoerli, arbitrum, arbitrumGoerli],
+	[mainnet, goerli, polygon, polygonMumbai, optimism, arbitrum],
 	[alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
 );
 
