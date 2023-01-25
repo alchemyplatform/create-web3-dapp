@@ -5,13 +5,12 @@ import fse from "fs-extra";
 import chalk from "chalk";
 import cliProgress from "cli-progress";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
-import { getComponents } from "./getComponents.js";
 import { createEnv } from "../utils/createEnv.js";
 import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import { Context } from "vm";
 import BuilderContext from "../../interfaces/BuilderContext.js";
-
+import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
 export const getProjectFiles = ({
 	resolvedProjectPath,
 	dappInfo,
@@ -74,7 +73,13 @@ export const getProjectFiles = ({
 		}
 
 		createEnv(
-			{ ...dappInfo.apiKeys, ETHERSCAN_API_KEY: "" },
+			{
+				...dappInfo.apiKeys,
+				ALCHEMY_NETWORK: dappInfo.chain,
+				NEXT_PUBLIC_DEFAULT_CHAIN: getDefaultRainbowkitChain(
+					dappInfo.isTestnet ? dappInfo.testnet! : dappInfo.chain
+				),
+			},
 			dappInfo.useBackend
 				? path.join(process.cwd(), "frontend")
 				: process.cwd()

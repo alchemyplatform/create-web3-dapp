@@ -8,7 +8,7 @@ export const createEnv = (
 ) => {
 	if (Object.keys(apiKeys).length) {
 		const writeStream = fs.createWriteStream(
-			path.join(projectPath, ".env")
+			path.join(projectPath, ".env.local")
 		);
 	
 		for (const [key, value] of Object.entries(apiKeys)) {

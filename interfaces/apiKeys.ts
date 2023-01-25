@@ -3,5 +3,5 @@ export interface APIKeys {
 	PRIVATE_KEY?: string | null;
 	ETHERSCAN_API_KEY?: string | null;
 	ALCHEMY_NETWORK?: string | null;
-
+	NEXT_PUBLIC_DEFAULT_CHAIN?: string | null;
 }

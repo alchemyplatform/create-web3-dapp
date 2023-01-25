@@ -14,7 +14,6 @@ import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.j
 import open from "open";
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
-
 import kill from "./helpers/utils/kill.js";
 
 console.log(
@@ -90,7 +89,7 @@ async function run() {
 							type: "text",
 							name: "projectPath",
 							message: "Please, insert a project name",
-							initial: "my-dapp",
+							initial: "my-create-web3-dapp",
 						}).then((data) => data.projectPath);
 					}
 
@@ -238,8 +237,6 @@ async function run() {
 								case "OPT_MAINNET":
 									context.dappInfo.testnet = "OPT_GOERLI";
 									break;
-								case "SOL_MAINNET":
-									context.dappInfo.testnet = "SOL_GOERLI";
 							}
 						}
 					} else {
@@ -341,9 +338,7 @@ async function run() {
 						} else {
 							process.exit();
 						}
-						// }
 					}
-					console.log(step);
 					step++;
 				} catch (e) {
 					selfDestroy(e);
@@ -362,7 +357,9 @@ async function run() {
 					}).then((data) => data.hasAccount);
 					if (typeof hasAccount == "boolean") {
 						if (!hasAccount) {
-							open("https://auth.alchemy.com/?a=create-web3-dapp ");
+							open(
+								"https://auth.alchemy.com/?a=create-web3-dapp "
+							);
 						}
 						step++;
 						break;

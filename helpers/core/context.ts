@@ -29,6 +29,7 @@ const dappInfo: DappInfo = {
 	modules: null,
 	apiKeys: {
 		ALCHEMY_API_KEY: "demo"
+		
 	}
 };
 
