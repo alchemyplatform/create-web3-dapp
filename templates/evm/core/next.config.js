@@ -5,7 +5,6 @@ const nextConfig = {
 
 module.exports = {
 	env: {
-		ALCHEMY_API_KEY: "demo",
 	},
 };
 

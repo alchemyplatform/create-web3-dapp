@@ -19,6 +19,7 @@ export default function Home() {
 			</header>
 			<main className={styles.main}>
 				<Panels></Panels>
+				<NFTMintingPage></NFTMintingPage>
 			</main>
 		</div>
 	);
