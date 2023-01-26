@@ -67,8 +67,6 @@ export const getProjectFiles = ({
 
 				case "foundry":
 					break;
-				case "Anchor":
-					break;
 			}
 		}
 

@@ -1,0 +1,142 @@
+.panels_container{
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	column-gap: 1.2rem;
+}
+
+.panel_container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 31%;
+	background-color: rgb(253, 253, 253);
+	border: 2px solid rgb(236, 236, 236);
+	border-radius: 6px;
+	padding: 2rem 1.7rem;
+	text-align: center;
+	row-gap: .3rem;
+}
+
+
+
+.panel {
+	display: flex;
+	column-gap: 3rem;
+	align-items: center;
+	text-align: justify;
+	
+}
+
+
+@media screen and (max-width: 1260px) {
+	.panel{
+		min-width: 100%;
+	}
+	.panel_container{
+		padding: 0 10rem;
+	}
+}
+
+@media screen and (max-width: 820px) {
+	.panel{
+		min-width: 100%;
+		column-gap: 5rem;
+	
+	}
+
+	.panel_container{
+		padding: 0 5rem;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.panel{
+		min-width: 100%;
+		flex-direction: column;
+		min-width: 15rem;
+	}
+	.panel_container{
+		padding: 0 5rem;
+	}
+}
+
+.text_box{
+	flex-grow: 1;
+}
+
+.code_container{
+	background-color: black;
+	border-radius: 3px;
+	padding: 0.7rem 1.5rem;
+	color: white;
+	font-weight: 400;
+	font-size: .95rem;
+	margin-top: 1.5rem;
+	width: 60%;
+	border: none;
+	display: block;
+	text-align: left;
+	cursor: pointer;
+
+}
+
+.button_container {
+	display: flex;
+	width: 60%;
+	justify-content: center;
+}
+
+.button {
+	background-color: #0E76FD;
+	border-radius: 3px;
+	padding: 0.7rem 1rem;
+	color: white;
+	font-weight: 400;
+	font-size: .95rem;
+	margin-top: 1.5rem;
+	width: 100%;
+	border: none;
+	cursor: pointer;
+	display: block;
+	text-align: center;
+}
+
+.button:hover {
+	transition: background-color 0.2s ease;
+	background-color: #0664de;
+	
+}
+
+.au_box_container{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 6rem;
+}
+.au_box{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: antiquewhite;
+	padding: 4rem 1.5rem;
+	border-radius: 6px;
+	width: 75%;
+	color: rgb(23, 23, 23);
+	background-color: #0664de1b;
+		
+}
+
+.au_text_container{
+	width: 45%;
+	text-align: justify;
+}
+
+.au_text_container h2{
+	font-size: 1.8rem;
+	margin-bottom: .5rem;
+}
+
+.au_button_container{
+ width: 20%;
+}
