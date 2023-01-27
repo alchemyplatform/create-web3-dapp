@@ -8,7 +8,6 @@ import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { createEnv } from "../utils/createEnv.js";
 import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
-import { Context } from "vm";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
 export const getProjectFiles = ({

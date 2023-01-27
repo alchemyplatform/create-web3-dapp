@@ -138,7 +138,7 @@ async function run() {
 							},
 
 							{
-								title: "Start from a template",
+								title: "Start from a template (coming soon)",
 								value: "new",
 								disabled: true,
 								message:
@@ -179,7 +179,7 @@ async function run() {
 						{ title: "Back", value: "back" },
 					],
 					initial: 0,
-					hint: "- This will make sure to copy the right dependencies and template files",
+					hint: "- We’ll make sure all the right dependencies are installed for you :)",
 				}).then((data) => (context.dappInfo.chain = data.chain));
 				if (context.dappInfo.chain == "back") {
 					step--;
@@ -260,10 +260,11 @@ async function run() {
 						name: "backendProvider",
 						message:
 							"Select your blockchain development environment or skip:",
+						hint: "- This will allow you to create, build, deploy and test smart contracts",
 						choices: [
 							{ title: "Hardhat", value: "hardhat" },
 							{
-								title: "Foundry (not yet supported)",
+								title: "Foundry (coming soon)",
 								value: "foundry",
 								disabled: true,
 							},
