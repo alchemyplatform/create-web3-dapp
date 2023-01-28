@@ -8,7 +8,6 @@ import { createWriteStream } from "fs";
 import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 
 export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
-	console.log(chalk.yellow("Generating hardhat config files..."));
 	const bar2 = new cliProgress.SingleBar(
 		{},
 		cliProgress.Presets.shades_classic
@@ -66,7 +65,4 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 
 	bar2.update(100);
 	bar2.stop();
-	console.log(
-		chalk.green("Smart Contract Development Environment copied ✅")
-	);
 };

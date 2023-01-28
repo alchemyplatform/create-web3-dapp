@@ -7,9 +7,10 @@ import { getSmartContractSuperClasses } from "./utils/getSmartContractSuperClass
 import { isERC721 } from "./utils/isERC721.js";
 import chalk from "chalk";
 import { mkdir } from "../utils/mkdir.js";
-import {createDeployScript} from "./createDeployScript.js"
-export const buildSmartContract = (smartContractInfo: SmartContractInfo) => {
-	console.log(chalk.yellow("Creating Smart Contracts..."));
+import { createDeployScript } from "./createDeployScript.js";
+export const buildSmartContract = (
+	smartContractInfo: SmartContractInfo,
+) => {
 	mkdir(path.join(process.cwd(), "backend", "contracts"));
 	const writeStream = fs.createWriteStream(
 		path.join(
@@ -25,7 +26,6 @@ export const buildSmartContract = (smartContractInfo: SmartContractInfo) => {
 	const pragmaDeclaration = "pragma solidity ^0.8.4;";
 
 	if (isERC721(smartContractInfo)) {
-		console.log("Generating NFTs Smart contracts...");
 		const smartContractTemplate = generateERC721Template(
 			smartContractInfo,
 			getSmartContractSuperClasses(smartContractInfo)
@@ -39,7 +39,6 @@ ${smartContractTemplate}
 	}
 	writeStream.end();
 
-	console.log(chalk.green("Smart contract created ✅"));
 
 	createDeployScript(smartContractInfo);
 };

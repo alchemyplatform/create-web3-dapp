@@ -15,6 +15,8 @@ import open from "open";
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import kill from "./helpers/utils/kill.js";
+import { Multibar } from "./helpers/utils/progressBar.js";
+import cliProgress from "cli-progress";
 
 console.log(
 	chalk.blue(`
@@ -137,13 +139,6 @@ async function run() {
 									"Compatible with: Ethereum, Polygon, etc.",
 							},
 
-							{
-								title: "Start from a template (coming soon)",
-								value: "new",
-								disabled: true,
-								message:
-									"Create a dapp starting from a template",
-							},
 							{
 								title: "Back",
 								value: "back",
@@ -280,54 +275,55 @@ async function run() {
 						step--;
 						break;
 					} else if (backendProvider == "skip") {
-						step++;
+						context.dappInfo.useBackend = false;
+						context.dappInfo.backendProvider = undefined;
+						step = 6;
 						break;
 					} else if (typeof backendProvider == "string") {
 						context.dappInfo.useBackend = true;
 						context.dappInfo.backendProvider = backendProvider;
+						step++;
 					} else {
 						kill();
 					}
-
-					if (context.dappInfo.useBackend) {
-						const hasContract: boolean = await prompts({
-							type: "select",
-							name: "hasContract",
-							message: "Do you want to create a new contract?",
-							choices: [
-								{
-									title: "Yes",
-									description:
-										"This will start the smart contract creation wizard",
-									value: true,
-								},
-								{ title: "No", value: false },
-								{ title: "Back", value: "back" },
-							],
-							initial: 0,
-							hint: "- Create smart contracts directly from the CLI.",
-						}).then((data) => data.hasContract);
-
-						if (typeof hasContract == "string") {
-							step--;
-							break;
-						} else if (typeof hasContract == "boolean") {
-							context.dappInfo.hasSmartContract = hasContract;
-							if (hasContract) {
-								context.contractInfo =
-									await smartContractWizard();
-							}
-						} else {
-							process.exit();
-						}
-					}
-					step++;
 				} catch (e) {
 					selfDestroy(e);
 				}
-
-				break;
 			case 5:
+				if (context.dappInfo.useBackend) {
+					const hasContract: boolean = await prompts({
+						type: "select",
+						name: "hasContract",
+						message: "Do you want to create a new contract?",
+						choices: [
+							{
+								title: "Yes",
+								description:
+									"This will start the smart contract creation wizard",
+								value: true,
+							},
+							{ title: "No", value: false },
+							{ title: "Back", value: "back" },
+						],
+						initial: 0,
+						hint: "- Create smart contracts directly from the CLI.",
+					}).then((data) => data.hasContract);
+
+					if (typeof hasContract == "string") {
+						step--;
+						break;
+					} else if (typeof hasContract == "boolean") {
+						context.dappInfo.hasSmartContract = hasContract;
+						if (hasContract) {
+							context.contractInfo = await smartContractWizard();
+						}
+					} else {
+						process.exit();
+					}
+				}
+				step++;
+				break;
+			case 6:
 				try {
 					const hasAccount: string = await prompts({
 						type: "toggle",
@@ -352,7 +348,7 @@ async function run() {
 					selfDestroy(e);
 				}
 
-			case 6:
+			case 7:
 				try {
 					const alchemyAPIKey: string = await prompts({
 						type: "text",
@@ -381,14 +377,31 @@ async function run() {
 	}
 
 	try {
+		const steps = context.dappInfo.useBackend ? 4 : 3;
+		let currentStep = 1;
+		console.log(`[0/${steps}] 🚀 Creating your dapp boilerplates`);
+		console.log(`[${currentStep}/${steps}] 🗂 Setting up the directory...`);
 		mkdir(context.resolvedProjectPath);
+		currentStep++;
+		console.log(`[${currentStep}/${steps}] 💾 Dowloading project files...`);
 		getProjectFiles(context);
+		currentStep++;
 
 		if (context.dappInfo.hasSmartContract && context.contractInfo) {
+			console.log(
+				`[${currentStep}/${steps}] 📄 Creating the smart contract`
+			);
+			currentStep++;
+
 			buildSmartContract(context.contractInfo);
 		}
 
+		console.log(
+			`[${currentStep}/${steps}] 🔧 Installing the dependencies - this might take a while`
+		);
+		currentStep++;
 		await installDependencies(context);
+
 		logInstructions(context.dappInfo, projectPath);
 	} catch (e) {
 		selfDestroy(e);

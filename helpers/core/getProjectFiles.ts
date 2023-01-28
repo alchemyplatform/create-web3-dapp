@@ -3,34 +3,24 @@ import { execSync } from "child_process";
 import path from "path";
 import fse from "fs-extra";
 import chalk from "chalk";
-import cliProgress from "cli-progress";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { createEnv } from "../utils/createEnv.js";
 import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
-export const getProjectFiles = ({
-	resolvedProjectPath,
-	dappInfo,
-}: BuilderContext) => {
+import { Multibar } from "../utils/progressBar.js";
+
+export const getProjectFiles = (
+	{ resolvedProjectPath, dappInfo }: BuilderContext,
+	progressBar?: any
+) => {
 	try {
 		process.chdir(resolvedProjectPath);
-		console.log(chalk.yellow("Downloading files..."));
-		const bar1 = new cliProgress.SingleBar(
-			{},
-			cliProgress.Presets.shades_classic
-		);
-		bar1.start(200, 0);
-		console.log("\n");
+		
 		execSync(
 			`git clone --depth 1 ${"https://github.com/Eversmile12/create-web3-dapp"} .`
 		);
-		console.log("\n");
-		bar1.update(100);
-
-		console.log(chalk.yellow("\nCopying project files..."));
-
 		const template = path.join(
 			process.cwd(),
 			"templates",
@@ -42,6 +32,7 @@ export const getProjectFiles = ({
 		} else {
 			fse.copySync(template, process.cwd());
 		}
+
 		// if (dappInfo.modules) {
 		// 	getComponents(
 		// 		dappInfo.modules,
@@ -50,10 +41,6 @@ export const getProjectFiles = ({
 		// 	);
 
 		// }
-
-		bar1.update(200);
-
-		bar1.stop();
 
 		if (dappInfo.useBackend) {
 			console.log(
@@ -82,8 +69,8 @@ export const getProjectFiles = ({
 				: process.cwd()
 		);
 		copyFile("utils", "README.md", process.cwd());
+
 		cleanUpFiles(dappInfo.useBackend);
-		console.log("Project files copied ✅");
 	} catch (e) {
 		selfDestroy(e);
 	}

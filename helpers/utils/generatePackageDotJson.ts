@@ -10,8 +10,6 @@ export const generatePackageDotJson = (
 	hasSmartContract,
 	contractName?
 ) => {
-	console.log(chalk.yellow("Generating package.json..."));
-
 	const packageJsonTemplate = {
 		name: projectName,
 		version: "0.1.0",
@@ -28,7 +26,8 @@ export const generatePackageDotJson = (
 	frontEndPackageJson["scripts"]["build"] = "next build";
 	frontEndPackageJson["scripts"]["start"] = "next start";
 	frontEndPackageJson["scripts"]["lint"] = "next link";
-	frontEndPackageJson["scripts"]["marketplace"] = "npx create-web3-dapp marketplace";
+	frontEndPackageJson["scripts"]["marketplace"] =
+		"npx create-web3-dapp marketplace";
 	frontEndPackageJson["devDependencies"]["eslint"] = "8.20.0";
 	frontEndPackageJson["devDependencies"]["eslint-config-next"] = "12.2.3";
 
@@ -61,7 +60,6 @@ export const generatePackageDotJson = (
 		);
 	}
 
-	console.log(chalk.green("1/x Package.json generated ✅"));
 	if (useBackend) {
 		const backendPackageJson = JSON.parse(
 			JSON.stringify(packageJsonTemplate)
@@ -99,9 +97,6 @@ export const generatePackageDotJson = (
 
 				break;
 			case "foundry":
-				console.log(
-					"It will be soon released - reverting to Hardhat as of now"
-				);
 				backendPackageJson["devDependencies"][
 					"@nomicfoundation/hardhat-toolbox"
 				] = "^1.0.2";
@@ -121,6 +116,5 @@ export const generatePackageDotJson = (
 			path.join(process.cwd(), "backend", "package.json"),
 			JSON.stringify(backendPackageJson, null, "\t")
 		);
-		console.log("2/2 Package.json generated ✅");
 	}
 };

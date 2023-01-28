@@ -2,8 +2,6 @@ import chalk from "chalk";
 import { DappInfo } from "../../interfaces/DappInfo";
 
 export const logInstructions = (dappInfo: DappInfo, projectPath: string) => {
-	console.log("\n\n\n");
-	console.log("⚡️ Quick start:");
 	let step = 1;
 
 	console.log(
