@@ -17,7 +17,7 @@ export const getProjectFiles = (
 ) => {
 	try {
 		process.chdir(resolvedProjectPath);
-		
+
 		execSync(
 			`git clone --depth 1 ${"https://github.com/Eversmile12/create-web3-dapp"} .`
 		);
@@ -43,9 +43,6 @@ export const getProjectFiles = (
 		// }
 
 		if (dappInfo.useBackend) {
-			console.log(
-				chalk.yellow(`Copying ${dappInfo.backendProvider} files...`)
-			);
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
 					setUpHardhat(dappInfo, resolvedProjectPath);
