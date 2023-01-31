@@ -11,22 +11,17 @@ import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
 import { Multibar } from "../utils/progressBar.js";
 
-export const getProjectFiles = (
-	{ resolvedProjectPath, dappInfo }: BuilderContext,
-	progressBar?: any
-) => {
+export const getProjectFiles = ({
+	resolvedProjectPath,
+	dappInfo,
+}: BuilderContext) => {
 	try {
 		process.chdir(resolvedProjectPath);
 
 		execSync(
-			`git clone --depth 1 ${"https://github.com/Eversmile12/create-web3-dapp"} .`
+			`git clone --depth 1 ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
 		);
-		const template = path.join(
-			process.cwd(),
-			"templates",
-			dappInfo.isEVM ? "evm" : "solana",
-			"core"
-		);
+		const template = path.join(process.cwd(), "core");
 		if (dappInfo.useBackend) {
 			fse.copySync(template, path.join(process.cwd(), "frontend"));
 		} else {
