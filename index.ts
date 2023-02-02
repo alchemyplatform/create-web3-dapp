@@ -15,49 +15,56 @@ import open from "open";
 import { smartContractWizard } from "./helpers/smartContractsWizard/smartContractWizard.js";
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import kill from "./helpers/utils/kill.js";
-import { Multibar } from "./helpers/utils/progressBar.js";
-import cliProgress from "cli-progress";
 
 console.log(
 	chalk.blue(`
-MMMMMMMMMMMMMMMMMK:..:KMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMWO,    ,OWMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMWk'      'kWMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMK;        .dNMMMMMMMMMMMMM
-MMMMMMMMMMMMMMWk'        .lXMMMMMMMMMMMM
-MMMMMMMMMMMKdxNW0;        .cKMMMMMMMMMMM
-MMMMMMMMMW0; .cXMK:.        ;0WMMMMMMMMM
-MMMMMMMMWk'    :0WXl'.       ,kWMMMMMMMM
-MMMMMMMNx.      ,0MNKd.       .xNMMMMMMM
-MMMMMMNo.       'OMMMWx'       .oNMMMMMM
-MMMMMXc.       ,OWMMMMWO;........dNMMMMM
-MMMM0:        :0MMMMMMMMN0OO0OOO0XWMMMMM
-MMWO,       .cXMXkxxxxxxxxxxxxxxxxxkKWMM
-MWx'       .oNW0;.                  'xWM
-Nd.       .xNWk'                     .dN
-l.       'kWNx.                       .l
-.       .kWM0'                         .
+           «╠
+          '▒░▒╓                  ╗           ╔ε
+         ╬  ╬▒▒╦          ,,     ╬     ,,    ╠Γ ,,       ,,       ,,   ,,
+       ╓╬╬╬  ╠╬╬▒       ª╩  "╬   ╬  ,╬╜  ╙▒  ╠╬╙ '╙▒   ╬╜  ╙▒  ╚╠╙ '╬▒╜ '╠▒  ╬    ╬╜
+      φ╬╬╠              ,╔#δδ╠Γ  ╬  ╠Γ       ╠Γ    ╠⌐ ╠╬####╝⌐ ╚╠   ╞╬   ]╬   ╬  ╬╜
+     ╬╬╬╬ ╔╬╬╬╬╬╬╬╬╦    ╬   ╓╠Γ  ╬  ╘╬,  ,▒  ╠Γ    ╠⌐ └╬,  ,╗  ╚╠   ╞╬   ]╬    ╬╬╙
+    ''''  ''''''''''     "╙' '   '    '""    '     '    '""'   ''    '    '    ╬╙
+                                                                              ╝' 
 `)
 );
 
-if (
-	process.argv[2] &&
-	(process.argv[2].toLowerCase() == "marketplace" ||
-		process.argv[2].toLowerCase() == "m")
-) {
-	try {
-		console.log("\n");
-		console.log("🔵 Sending you to the components marketplace 🔵");
-		console.log("\n");
-		open("https://createweb3dapp.com");
-	} catch (e) {
-		selfDestroy(e);
+const startSmartContractFlow = async () => {
+	const currentPath = process.cwd().split("/");
+	const currentDirectory = currentPath[currentPath.length - 1];
+	if (currentDirectory !== "backend") {
+		console.log(
+			"ERROR: Make sure to be in a create-web3-dapp 'backend' directory before starting the smart contracts backback"
+		);
+		console.log(
+			"TIP: If you haven't already, run npx create-web3-dapp@latest to get started"
+		);
+		return;
 	}
-} else {
-	console.log("\n");
-	console.log("🔵 Welcome to the create-web3-dapp wizard 🔵");
-	console.log("\n");
-	run();
+	const contractInfo = await smartContractWizard();
+	if (contractInfo) buildSmartContract(contractInfo, process.cwd());
+};
+
+switch (process.argv[2]) {
+	case "marketplace":
+		try {
+			console.log("\n");
+			console.log("🔵 Sending you to the components marketplace 🔵");
+			console.log("\n");
+			open("https://createweb3dapp.com");
+		} catch (e) {
+			selfDestroy(e);
+		}
+		break;
+	case "backpack":
+		startSmartContractFlow();
+		break;
+	default:
+		console.log("\n");
+		console.log(" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋");
+		console.log("\n");
+		run();
+		break;
 }
 
 let projectPath = "";
@@ -393,7 +400,10 @@ async function run() {
 			);
 			currentStep++;
 
-			buildSmartContract(context.contractInfo);
+			buildSmartContract(
+				context.contractInfo,
+				path.join(process.cwd(), "backend")
+			);
 		}
 
 		console.log(

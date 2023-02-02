@@ -1,21 +1,23 @@
 import path from "path";
-import fs from "fs";
+import fs, { existsSync } from "fs";
 import { mkdir } from "../utils/mkdir.js";
 import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
-import chalk from "chalk";
 import { isERC721 } from "./utils/isERC721.js";
 import { generateERC721DeploymentScript } from "./generateERC721DeploymentScript.js";
 
-export const createDeployScript = (smartContractInfo: SmartContractInfo) => {
-	console.log(chalk.yellow("Creating Smart Contracts..."));
-	mkdir(path.join(process.cwd(), "backend", "scripts"));
+export const createDeployScript = (
+	smartContractInfo: SmartContractInfo,
+	backendFolder: string
+) => {
+
+	const scriptsFolder = path.join(backendFolder, "scripts");
+	if (!existsSync(scriptsFolder)) mkdir(scriptsFolder);
+
+	if (!existsSync(scriptsFolder)) mkdir(scriptsFolder);
+
+
 	const writeStream = fs.createWriteStream(
-		path.join(
-			process.cwd(),
-			"backend",
-			"scripts",
-			`${smartContractInfo.name}_deploy.js`
-		)
+		path.join(scriptsFolder, `${smartContractInfo.name}_deploy.js`)
 	);
 	let content;
 

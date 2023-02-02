@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-my-dapp/
+my-create-web3-dapp/
 my-dapp-[0-9]/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

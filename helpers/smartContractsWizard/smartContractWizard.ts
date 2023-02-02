@@ -6,6 +6,7 @@ import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
 import { generateContractInfo } from "./generateContractInfo.js";
 import prompts from "prompts";
 import checkIfQuit from "../utils/checkIfQuit.js";
+import kill from "../utils/kill.js";
 export const smartContractWizard = async (): Promise<
 	SmartContractInfo | undefined
 > => {
@@ -15,6 +16,7 @@ export const smartContractWizard = async (): Promise<
 	let standard;
 	let symbol;
 	let quit = false;
+
 	while (!quit) {
 		switch (step) {
 			case 0:
@@ -58,38 +60,10 @@ export const smartContractWizard = async (): Promise<
 				if (await checkIfQuit(standard, null)) {
 					quit = true;
 					return;
+				} else if (!standard) {
+					kill();
 				}
-				while (!standard.length) {
-					standard = await prompts({
-						type: "select",
-						name: "contractStandard",
-						message:
-							"What kind of smart contract do you want to create?",
-						choices: [
-							{
-								title: "ERC721",
-								value: "ERC721",
-								description: "Create a NFTs Smart Contract",
-							},
-							{
-								title: "ERC20",
-								value: "ERC20",
-								disabled: true,
-								description: "Create a Token Smart Contract",
-							},
-							{
-								title: "Quit",
-								value: "quit",
-								description: "Quit smart contract wizard",
-							},
-						],
-						hint: "- Space to select. Return to submit",
-					}).then((data) => data.contractStandard);
-				}
-				if (await checkIfQuit(standard, null)) {
-					quit = true;
-					return;
-				}
+
 				step++;
 				break;
 			case 1:
@@ -98,9 +72,13 @@ export const smartContractWizard = async (): Promise<
 					name: "contractName",
 					initial: `MyContract`,
 					message: "Choose a name for your contract",
-				}).then((data) =>
-					data.contractName.trim().replace(/[\W_]+/g, "-")
-				);
+				}).then((data) => {
+					if (data.contractName) {
+						return data.contractName.trim().replace(/[\W_]+/g, "-");
+					} else {
+						kill();
+					}
+				});
 
 				step++;
 				break;
@@ -111,34 +89,31 @@ export const smartContractWizard = async (): Promise<
 					initial: contractName.slice(0, 3).toUpperCase(),
 					message:
 						"A short version of the name of your smart contract",
-				}).then((data) =>
-					data.contractSymbol.trim().replace(/[\W_]+/g, "")
-				);
-				while (!symbol.length) {
-					const quit = await prompts({
+				}).then((data) => {
+					if (data.contractSymbol) {
+						return data.contractSymbol
+							.trim()
+							.replace(/[\W_]+/g, "-");
+					}
+				});
+				while (!symbol || !symbol.length || symbol.length < 3) {
+					symbol = await prompts({
 						type: "text",
-						name: "contractName",
-						initial: `MyContract`,
-						message: "A contract symbol must be choosen",
-					}).then(
-						(data) =>
-							(contractName = data.contractName
+						name: "contractSymbol",
+						initial: contractName.slice(0, 3).toUpperCase(),
+						message:
+							"A short version of the name of your smart contract - Symbol should be 3 or more characters",
+					}).then((data) => {
+						if (data.contractSymbol) {
+							return data.contractSymbol
 								.trim()
-								.replace(/[\W_]+/g, "-"))
-					);
+								.replace(/[\W_]+/g, "-");
+						} else {
+							kill();
+						}
+					});
 				}
 
-				while (symbol.length < 3) {
-					contractName = await prompts({
-						type: "text",
-						name: "contractName",
-						initial: `MyContract`,
-						message:
-							"Choose a symbol for your contract - Sybol is usually of 3 or more characters",
-					}).then((data) =>
-						data.contractName.trim().replace(/[\W_]+/g, "-")
-					);
-				}
 				step++;
 				break;
 			case 3:
@@ -151,8 +126,11 @@ export const smartContractWizard = async (): Promise<
 					choices: [...librariesForStandard],
 					hint: "- Space to select. Return to submit",
 				}).then((data) => data.selectedLibraries);
-
-				selectLibrariesForStandard(standard, selectedLibraries);
+				if (selectedLibraries.length) {
+					selectLibrariesForStandard(standard, selectedLibraries);
+				} else {
+					kill()
+				}
 
 				contractInfo = generateContractInfo(
 					contractName,

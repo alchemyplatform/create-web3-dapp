@@ -15,5 +15,8 @@ export interface BuilderContext {
 	resolvedProjectPath: string;
 }
 
+export interface ContractInfo{
+	
+}
 
 export default BuilderContext;

@@ -1,22 +1,19 @@
-import fs from "fs";
+import fs, { existsSync } from "fs";
 import { generateERC721Template } from "./ERC721Template.js";
 import path from "path";
 import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
 import { getSmartContractDependencies } from "./utils/getSmartContractDependencies.js";
 import { getSmartContractSuperClasses } from "./utils/getSmartContractSuperClasses.js";
 import { isERC721 } from "./utils/isERC721.js";
-import chalk from "chalk";
 import { mkdir } from "../utils/mkdir.js";
 import { createDeployScript } from "./createDeployScript.js";
-export const buildSmartContract = (
-	smartContractInfo: SmartContractInfo,
-) => {
-	mkdir(path.join(process.cwd(), "backend", "contracts"));
+export const buildSmartContract = (smartContractInfo: SmartContractInfo, backendFolder: string) => {
+	const contractsFolder = path.join(backendFolder, "contracts")
+	if (!existsSync(contractsFolder))
+		mkdir(contractsFolder);
 	const writeStream = fs.createWriteStream(
 		path.join(
-			process.cwd(),
-			"backend",
-			"contracts",
+			contractsFolder,
 			`${smartContractInfo.name}.sol`
 		)
 	);
@@ -39,6 +36,5 @@ ${smartContractTemplate}
 	}
 	writeStream.end();
 
-
-	createDeployScript(smartContractInfo);
+	createDeployScript(smartContractInfo, backendFolder);
 };

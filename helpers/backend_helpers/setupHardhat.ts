@@ -2,15 +2,17 @@ import path from "path";
 import { createEnv } from "../utils/createEnv.js";
 import fse from "fs-extra";
 import { DappInfo } from "../../interfaces/DappInfo.js";
-import { createWriteStream } from "fs";
+import { createWriteStream, mkdirSync } from "fs";
 import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
+import { execSync } from "child_process";
 
 export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
-
-
-	const hardhatTemplate = path.join(projectPath, "templates", "hardhat");
-	fse.mkdirSync(path.join(projectPath, "backend"));
-	fse.copySync(hardhatTemplate, path.join(projectPath, "backend"));
+	mkdirSync(path.join(process.cwd(), "tempBackend"));
+	execSync(
+		`git clone --depth 1 ${"https://github.com/alchemyplatform/cw3d-hardhat-boilerplates.git"} ./tempBackend`
+	);
+	const hardhatTemplate = path.join(process.cwd(), "tempBackend");
+	fse.copySync(hardhatTemplate, projectPath);
 
 	createEnv(
 		{ ...dappInfo.apiKeys, ETHERSCAN_API_KEY: "", PRIVATE_KEY: "" },
@@ -52,6 +54,4 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 		)}`
 	);
 	writeStream.close();
-
-
 };

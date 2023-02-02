@@ -2,14 +2,12 @@ import { selfDestroy } from "./selfDestroy.js";
 import { execSync } from "child_process";
 import path from "path";
 import fse from "fs-extra";
-import chalk from "chalk";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { createEnv } from "../utils/createEnv.js";
 import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
-import { Multibar } from "../utils/progressBar.js";
 
 export const getProjectFiles = ({
 	resolvedProjectPath,
@@ -19,13 +17,11 @@ export const getProjectFiles = ({
 		process.chdir(resolvedProjectPath);
 
 		execSync(
-			`git clone --depth 1 ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
+			`git clone ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
 		);
-		const template = path.join(process.cwd(), "core");
-		if (dappInfo.useBackend) {
-			fse.copySync(template, path.join(process.cwd(), "frontend"));
-		} else {
-			fse.copySync(template, process.cwd());
+		const frontend = path.join(process.cwd(), "frontend");
+		if (!dappInfo.useBackend) {
+			fse.copySync(frontend, process.cwd());
 		}
 
 		// if (dappInfo.modules) {
@@ -60,7 +56,7 @@ export const getProjectFiles = ({
 				? path.join(process.cwd(), "frontend")
 				: process.cwd()
 		);
-		copyFile("utils", "README.md", process.cwd());
+		// copyFile("utils", "README.md", process.cwd());
 
 		cleanUpFiles(dappInfo.useBackend);
 	} catch (e) {
