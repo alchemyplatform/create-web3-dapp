@@ -126,11 +126,8 @@ export const smartContractWizard = async (): Promise<
 					choices: [...librariesForStandard],
 					hint: "- Space to select. Return to submit",
 				}).then((data) => data.selectedLibraries);
-				if (selectedLibraries.length) {
-					selectLibrariesForStandard(standard, selectedLibraries);
-				} else {
-					kill()
-				}
+				
+				selectLibrariesForStandard(standard, selectedLibraries);
 
 				contractInfo = generateContractInfo(
 					contractName,

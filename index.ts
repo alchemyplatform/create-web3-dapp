@@ -48,7 +48,6 @@ const startSmartContractFlow = async () => {
 switch (process.argv[2]) {
 	case "marketplace":
 		try {
-			console.log("\n");
 			console.log("🔵 Sending you to the components marketplace 🔵");
 			console.log("\n");
 			open("https://createweb3dapp.com");
@@ -60,7 +59,6 @@ switch (process.argv[2]) {
 		startSmartContractFlow();
 		break;
 	default:
-		console.log("\n");
 		console.log(" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋");
 		console.log("\n");
 		run();
