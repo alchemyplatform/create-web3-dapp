@@ -22,7 +22,7 @@ export const logInstructions = (dappInfo: DappInfo, projectPath: string) => {
 	}
 
 	console.log(
-		`${step}. 'To start it, run: ${chalk.green(
+		`${step}. To start the application, run: ${chalk.green(
 			`cd ${
 				dappInfo.useBackend
 					? `${projectPath}/frontend`

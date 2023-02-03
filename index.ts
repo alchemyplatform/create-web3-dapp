@@ -25,7 +25,7 @@ console.log(
       φ╬╬╠              ,╔#δδ╠Γ  ╬  ╠Γ       ╠Γ    ╠⌐ ╠╬####╝⌐ ╚╠   ╞╬   ]╬   ╬  ╬╜
      ╬╬╬╬ ╔╬╬╬╬╬╬╬╬╦    ╬   ╓╠Γ  ╬  ╘╬,  ,▒  ╠Γ    ╠⌐ └╬,  ,╗  ╚╠   ╞╬   ]╬    ╬╬╙
     ''''  ''''''''''     "╙' '   '    '""    '     '    '""'   ''    '    '    ╬╙
-                                                                              ╝' 
+                                  create-web3-dapp                            ╝' 
 `)
 );
 
@@ -382,7 +382,7 @@ async function run() {
 	}
 
 	try {
-		const steps = context.dappInfo.useBackend ? 4 : 3;
+		const steps = context.dappInfo.hasSmartContract ? 4 : 3;
 		let currentStep = 1;
 		console.log(`[0/${steps}] 🚀 Creating your dapp boilerplates`);
 		console.log(`[${currentStep}/${steps}] 🗂 Setting up the directory...`);

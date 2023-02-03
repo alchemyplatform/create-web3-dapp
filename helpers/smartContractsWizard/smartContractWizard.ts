@@ -7,6 +7,8 @@ import { generateContractInfo } from "./generateContractInfo.js";
 import prompts from "prompts";
 import checkIfQuit from "../utils/checkIfQuit.js";
 import kill from "../utils/kill.js";
+import { existsSync } from "fs";
+import path from "path";
 export const smartContractWizard = async (): Promise<
 	SmartContractInfo | undefined
 > => {
@@ -79,7 +81,31 @@ export const smartContractWizard = async (): Promise<
 						kill();
 					}
 				});
-
+				const contractIndex = 1;
+				while (
+					existsSync(
+						path.join(
+							process.cwd(),
+							"contracts",
+							`${contractName}.sol`
+						)
+					)
+				) {
+					contractName = await prompts({
+						type: "text",
+						name: "contractName",
+						initial: `MyContract_${contractIndex}`,
+						message: "A contract with this name already exists, insert a different name.",
+					}).then((data) => {
+						if (data.contractName) {
+							return data.contractName
+								.trim()
+								.replace(/[\W_]+/g, "-");
+						} else {
+							kill();
+						}
+					});
+				}
 				step++;
 				break;
 			case 2:
@@ -126,7 +152,7 @@ export const smartContractWizard = async (): Promise<
 					choices: [...librariesForStandard],
 					hint: "- Space to select. Return to submit",
 				}).then((data) => data.selectedLibraries);
-				
+
 				selectLibrariesForStandard(standard, selectedLibraries);
 
 				contractInfo = generateContractInfo(

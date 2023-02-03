@@ -23,12 +23,12 @@ export const installDependencies = async ({
 			contractInfo?.name
 		);
 		if (backendProvider == "hardhat") {
-			console.log(
-				`Installing ${
-					backendProvider.charAt(0).toUpperCase() +
-					backendProvider.slice(1)
-				} dependencies...`
-			);
+			// console.log(
+			// 	`Installing ${
+			// 		backendProvider.charAt(0).toUpperCase() +
+			// 		backendProvider.slice(1)
+			// 	} dependencies...`
+			// );
 
 			process.chdir("backend");
 			execSync("npx npm-check-updates -u");
@@ -40,8 +40,7 @@ export const installDependencies = async ({
 		} else {
 			process.chdir(resolvedProjectPath);
 		}
-		console.log("Checking dependencies for updates...");
-		console.log("Installing dependencies updates...");
+	
 		execSync("npx npm-check-updates -u");
 		execSync("npm install --loglevel=error");
 		process.chdir(resolvedProjectPath);

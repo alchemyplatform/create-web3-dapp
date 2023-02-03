@@ -4,7 +4,6 @@ import path from "path";
 import fse from "fs-extra";
 import { setUpHardhat } from "../backend_helpers/setupHardhat.js";
 import { createEnv } from "../utils/createEnv.js";
-import { copyFile } from "../utils/copyFile.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
@@ -17,7 +16,7 @@ export const getProjectFiles = ({
 		process.chdir(resolvedProjectPath);
 
 		execSync(
-			`git clone ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
+			`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
 		);
 		const frontend = path.join(process.cwd(), "frontend");
 		if (!dappInfo.useBackend) {

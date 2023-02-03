@@ -9,7 +9,8 @@ import { execSync } from "child_process";
 export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	mkdirSync(path.join(process.cwd(), "tempBackend"));
 	execSync(
-		`git clone --depth 1 ${"https://github.com/alchemyplatform/cw3d-hardhat-boilerplates.git"} ./tempBackend`
+		`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-hardhat-boilerplates.git"} ./tempBackend`,
+		{ stdio: "inherit" }
 	);
 	const hardhatTemplate = path.join(process.cwd(), "tempBackend");
 	fse.copySync(hardhatTemplate, projectPath);
