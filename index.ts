@@ -59,7 +59,9 @@ switch (process.argv[2]) {
 		startSmartContractFlow();
 		break;
 	default:
-		console.log(" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋");
+		console.log(
+			" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋"
+		);
 		console.log("\n");
 		run();
 		break;
@@ -132,6 +134,8 @@ async function run() {
 				break;
 			case 1:
 				try {
+					context.dappInfo.isTemplate = false;
+
 					const builderTemplate: string = await prompts({
 						type: "select",
 						name: "builderTemplate",
@@ -140,6 +144,12 @@ async function run() {
 							{
 								title: "Create a new application",
 								value: "new",
+								message:
+									"Compatible with: Ethereum, Polygon, etc.",
+							},
+							{
+								title: "Start from a template",
+								value: "template",
 								message:
 									"Compatible with: Ethereum, Polygon, etc.",
 							},
@@ -154,6 +164,28 @@ async function run() {
 					}).then((data) => data.builderTemplate);
 
 					if (builderTemplate == "new") {
+						step++;
+						break;
+					} else if (builderTemplate == "template") {
+						context.dappInfo.isTemplate = true;
+						const template: string = await prompts({
+							type: "select",
+							name: "template",
+							message: "Select a template",
+							choices: [
+								{
+									title: "NFTs Gallery",
+									value: 0,
+									message:
+										"Compatible with: Ethereum, Polygon, etc.",
+								},
+							],
+							initial: 0,
+							hint: "- Create a default app ",
+						}).then(
+							(data) =>
+								(context.dappInfo.template = data.template)
+						);
 						step++;
 						break;
 					} else if (builderTemplate == "back") {
@@ -381,6 +413,10 @@ async function run() {
 		}
 	}
 
+	generateDapp();
+}
+
+const generateDapp = async () => {
 	try {
 		const steps = context.dappInfo.hasSmartContract ? 4 : 3;
 		let currentStep = 1;
@@ -414,4 +450,4 @@ async function run() {
 	} catch (e) {
 		selfDestroy(e);
 	}
-}
+};

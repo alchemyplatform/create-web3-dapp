@@ -14,10 +14,25 @@ export const getProjectFiles = ({
 }: BuilderContext) => {
 	try {
 		process.chdir(resolvedProjectPath);
+		if (dappInfo.isTemplate) {
+			switch (dappInfo.template) {
+				case 0:
+					execSync(
+						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-nfts-gallery.git"} .`
+					);
+					break;
+				default:
+					execSync(
+						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
+					);
+					break;
+			}
+		} else {
+			execSync(
+				`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
+			);
+		}
 
-		execSync(
-			`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
-		);
 		const frontend = path.join(process.cwd(), "frontend");
 		if (!dappInfo.useBackend) {
 			fse.copySync(frontend, process.cwd());
