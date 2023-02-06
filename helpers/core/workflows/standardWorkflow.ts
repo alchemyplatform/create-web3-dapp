@@ -6,7 +6,7 @@ import prompts from "prompts";
 import { existsSync } from "fs";
 import { selfDestroy, setRoot } from "../../core/selfDestroy.js";
 import { smartContractWizard } from "../../smartContractsWizard/smartContractWizard.js";
-import {generateDapp} from "../generateDapp.js"
+import { generateDapp } from "../generateDapp.js";
 export async function startStandardWorkflow() {
 	await checkNewPackageUpdates();
 	let step = 0;
@@ -112,6 +112,10 @@ export async function startStandardWorkflow() {
 									message:
 										"Compatible with: Ethereum, Polygon, etc.",
 								},
+								{
+									title: "Back",
+									value: "back",
+								},
 							],
 							initial: 0,
 							hint: "- Create a default app ",
@@ -119,8 +123,12 @@ export async function startStandardWorkflow() {
 							(data) =>
 								(context.dappInfo.template = data.template)
 						);
-						step++;
-						break;
+						if (template == "back") {
+							break;
+						} else {
+							step++;
+							break;
+						}
 					} else if (builderTemplate == "back") {
 						step--;
 						break;
@@ -345,5 +353,5 @@ export async function startStandardWorkflow() {
 				break;
 		}
 	}
-	generateDapp(projectPath)
+	generateDapp(projectPath);
 }
