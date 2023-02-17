@@ -1,21 +1,24 @@
-import kill from "../../utils/kill.js";
-import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
-import context from "../context.js";
+import { existsSync } from "fs";
+import open from "open";
 import path from "path";
 import prompts from "prompts";
-import { existsSync } from "fs";
-import { selfDestroy, setRoot } from "../selfDestroy.js";
+import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
+import kill from "../../utils/kill.js";
+import context from "../context.js";
 import { generateDapp } from "../generateDapp.js";
-import open from "open";
+import { selfDestroy, setRoot } from "../selfDestroy.js";
 
-export async function startTemplatesWorkflow(template: number, useBackend: boolean = false) {
+export async function startTemplatesWorkflow(
+	template: number,
+	useBackend = false
+) {
 	await checkNewPackageUpdates();
 	context.dappInfo.isTemplate = true;
 	context.dappInfo.template = template;
 	context.dappInfo.chain = "ETH_MAINNET";
 	context.dappInfo.isEVM = true;
 	context.dappInfo.useBackend = useBackend;
-	context.dappInfo.backendProvider= "hardhat-template"
+	context.dappInfo.backendProvider = "hardhat-template";
 
 	let step = 0;
 	let quit = false;
@@ -57,9 +60,9 @@ export async function startTemplatesWorkflow(template: number, useBackend: boole
 							message:
 								"A directory with this name already exists, please use a different name",
 							initial: `my-create-web3-dapp-${i}`,
-						}).then((data) =>
-							data.projectPath.trim().replace(/[\W_]+/g, "-")
-						);
+						}).then((data) => {
+							data.projectPath.trim().replace(/[\W_]+/g, "-");
+						});
 						context.resolvedProjectPath = path.resolve(projectPath);
 						dirExists = existsSync(context.resolvedProjectPath);
 						i += 1;
@@ -98,6 +101,7 @@ export async function startTemplatesWorkflow(template: number, useBackend: boole
 				} catch (e) {
 					selfDestroy(e);
 				}
+				break;
 
 			case 2:
 				try {
