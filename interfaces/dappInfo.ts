@@ -1,5 +1,17 @@
 import { APIKeys } from "./ApiKeys";
 
+enum Mainnet {
+	ETHEREUM = "ETH_MAINNET",
+	OPTIMISM = "",
+	ARBITRUM = "",
+	POLYGON ="",
+
+}
+
+enum Testnet {
+
+}
+
 export interface DappInfo {
 	chain: string;
 	isTemplate: boolean;

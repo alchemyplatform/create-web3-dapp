@@ -7,6 +7,8 @@ import { existsSync } from "fs";
 import { selfDestroy, setRoot } from "../../core/selfDestroy.js";
 import { smartContractWizard } from "../../smartContractsWizard/smartContractWizard.js";
 import { generateDapp } from "../generateDapp.js";
+import open from "open";
+
 export async function startStandardWorkflow() {
 	await checkNewPackageUpdates();
 	let step = 0;
@@ -294,6 +296,9 @@ export async function startStandardWorkflow() {
 						context.dappInfo.hasSmartContract = hasContract;
 						if (hasContract) {
 							context.contractInfo = await smartContractWizard();
+							if (!context.contractInfo?.name) {
+								break;
+							}
 						}
 					} else {
 						process.exit();
@@ -336,10 +341,11 @@ export async function startStandardWorkflow() {
 						initial: "",
 					}).then((data) => data.apiKey);
 					if (
-						alchemyAPIKey.length < 32 ||
-						alchemyAPIKey.length > 33
+						alchemyAPIKey?.length < 32 || alchemyAPIKey?.length > 33
 					) {
 						break;
+					}if(!alchemyAPIKey){
+						process.exit()
 					}
 
 					context.dappInfo.apiKeys.ALCHEMY_API_KEY =

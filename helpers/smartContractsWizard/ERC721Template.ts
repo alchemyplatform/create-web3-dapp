@@ -51,7 +51,9 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 
     ${
 		smartContractInfo.isMintable
-			? `function safeMint(address to${smartContractInfo.isURIStorage ? ", string memory uri" : ""}) public ${
+			? `function safeMint(address to${
+					smartContractInfo.isURIStorage ? ", string memory uri" : ""
+			  }) public ${
 					smartContractInfo.isRoles ? `onlyRole(PAUSER_ROLE)` : ""
 			  } ${smartContractInfo.isOwnable ? `onlyOwner` : ""} {
             ${
@@ -74,31 +76,31 @@ export const generateERC721Template = (smartContractInfo, superClasses) => {
 
     ${
 		smartContractInfo.isPausable || smartContractInfo.isEnumerable
-			? `function _beforeTokenTransfer(address from, address to, uint256 tokenId)
+			? `function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
         internal
         ${smartContractInfo.isPausable ? `whenNotPaused` : ""}
         override(ERC721 ${
 			smartContractInfo.isEnumerable ? `,ERC721Enumerable` : ""
 		})
     {
-            super._beforeTokenTransfer(from, to, tokenId);
+            super._beforeTokenTransfer(from, to, tokenId, batchSize);
         }`
 			: ""
 	}
 
     ${
 		smartContractInfo.isVotes
-			? `function _afterTokenTransfer(address from, address to, uint256 tokenId)
+			? `function _afterTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
         internal
         override(ERC721, ERC721Votes)
     {
-        super._afterTokenTransfer(from, to, tokenId);
+        super._afterTokenTransfer(from, to, tokenId, batchSize);
     }`
 			: ""
 	}
     
     ${
-		(smartContractInfo.isBurnable || smartContractInfo.isURIStorage)
+		smartContractInfo.isBurnable || smartContractInfo.isURIStorage
 			? `function _burn(uint256 tokenId) internal override(ERC721 ${
 					smartContractInfo.isURIStorage ? ", ERC721URIStorage" : ""
 			  }) {

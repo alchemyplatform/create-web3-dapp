@@ -53,6 +53,9 @@ switch (process.argv[2]) {
 	case "nft-gallery":
 		startTemplatesWorkflow(0);
 		break;
+	case "creator-dapp":
+		startTemplatesWorkflow(1, true);
+		break;
 	default:
 		console.log(
 			" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋"

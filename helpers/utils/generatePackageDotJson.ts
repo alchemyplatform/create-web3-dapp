@@ -5,6 +5,7 @@ import fs from "fs";
 export const generatePackageDotJson = (
 	projectName,
 	isEVM,
+	isTestnet,
 	useBackend,
 	backendProvider,
 	hasSmartContract,
@@ -65,6 +66,7 @@ export const generatePackageDotJson = (
 			JSON.stringify(packageJsonTemplate)
 		);
 		switch (backendProvider) {
+			case "hardhat-template":
 			case "hardhat":
 				backendPackageJson["devDependencies"][
 					"@nomicfoundation/hardhat-toolbox"
@@ -72,19 +74,20 @@ export const generatePackageDotJson = (
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
 				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
 				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
+				if(isTestnet)
 				backendPackageJson["scripts"][
 					"deploy-testnet"
 				] = `npx hardhat run ./scripts/${
 					hasSmartContract
 						? `${contractName}_deploy.js`
-						: "YOUR_DEPLOY_SCRIPT"
+						: "deploy.js"
 				} --network ETH_GOERLI`;
 				backendPackageJson["scripts"][
 					"deploy"
 				] = `npx hardhat run ./scripts/${
 					hasSmartContract
 						? `${contractName}_deploy.js`
-						: "YOUR_DEPLOY_SCRIPT"
+						: "deploy.js"
 				} --network ETH_MAINNET`;
 				backendPackageJson["scripts"]["node"] = `npx hardhat node`;
 				backendPackageJson["scripts"][
@@ -92,7 +95,7 @@ export const generatePackageDotJson = (
 				] = `npx hardhat run ./scripts/${
 					hasSmartContract
 						? `${contractName}_deploy.js`
-						: "YOUR_DEPLOY_SCRIPT"
+						: "deploy.js"
 				} --network localhost`;
 
 				break;

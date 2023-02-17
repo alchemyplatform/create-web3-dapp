@@ -11,25 +11,19 @@ export const installDependencies = async ({
 	resolvedProjectPath,
 }: BuilderContext) => {
 	try {
-		const { isEVM, useBackend, backendProvider, hasSmartContract } =
+		const { isEVM, useBackend, backendProvider, hasSmartContract, isTestnet } =
 			dappInfo;
 
 		generatePackageDotJson(
 			projectName,
 			isEVM,
+			isTestnet,
 			useBackend,
 			backendProvider,
 			hasSmartContract,
 			contractInfo?.name
 		);
-		if (backendProvider == "hardhat") {
-			// console.log(
-			// 	`Installing ${
-			// 		backendProvider.charAt(0).toUpperCase() +
-			// 		backendProvider.slice(1)
-			// 	} dependencies...`
-			// );
-
+		if (useBackend) {
 			process.chdir("backend");
 			execSync("npx npm-check-updates -u");
 			execSync("npm install --loglevel=error");

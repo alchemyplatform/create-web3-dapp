@@ -15,10 +15,7 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	const hardhatTemplate = path.join(process.cwd(), "tempBackend");
 	fse.copySync(hardhatTemplate, projectPath);
 
-	createEnv(
-		{ ...dappInfo.apiKeys, ETHERSCAN_API_KEY: "", PRIVATE_KEY: "" },
-		path.join(projectPath, "backend")
-	);
+	
 
 	const writeStream = createWriteStream(
 		path.join(projectPath, "backend", "hardhat.config.js")

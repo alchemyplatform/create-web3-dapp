@@ -21,6 +21,11 @@ export const getProjectFiles = ({
 						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-nfts-gallery.git"} .`
 					);
 					break;
+				case 1:
+					execSync(
+						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-donation-dapp"} .`
+					);
+					break;
 				default:
 					execSync(
 						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-evm-boilerplate"} .`
@@ -33,29 +38,25 @@ export const getProjectFiles = ({
 			);
 		}
 
-		const frontend = path.join(process.cwd(), "frontend");
 		if (!dappInfo.useBackend) {
+			const frontend = path.join(process.cwd(), "frontend");
 			fse.copySync(frontend, process.cwd());
 		}
-
-		// if (dappInfo.modules) {
-		// 	getComponents(
-		// 		dappInfo.modules,
-		// 		dappInfo.isEVM,
-		// 		dappInfo.useBackend
-		// 	);
-
-		// }
-
 		if (dappInfo.useBackend) {
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
 					setUpHardhat(dappInfo, resolvedProjectPath);
 					break;
-
 				case "foundry":
 					break;
+				default:
+					break;
 			}
+			createEnv(
+				{ ...dappInfo.apiKeys, ETHERSCAN_API_KEY: "", PRIVATE_KEY: "" },
+				path.join(resolvedProjectPath, "backend"),
+				false
+			);
 		}
 
 		createEnv(
@@ -68,9 +69,9 @@ export const getProjectFiles = ({
 			},
 			dappInfo.useBackend
 				? path.join(process.cwd(), "frontend")
-				: process.cwd()
+				: process.cwd(),
+			true
 		);
-		// copyFile("utils", "README.md", process.cwd());
 
 		cleanUpFiles(dappInfo.useBackend);
 	} catch (e) {

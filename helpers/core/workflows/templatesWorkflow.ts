@@ -5,15 +5,17 @@ import path from "path";
 import prompts from "prompts";
 import { existsSync } from "fs";
 import { selfDestroy, setRoot } from "../selfDestroy.js";
-import { smartContractWizard } from "../../smartContractsWizard/smartContractWizard.js";
 import { generateDapp } from "../generateDapp.js";
+import open from "open";
 
-export async function startTemplatesWorkflow(template: number) {
+export async function startTemplatesWorkflow(template: number, useBackend: boolean = false) {
 	await checkNewPackageUpdates();
 	context.dappInfo.isTemplate = true;
 	context.dappInfo.template = template;
 	context.dappInfo.chain = "ETH_MAINNET";
 	context.dappInfo.isEVM = true;
+	context.dappInfo.useBackend = useBackend;
+	context.dappInfo.backendProvider= "hardhat-template"
 
 	let step = 0;
 	let quit = false;
@@ -71,81 +73,7 @@ export async function startTemplatesWorkflow(template: number) {
 				}
 				step++;
 				break;
-			// case 1:
-			// 	try {
-			// 		const backendProvider = await prompts({
-			// 			type: "select",
-			// 			name: "backendProvider",
-			// 			message:
-			// 				"Select your blockchain development environment or skip:",
-			// 			hint: "- This will allow you to create, build, deploy and test smart contracts",
-			// 			choices: [
-			// 				{ title: "Hardhat", value: "hardhat" },
-			// 				{
-			// 					title: "Foundry (coming soon)",
-			// 					value: "foundry",
-			// 					disabled: true,
-			// 				},
-			// 				{
-			// 					title: "Skip",
-			// 					value: "skip",
-			// 				},
-			// 				{ title: "Back", value: "back" },
-			// 			],
-			// 			initial: 0,
-			// 		}).then((data) => data.backendProvider);
-			// 		if (backendProvider == "back") {
-			// 			step--;
-			// 			break;
-			// 		} else if (backendProvider == "skip") {
-			// 			context.dappInfo.useBackend = false;
-			// 			context.dappInfo.backendProvider = undefined;
-			// 			step = 6;
-			// 			break;
-			// 		} else if (typeof backendProvider == "string") {
-			// 			context.dappInfo.useBackend = true;
-			// 			context.dappInfo.backendProvider = backendProvider;
-			// 			step++;
-			// 		} else {
-			// 			kill();
-			// 		}
-			// 	} catch (e) {
-			// 		selfDestroy(e);
-			// 	}
-			// case 2:
-			// 	if (context.dappInfo.useBackend) {
-			// 		const hasContract: boolean = await prompts({
-			// 			type: "select",
-			// 			name: "hasContract",
-			// 			message: "Do you want to create a new contract?",
-			// 			choices: [
-			// 				{
-			// 					title: "Yes",
-			// 					description:
-			// 						"This will start the smart contract creation wizard",
-			// 					value: true,
-			// 				},
-			// 				{ title: "No", value: false },
-			// 				{ title: "Back", value: "back" },
-			// 			],
-			// 			initial: 0,
-			// 			hint: "- Create smart contracts directly from the CLI.",
-			// 		}).then((data) => data.hasContract);
 
-			// 		if (typeof hasContract == "string") {
-			// 			step--;
-			// 			break;
-			// 		} else if (typeof hasContract == "boolean") {
-			// 			context.dappInfo.hasSmartContract = hasContract;
-			// 			if (hasContract) {
-			// 				context.contractInfo = await smartContractWizard();
-			// 			}
-			// 		} else {
-			// 			process.exit();
-			// 		}
-			// 	}
-			// 	step++;
-			// 	break;
 			case 1:
 				try {
 					const hasAccount: string = await prompts({
