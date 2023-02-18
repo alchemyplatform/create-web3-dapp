@@ -36,6 +36,7 @@ export const generatePackageDotJson = (
 		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.3.0";
 		frontEndPackageJson["dependencies"]["@rainbow-me/rainbowkit"] =
 			"^0.8.1";
+		frontEndPackageJson["dependencies"]["wagmi"] = "^0.11.5";
 	} else {
 		frontEndPackageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
 		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react-ui"] =
