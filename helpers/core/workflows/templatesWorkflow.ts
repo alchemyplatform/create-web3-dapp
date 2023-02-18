@@ -4,6 +4,7 @@ import path from "path";
 import prompts from "prompts";
 import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
 import kill from "../../utils/kill.js";
+import { validateProjectName } from "../../utils/validation.js";
 import context from "../context.js";
 import { generateDapp } from "../generateDapp.js";
 import { selfDestroy, setRoot } from "../selfDestroy.js";
@@ -43,30 +44,12 @@ export async function startTemplatesWorkflow(
 							name: "projectPath",
 							message: "Please, insert a project name",
 							initial: "my-create-web3-dapp",
+							validate: (value: string) =>
+								validateProjectName(value),
 						}).then((data) => data.projectPath);
 					}
-
-					projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
+					// projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
 					context.resolvedProjectPath = path.resolve(projectPath);
-					let dirExists: boolean = existsSync(
-						context.resolvedProjectPath
-					);
-
-					let i = 1;
-					while (dirExists) {
-						projectPath = await prompts({
-							type: "text",
-							name: "projectPath",
-							message:
-								"A directory with this name already exists, please use a different name",
-							initial: `my-create-web3-dapp-${i}`,
-						}).then((data) => {
-							data.projectPath.trim().replace(/[\W_]+/g, "-");
-						});
-						context.resolvedProjectPath = path.resolve(projectPath);
-						dirExists = existsSync(context.resolvedProjectPath);
-						i += 1;
-					}
 					context.projectName = path.basename(
 						context.resolvedProjectPath
 					);
