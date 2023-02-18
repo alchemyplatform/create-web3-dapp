@@ -39,7 +39,7 @@ export async function startStandardWorkflow() {
 								validateProjectName(value),
 						}).then((data) => data.projectPath);
 					}
-					projectPath.trim().replace(/[\W_]+/g, "-");
+					// projectPath.trim().replace(/[\W_]+/g, "-");
 					context.resolvedProjectPath = path.resolve(projectPath);
 					context.projectName = path.basename(
 						context.resolvedProjectPath
