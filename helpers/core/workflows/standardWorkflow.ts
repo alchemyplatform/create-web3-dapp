@@ -1,13 +1,14 @@
-import kill from "../../utils/kill.js";
-import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
-import context from "../../core/context.js";
+import { existsSync } from "fs";
+import open from "open";
 import path from "path";
 import prompts from "prompts";
-import { existsSync } from "fs";
+import context from "../../core/context.js";
 import { selfDestroy, setRoot } from "../../core/selfDestroy.js";
 import { smartContractWizard } from "../../smartContractsWizard/smartContractWizard.js";
+import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
+import kill from "../../utils/kill.js";
 import { generateDapp } from "../generateDapp.js";
-import open from "open";
+import { validateProjectName } from "../../utils/validation.js";
 
 export async function startStandardWorkflow() {
 	await checkNewPackageUpdates();
@@ -34,30 +35,12 @@ export async function startStandardWorkflow() {
 							name: "projectPath",
 							message: "Please, insert a project name",
 							initial: "my-create-web3-dapp",
+							validate: (value: string) =>
+								validateProjectName(value),
 						}).then((data) => data.projectPath);
 					}
-
-					projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
+					// projectPath.trim().replace(/[\W_]+/g, "-");
 					context.resolvedProjectPath = path.resolve(projectPath);
-					let dirExists: boolean = existsSync(
-						context.resolvedProjectPath
-					);
-
-					let i = 1;
-					while (dirExists) {
-						projectPath = await prompts({
-							type: "text",
-							name: "projectPath",
-							message:
-								"A directory with this name already exists, please use a different name",
-							initial: `my-create-web3-dapp-${i}`,
-						}).then((data) =>
-							data.projectPath.trim().replace(/[\W_]+/g, "-")
-						);
-						context.resolvedProjectPath = path.resolve(projectPath);
-						dirExists = existsSync(context.resolvedProjectPath);
-						i += 1;
-					}
 					context.projectName = path.basename(
 						context.resolvedProjectPath
 					);
@@ -269,6 +252,8 @@ export async function startStandardWorkflow() {
 				} catch (e) {
 					selfDestroy(e);
 				}
+				break;
+
 			case 5:
 				if (context.dappInfo.useBackend) {
 					const hasContract: boolean = await prompts({
@@ -330,6 +315,7 @@ export async function startStandardWorkflow() {
 				} catch (e) {
 					selfDestroy(e);
 				}
+				break;
 
 			case 7:
 				try {
@@ -341,11 +327,13 @@ export async function startStandardWorkflow() {
 						initial: "",
 					}).then((data) => data.apiKey);
 					if (
-						alchemyAPIKey?.length < 32 || alchemyAPIKey?.length > 33
+						alchemyAPIKey?.length < 32 ||
+						alchemyAPIKey?.length > 33
 					) {
 						break;
-					}if(!alchemyAPIKey){
-						process.exit()
+					}
+					if (!alchemyAPIKey) {
+						process.exit();
 					}
 
 					context.dappInfo.apiKeys.ALCHEMY_API_KEY =
