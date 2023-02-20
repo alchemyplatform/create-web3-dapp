@@ -11,12 +11,21 @@ export const installDependencies = async ({
 	resolvedProjectPath,
 }: BuilderContext) => {
 	try {
-		const { isEVM, useBackend, backendProvider, hasSmartContract, isTestnet } =
-			dappInfo;
+		const {
+			chain,
+			testnet,
+			isEVM,
+			useBackend,
+			backendProvider,
+			hasSmartContract,
+			isTestnet,
+		} = dappInfo;
 
 		generatePackageDotJson(
 			projectName,
 			isEVM,
+			chain,
+			testnet,
 			isTestnet,
 			useBackend,
 			backendProvider,
@@ -34,7 +43,7 @@ export const installDependencies = async ({
 		} else {
 			process.chdir(resolvedProjectPath);
 		}
-	
+
 		execSync("npx npm-check-updates -u");
 		execSync("npm install --loglevel=error");
 		process.chdir(resolvedProjectPath);

@@ -6,10 +6,13 @@ export const generatePackageDotJson = (
 	projectName,
 	isEVM,
 	isTestnet,
+	testnet,
 	useBackend,
 	backendProvider,
 	hasSmartContract,
-	contractName?
+	chain,
+	contractName?,
+	
 ) => {
 	const packageJsonTemplate = {
 		name: projectName,
@@ -81,14 +84,14 @@ export const generatePackageDotJson = (
 					hasSmartContract
 						? `${contractName}_deploy.js`
 						: "deploy.js"
-				} --network ETH_GOERLI`;
+				} --network ${testnet}`;
 				backendPackageJson["scripts"][
 					"deploy"
 				] = `npx hardhat run ./scripts/${
 					hasSmartContract
 						? `${contractName}_deploy.js`
 						: "deploy.js"
-				} --network ETH_MAINNET`;
+				} --network ${chain}`;
 				backendPackageJson["scripts"]["node"] = `npx hardhat node`;
 				backendPackageJson["scripts"][
 					"deploy-local"
