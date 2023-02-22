@@ -32,7 +32,10 @@ export const generateDapp = async () => {
 		}
 
 		console.log(
-			`[${currentStep}/${steps}] 🔧 Installing the dependencies - this might take a while`
+			`[${currentStep}/${steps}] 🔧 Installing the dependencies - this might take a while, in the meantime:`
+		);
+		console.log(
+			`\n📘 Visit the docs: https://docs.alchemy.com/?a=create-web3-dapp\n🎨 Check out components: https://createweb3dapp.com/`
 		);
 		currentStep++;
 		await installDependencies(context);
