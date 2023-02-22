@@ -68,8 +68,7 @@ export async function startStandardWorkflow() {
 							{
 								title: "Create pre-built template",
 								value: "template",
-								message:
-									"- select to see options",
+								message: "- select to see options",
 							},
 
 							{
@@ -163,8 +162,7 @@ export async function startStandardWorkflow() {
 					const isTestnet: boolean | string = await prompts({
 						type: "select",
 						name: "testnet",
-						message:
-							"Choose your network",
+						message: "Choose your network",
 						choices: [
 							{
 								title: "Mainnet",
@@ -218,7 +216,11 @@ export async function startStandardWorkflow() {
 							"[Optional] Choose your blockchain development environment:",
 						hint: "- Used to create, build, deploy and test smart contracts",
 						choices: [
-							{ title: "Hardhat", message:"- Learn more at hardhat.org", value: "hardhat" },
+							{
+								title: "Hardhat",
+								message: "- Learn more at hardhat.org",
+								value: "hardhat",
+							},
 							{
 								title: "Foundry (coming soon)",
 								value: "foundry",
@@ -227,7 +229,8 @@ export async function startStandardWorkflow() {
 							{
 								title: "Skip",
 								value: "skip",
-								message:"- If you're not creating smart contracts"
+								message:
+									"- If you're not creating smart contracts",
 							},
 							{ title: "Back", value: "back" },
 						],
@@ -266,7 +269,12 @@ export async function startStandardWorkflow() {
 									"This will start the smart contract creation wizard",
 								value: true,
 							},
-							{ title: "No", value: false, message:"You can always create custom smart contracts later " },
+							{
+								title: "No",
+								value: false,
+								message:
+									"You can always create custom smart contracts later ",
+							},
 							{ title: "Back", value: "back" },
 						],
 						initial: 0,
@@ -301,11 +309,7 @@ export async function startStandardWorkflow() {
 						inactive: "no",
 					}).then((data) => data.hasAccount);
 					if (typeof hasAccount == "boolean") {
-						if (!hasAccount) {
-							open(
-								"https://auth.alchemy.com/?a=create-web3-dapp "
-							);
-						}
+						open("https://auth.alchemy.com/?a=create-web3-dapp");
 						step++;
 						break;
 					} else {
@@ -322,7 +326,7 @@ export async function startStandardWorkflow() {
 						type: "text",
 						name: "apiKey",
 						message:
-							"Insert your Alchemy API Key (create an account at https://auth.alchemy.com/?a=create-web3-dapp):",
+							"Insert your Alchemy API Key (Copy from https://auth.alchemy.com/?a=create-web3-dapp):",
 						initial: "",
 					}).then((data) => data.apiKey);
 					if (
