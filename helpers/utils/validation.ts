@@ -3,13 +3,17 @@ import path from "path";
 import context from "../core/context.js";
 
 export const validateProjectName = (projectPath: string) => {
+	const tempPath = path.resolve(projectPath).trim();
 	context.resolvedProjectPath = path.resolve(projectPath);
 	const dirExists: boolean = existsSync(context.resolvedProjectPath);
+	if (!tempPath.length) {
+		return "Invalid directory name length: name can't be empty";
+	}
 	if (dirExists) {
-		return "Invalid directory name: A directory with this name already exists, please use a different name";
+		return "Directory already exists: a directory with this name already exists, please use a different name";
 	}
 	if (projectPath.length >= 214) {
-		return "Invalid directory name: name must contain less than 214 characters";
+		return "Invalid directory name length: name must contain less than 214 characters";
 	}
 	if (containsInvalidChars(projectPath)) {
 		return "Invalid directory name: name must only include URL-friendly characters";

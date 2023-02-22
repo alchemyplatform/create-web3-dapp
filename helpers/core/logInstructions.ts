@@ -1,7 +1,8 @@
 import chalk from "chalk";
 import { DappInfo } from "../../interfaces/DappInfo";
+import context from "./context.js";
 
-export const logInstructions = (dappInfo: DappInfo, projectPath: string) => {
+export const logInstructions = (dappInfo: DappInfo) => {
 	let step = 1;
 
 	console.log(
@@ -25,8 +26,8 @@ export const logInstructions = (dappInfo: DappInfo, projectPath: string) => {
 		`${step}. To start the application, run: ${chalk.green(
 			`cd ${
 				dappInfo.useBackend
-					? `${projectPath}/frontend`
-					: `${projectPath}`
+					? `${context.projectName}/frontend`
+					: `${context.projectName}`
 			} && npm run dev`
 		)}`
 	);

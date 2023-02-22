@@ -7,7 +7,7 @@ import context from "./context.js";
 import { selfDestroy } from "./selfDestroy.js";
 
 import { buildSmartContract } from "../smartContractsWizard/smartContractBuilder.js";
-export const generateDapp = async (projectPath: string) => {
+export const generateDapp = async () => {
 	try {
 		const steps = context.dappInfo.hasSmartContract ? 4 : 3;
 		let currentStep = 1;
@@ -37,7 +37,7 @@ export const generateDapp = async (projectPath: string) => {
 		currentStep++;
 		await installDependencies(context);
 
-		logInstructions(context.dappInfo, projectPath);
+		logInstructions(context.dappInfo);
 	} catch (e) {
 		selfDestroy(e);
 	}

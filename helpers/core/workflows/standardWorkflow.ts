@@ -9,6 +9,7 @@ import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
 import kill from "../../utils/kill.js";
 import { generateDapp } from "../generateDapp.js";
 import { validateProjectName } from "../../utils/validation.js";
+import { startTemplatesWorkflow } from "./templatesWorkflow.js";
 
 export async function startStandardWorkflow() {
 	await checkNewPackageUpdates();
@@ -25,12 +26,12 @@ export async function startStandardWorkflow() {
 					if (typeof projectPath === "string") {
 						projectPath = projectPath.trim();
 					}
-					while (!projectPath) {
+					while (!context.projectName) {
 						if (exit >= 2) {
 							kill();
 						}
 						exit++;
-						projectPath = await prompts({
+						const projectPath = await prompts({
 							type: "text",
 							name: "projectPath",
 							message: "Please, insert a project name",
@@ -38,13 +39,15 @@ export async function startStandardWorkflow() {
 							validate: (value: string) =>
 								validateProjectName(value),
 						}).then((data) => data.projectPath);
+						if (projectPath) {
+							context.resolvedProjectPath =
+								path.resolve(projectPath);
+							context.projectName = path.basename(
+								context.resolvedProjectPath
+							);
+							setRoot(context.resolvedProjectPath);
+						}
 					}
-					// projectPath.trim().replace(/[\W_]+/g, "-");
-					context.resolvedProjectPath = path.resolve(projectPath);
-					context.projectName = path.basename(
-						context.resolvedProjectPath
-					);
-					setRoot(context.resolvedProjectPath);
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -111,7 +114,7 @@ export async function startStandardWorkflow() {
 						if (template == "back") {
 							break;
 						} else {
-							step++;
+							startTemplatesWorkflow();
 							break;
 						}
 					} else if (builderTemplate == "back") {
@@ -347,5 +350,5 @@ export async function startStandardWorkflow() {
 				break;
 		}
 	}
-	generateDapp(projectPath);
+	generateDapp();
 }

@@ -9,13 +9,9 @@ import context from "../context.js";
 import { generateDapp } from "../generateDapp.js";
 import { selfDestroy, setRoot } from "../selfDestroy.js";
 
-export async function startTemplatesWorkflow(
-	template: number,
-	useBackend = false
-) {
+export async function startTemplatesWorkflow(useBackend = false) {
 	await checkNewPackageUpdates();
 	context.dappInfo.isTemplate = true;
-	context.dappInfo.template = template;
 	context.dappInfo.chain = "ETH_MAINNET";
 	context.dappInfo.isEVM = true;
 	context.dappInfo.useBackend = useBackend;
@@ -23,23 +19,17 @@ export async function startTemplatesWorkflow(
 
 	let step = 0;
 	let quit = false;
-	let projectPath = "";
 	while (!quit) {
 		let exit = 0;
 		switch (step) {
 			case 0:
 				try {
-					projectPath = "";
-					// Checks if project name is provided
-					if (typeof projectPath === "string") {
-						projectPath = projectPath.trim();
-					}
-					while (!projectPath) {
+					while (!context.projectName) {
 						if (exit >= 2) {
 							kill();
 						}
 						exit++;
-						projectPath = await prompts({
+						const projectPath = await prompts({
 							type: "text",
 							name: "projectPath",
 							message: "Please, insert a project name",
@@ -47,13 +37,15 @@ export async function startTemplatesWorkflow(
 							validate: (value: string) =>
 								validateProjectName(value),
 						}).then((data) => data.projectPath);
+						if (projectPath) {
+							context.resolvedProjectPath =
+								path.resolve(projectPath);
+							context.projectName = path.basename(
+								context.resolvedProjectPath
+							);
+							setRoot(context.resolvedProjectPath);
+						}
 					}
-					// projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
-					context.resolvedProjectPath = path.resolve(projectPath);
-					context.projectName = path.basename(
-						context.resolvedProjectPath
-					);
-					setRoot(context.resolvedProjectPath);
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -113,5 +105,5 @@ export async function startTemplatesWorkflow(
 				break;
 		}
 	}
-	generateDapp(projectPath);
+	generateDapp();
 }
