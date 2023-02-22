@@ -73,7 +73,7 @@ export const smartContractWizard = async (): Promise<
 					type: "text",
 					name: "contractName",
 					initial: `MyContract`,
-					message: "Choose a name for your contract",
+					message: "Name for you contract",
 				}).then((data) => {
 					if (data.contractName) {
 						return data.contractName.trim().replace(/[\W_]+/g, "-");
@@ -95,7 +95,8 @@ export const smartContractWizard = async (): Promise<
 						type: "text",
 						name: "contractName",
 						initial: `MyContract_${contractIndex}`,
-						message: "A contract with this name already exists, insert a different name.",
+						message:
+							"A contract with this name already exists, insert a different name.",
 					}).then((data) => {
 						if (data.contractName) {
 							return data.contractName
@@ -113,8 +114,8 @@ export const smartContractWizard = async (): Promise<
 					type: "text",
 					name: "contractSymbol",
 					initial: contractName.slice(0, 3).toUpperCase(),
-					message:
-						"A short version of the name of your smart contract",
+					message: "Symbol for your contract",
+					hint: "- typically short version of contract name",
 				}).then((data) => {
 					if (data.contractSymbol) {
 						return data.contractSymbol
@@ -128,7 +129,8 @@ export const smartContractWizard = async (): Promise<
 						name: "contractSymbol",
 						initial: contractName.slice(0, 3).toUpperCase(),
 						message:
-							"A short version of the name of your smart contract - Symbol should be 3 or more characters",
+							"A short version of the name of your smart contract",
+						hint: "- symbol should be 3 or more characters",
 					}).then((data) => {
 						if (data.contractSymbol) {
 							return data.contractSymbol
@@ -148,9 +150,9 @@ export const smartContractWizard = async (): Promise<
 				const selectedLibraries = await prompts({
 					type: "multiselect",
 					name: "selectedLibraries",
-					message: "Select the features you want to implement",
+					message: "Smart contract features to implement",
 					choices: [...librariesForStandard],
-					hint: "- Space to select. Return to submit",
+					hint: "- You can select multiple features. Click space to select, return to submit",
 				}).then((data) => data.selectedLibraries);
 
 				selectLibrariesForStandard(standard, selectedLibraries);

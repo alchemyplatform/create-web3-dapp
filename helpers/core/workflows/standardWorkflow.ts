@@ -5,14 +5,12 @@ import prompts from "prompts";
 import context from "../../core/context.js";
 import { selfDestroy, setRoot } from "../../core/selfDestroy.js";
 import { smartContractWizard } from "../../smartContractsWizard/smartContractWizard.js";
-import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
 import kill from "../../utils/kill.js";
 import { generateDapp } from "../generateDapp.js";
 import { validateProjectName } from "../../utils/validation.js";
 import { startTemplatesWorkflow } from "./templatesWorkflow.js";
 
 export async function startStandardWorkflow() {
-	await checkNewPackageUpdates();
 	let step = 0;
 	let quit = false;
 	let projectPath = "";
@@ -22,7 +20,6 @@ export async function startStandardWorkflow() {
 			case 0:
 				try {
 					projectPath = "";
-					// Checks if project name is provided
 					if (typeof projectPath === "string") {
 						projectPath = projectPath.trim();
 					}
@@ -34,7 +31,7 @@ export async function startStandardWorkflow() {
 						const projectPath = await prompts({
 							type: "text",
 							name: "projectPath",
-							message: "Please, insert a project name",
+							message: "Project name",
 							initial: "my-create-web3-dapp",
 							validate: (value: string) =>
 								validateProjectName(value),
@@ -63,16 +60,16 @@ export async function startStandardWorkflow() {
 						message: "Choose how to start:",
 						choices: [
 							{
-								title: "Create a new application",
+								title: "Create default empty application",
 								value: "new",
 								message:
 									"Compatible with: Ethereum, Polygon, etc.",
 							},
 							{
-								title: "Start from a template",
+								title: "Create pre-built template",
 								value: "template",
 								message:
-									"Compatible with: Ethereum, Polygon, etc.",
+									"- select to see options",
 							},
 
 							{
@@ -81,7 +78,7 @@ export async function startStandardWorkflow() {
 							},
 						],
 						initial: 0,
-						hint: "- Create a default app ",
+						hint: "Create a new dapp ",
 					}).then((data) => data.builderTemplate);
 
 					if (builderTemplate == "new") {
@@ -95,7 +92,7 @@ export async function startStandardWorkflow() {
 							message: "Select a template",
 							choices: [
 								{
-									title: "NFT Gallery",
+									title: "NFT Explorer",
 									value: 0,
 									message:
 										"Compatible with: Ethereum, Polygon, etc.",
@@ -115,7 +112,7 @@ export async function startStandardWorkflow() {
 							break;
 						} else {
 							startTemplatesWorkflow();
-							break;
+							return;
 						}
 					} else if (builderTemplate == "back") {
 						step--;
@@ -131,7 +128,7 @@ export async function startStandardWorkflow() {
 				await prompts({
 					type: "select",
 					name: "chain",
-					message: "Which chain do you want to use?",
+					message: "Choose your chain",
 					choices: [
 						{ title: "Ethereum", value: "ETH_MAINNET" },
 						{ title: "Polygon", value: "MATIC_MAINNET" },
@@ -140,7 +137,7 @@ export async function startStandardWorkflow() {
 						{ title: "Back", value: "back" },
 					],
 					initial: 0,
-					hint: "- We’ll make sure all the right dependencies are installed for you :)",
+					hint: "- We’ll install all the right dependencies for you :)",
 				}).then((data) => (context.dappInfo.chain = data.chain));
 				if (context.dappInfo.chain == "back") {
 					step--;
@@ -167,7 +164,7 @@ export async function startStandardWorkflow() {
 						type: "select",
 						name: "testnet",
 						message:
-							"Do you want to configure with the mainnet or testnet?",
+							"Choose your network",
 						choices: [
 							{
 								title: "Mainnet",
@@ -177,7 +174,7 @@ export async function startStandardWorkflow() {
 							{ title: "Back", value: "back" },
 						],
 						initial: 0,
-						hint: "- You can change it later",
+						hint: "- You can change this later",
 					}).then((data) => data.testnet);
 					if (typeof isTestnet == "string") {
 						step--;
@@ -214,16 +211,14 @@ export async function startStandardWorkflow() {
 
 			case 4:
 				try {
-					let useBackend;
-
 					const backendProvider = await prompts({
 						type: "select",
 						name: "backendProvider",
 						message:
-							"Select your blockchain development environment or skip:",
-						hint: "- This will allow you to create, build, deploy and test smart contracts",
+							"[Optional] Choose your blockchain development environment:",
+						hint: "- Used to create, build, deploy and test smart contracts",
 						choices: [
-							{ title: "Hardhat", value: "hardhat" },
+							{ title: "Hardhat", message:"- Learn more at hardhat.org", value: "hardhat" },
 							{
 								title: "Foundry (coming soon)",
 								value: "foundry",
@@ -232,6 +227,7 @@ export async function startStandardWorkflow() {
 							{
 								title: "Skip",
 								value: "skip",
+								message:"- If you're not creating smart contracts"
 							},
 							{ title: "Back", value: "back" },
 						],
@@ -262,7 +258,7 @@ export async function startStandardWorkflow() {
 					const hasContract: boolean = await prompts({
 						type: "select",
 						name: "hasContract",
-						message: "Do you want to create a new contract?",
+						message: "Do you want to create a smart contract?",
 						choices: [
 							{
 								title: "Yes",
@@ -270,7 +266,7 @@ export async function startStandardWorkflow() {
 									"This will start the smart contract creation wizard",
 								value: true,
 							},
-							{ title: "No", value: false },
+							{ title: "No", value: false, message:"You can always create custom smart contracts later " },
 							{ title: "Back", value: "back" },
 						],
 						initial: 0,

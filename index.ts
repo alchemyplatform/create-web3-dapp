@@ -7,6 +7,8 @@ import { smartContractWizard } from "./helpers/smartContractsWizard/smartContrac
 import { buildSmartContract } from "./helpers/smartContractsWizard/smartContractBuilder.js";
 import { startStandardWorkflow } from "./helpers/core/workflows/standardWorkflow.js";
 import { startTemplatesWorkflow } from "./helpers/core/workflows/templatesWorkflow.js";
+import context from "./helpers/core/context.js";
+import { checkNewPackageUpdates } from "./helpers/utils/checkNewPackageUpdates.js";
 
 console.log(
 	chalk.blue(`
@@ -19,6 +21,9 @@ console.log(
     ''''  ''''''''''     "╙' '   '    '""    '     '    '""'   ''    '    '    ╬╙
                                   create-web3-dapp                            ╝' 
 `)
+);
+console.log(
+	" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋"
 );
 
 const startSmartContractFlow = async () => {
@@ -37,30 +42,32 @@ const startSmartContractFlow = async () => {
 	if (contractInfo) buildSmartContract(contractInfo, process.cwd());
 };
 
-switch (process.argv[2]) {
-	case "marketplace":
-		try {
-			console.log("🔵 Sending you to the components marketplace 🔵");
+async function main() {
+	checkNewPackageUpdates();
+	switch (process.argv[2]) {
+		case "marketplace":
+			try {
+				open("https://createweb3dapp.com");
+			} catch (e) {
+				selfDestroy(e);
+			}
+			break;
+		case "backpack":
+			startSmartContractFlow();
+			break;
+		case "nft-gallery":
+			context.dappInfo.template = 0;
+			startTemplatesWorkflow(false);
+			break;
+		case "creator-dapp":
+			context.dappInfo.template = 1;
+			startTemplatesWorkflow(true);
+			break;
+		default:
 			console.log("\n");
-			open("https://createweb3dapp.com");
-		} catch (e) {
-			selfDestroy(e);
-		}
-		break;
-	case "backpack":
-		startSmartContractFlow();
-		break;
-	case "nft-gallery":
-		startTemplatesWorkflow(0);
-		break;
-	case "creator-dapp":
-		startTemplatesWorkflow(1, true);
-		break;
-	default:
-		console.log(
-			" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋"
-		);
-		console.log("\n");
-		startStandardWorkflow();
-		break;
+			startStandardWorkflow();
+			break;
+	}
 }
+
+main();

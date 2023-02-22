@@ -1,8 +1,6 @@
-import { existsSync } from "fs";
 import open from "open";
 import path from "path";
 import prompts from "prompts";
-import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
 import kill from "../../utils/kill.js";
 import { validateProjectName } from "../../utils/validation.js";
 import context from "../context.js";
@@ -10,7 +8,6 @@ import { generateDapp } from "../generateDapp.js";
 import { selfDestroy, setRoot } from "../selfDestroy.js";
 
 export async function startTemplatesWorkflow(useBackend = false) {
-	await checkNewPackageUpdates();
 	context.dappInfo.isTemplate = true;
 	context.dappInfo.chain = "ETH_MAINNET";
 	context.dappInfo.isEVM = true;
