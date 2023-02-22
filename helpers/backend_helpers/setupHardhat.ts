@@ -7,14 +7,10 @@ import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 import { execSync } from "child_process";
 
 export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
-	mkdirSync(path.join(process.cwd(), "tempBackend"));
-	execSync(
-		`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-hardhat-boilerplates.git"} ./tempBackend`,
-		{ stdio: "inherit" }
-	);
-	const hardhatTemplate = path.join(process.cwd(), "tempBackend");
-	fse.copySync(hardhatTemplate, projectPath);
-
+	mkdirSync(path.join(process.cwd(), "backend"));
+	mkdirSync(path.join(process.cwd(), "backend", "contracts"));
+	mkdirSync(path.join(process.cwd(), "backend", "scripts"));
+	mkdirSync(path.join(process.cwd(), "backend", "test"));
 	
 
 	const writeStream = createWriteStream(

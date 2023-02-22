@@ -23,7 +23,8 @@ export async function startStandardWorkflow() {
 					if (typeof projectPath === "string") {
 						projectPath = projectPath.trim();
 					}
-					while (!context.projectName) {
+					context.projectName = "";
+					while (!context.projectName?.length) {
 						if (exit >= 2) {
 							kill();
 						}
@@ -35,7 +36,7 @@ export async function startStandardWorkflow() {
 							initial: "my-create-web3-dapp",
 							validate: (value: string) =>
 								validateProjectName(value),
-						}).then((data) => data.projectPath);
+						}).then((data) => data.projectPath.trim());
 						if (projectPath) {
 							context.resolvedProjectPath =
 								path.resolve(projectPath);
@@ -350,5 +351,6 @@ export async function startStandardWorkflow() {
 				break;
 		}
 	}
+
 	generateDapp();
 }

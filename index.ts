@@ -23,7 +23,7 @@ console.log(
 `)
 );
 console.log(
-	" Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋"
+	"Welcome to the create-web3-dapp wizard, it will only take a few minutes! 👋"
 );
 
 const startSmartContractFlow = async () => {

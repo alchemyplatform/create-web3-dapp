@@ -3,8 +3,8 @@ import path from "path";
 import context from "../core/context.js";
 
 export const validateProjectName = (projectPath: string) => {
-	const tempPath = path.resolve(projectPath).trim();
-	context.resolvedProjectPath = path.resolve(projectPath);
+	const tempPath = projectPath.trim();
+	context.resolvedProjectPath = path.resolve(tempPath);
 	const dirExists: boolean = existsSync(context.resolvedProjectPath);
 	if (!tempPath.length) {
 		return "Invalid directory name length: name can't be empty";

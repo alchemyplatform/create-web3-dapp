@@ -10,10 +10,10 @@ export const setRoot = (path: string) => {
 export const selfDestroy = (e) => {
 	if (verbose) console.error(e);
 	console.log(e)
-	fs.rmSync(root, {
-		recursive: true,
-		force: true,
-	});
+	// fs.rmSync(root, {
+	// 	recursive: true,
+	// 	force: true,
+	// });
 	process.exit(1);
 };
 

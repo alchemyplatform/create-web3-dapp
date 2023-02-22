@@ -19,7 +19,8 @@ export async function startTemplatesWorkflow(useBackend = false) {
 		switch (step) {
 			case 0:
 				try {
-					while (!context.projectName) {
+					context.projectName = "";
+					while (!context.projectName?.length) {
 						if (exit >= 2) {
 							kill();
 						}
@@ -31,7 +32,7 @@ export async function startTemplatesWorkflow(useBackend = false) {
 							initial: "my-create-web3-dapp",
 							validate: (value: string) =>
 								validateProjectName(value),
-						}).then((data) => data.projectPath);
+						}).then((data) => data.projectPath.trim());
 						if (projectPath) {
 							context.resolvedProjectPath =
 								path.resolve(projectPath);
