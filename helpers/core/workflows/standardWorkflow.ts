@@ -43,6 +43,7 @@ export async function startStandardWorkflow() {
 							context.projectName = path.basename(
 								context.resolvedProjectPath
 							);
+
 							setRoot(context.resolvedProjectPath);
 						}
 					}
@@ -54,17 +55,14 @@ export async function startStandardWorkflow() {
 			case 1:
 				try {
 					context.dappInfo.isTemplate = false;
-
 					const builderTemplate: string = await prompts({
 						type: "select",
 						name: "builderTemplate",
 						message: "Choose how to start:",
 						choices: [
 							{
-								title: "Create default empty application",
+								title: "Create empty full-stack dapp",
 								value: "new",
-								message:
-									"Compatible with: Ethereum, Polygon, etc.",
 							},
 							{
 								title: "Create pre-built template",
@@ -351,6 +349,5 @@ export async function startStandardWorkflow() {
 				break;
 		}
 	}
-
 	generateDapp();
 }

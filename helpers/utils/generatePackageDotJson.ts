@@ -51,7 +51,6 @@ export const generatePackageDotJson = (
 			"^0.9.9";
 		frontEndPackageJson["dependencies"]["@solana/web3.js"] = "^1.58.0";
 	}
-
 	if (useBackend) {
 		fs.writeFileSync(
 			path.join("frontend", "package.json"),

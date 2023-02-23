@@ -24,12 +24,12 @@ export const installDependencies = async ({
 		generatePackageDotJson(
 			projectName,
 			isEVM,
-			chain,
-			testnet,
 			isTestnet,
+			testnet,
 			useBackend,
 			backendProvider,
 			hasSmartContract,
+			chain,
 			contractInfo?.name
 		);
 		if (useBackend) {

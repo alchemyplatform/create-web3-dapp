@@ -7,6 +7,7 @@ import { createEnv } from "../utils/createEnv.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
+import  {mkdir}  from "../utils/mkdir.js";
 
 export const getProjectFiles = ({
 	resolvedProjectPath,
@@ -40,9 +41,13 @@ export const getProjectFiles = ({
 
 		if (!dappInfo.useBackend) {
 			const frontend = path.join(process.cwd(), "frontend");
+
 			fse.copySync(frontend, process.cwd());
+			mkdir(path.join("pages", "api"));
 		}
 		if (dappInfo.useBackend) {
+			mkdir(path.join("frontend", "pages", "api"));
+
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
 					setUpHardhat(dappInfo, resolvedProjectPath);
