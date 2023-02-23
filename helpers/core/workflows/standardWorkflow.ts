@@ -61,7 +61,7 @@ export async function startStandardWorkflow() {
 						message: "Choose how to start:",
 						choices: [
 							{
-								title: "Create empty full-stack dapp",
+								title: "Create default full-stack dapp",
 								value: "new",
 							},
 							{
@@ -84,14 +84,14 @@ export async function startStandardWorkflow() {
 						break;
 					} else if (builderTemplate == "template") {
 						context.dappInfo.isTemplate = true;
-						const template: string = await prompts({
+						const template: Number | String = await prompts({
 							type: "select",
 							name: "template",
 							message: "Select a template",
 							choices: [
 								{
 									title: "NFT Explorer",
-									value: 0,
+									value: "0",
 									message:
 										"Compatible with: Ethereum, Polygon, etc.",
 								},
@@ -108,8 +108,8 @@ export async function startStandardWorkflow() {
 						);
 						if (template == "back") {
 							break;
-						} else {
-							startTemplatesWorkflow();
+						} else if (template == 0) {
+							startTemplatesWorkflow(false, context.projectName);
 							return;
 						}
 					} else if (builderTemplate == "back") {
@@ -135,7 +135,7 @@ export async function startStandardWorkflow() {
 						{ title: "Back", value: "back" },
 					],
 					initial: 0,
-					hint: "- We’ll install all the right dependencies for you :)",
+					hint: "- You can change this later",
 				}).then((data) => (context.dappInfo.chain = data.chain));
 				if (context.dappInfo.chain == "back") {
 					step--;

@@ -7,8 +7,8 @@ import { createEnv } from "../utils/createEnv.js";
 import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
-import  {mkdir}  from "../utils/mkdir.js";
-
+import { mkdir } from "../utils/mkdir.js";
+import fs from "fs";
 export const getProjectFiles = ({
 	resolvedProjectPath,
 	dappInfo,
@@ -19,7 +19,7 @@ export const getProjectFiles = ({
 			switch (dappInfo.template) {
 				case 0:
 					execSync(
-						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-nfts-gallery.git"} .`
+						`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-nft-explorer.git"} .`
 					);
 					break;
 				case 1:
@@ -43,10 +43,15 @@ export const getProjectFiles = ({
 			const frontend = path.join(process.cwd(), "frontend");
 
 			fse.copySync(frontend, process.cwd());
-			mkdir(path.join("pages", "api"));
+
+			if (!dappInfo.isTemplate) mkdir(path.join("pages", "api"));
+
+			fs.writeFileSync(".gitignore", ".env");
 		}
 		if (dappInfo.useBackend) {
-			mkdir(path.join("frontend", "pages", "api"));
+			if (!dappInfo.isTemplate)
+				mkdir(path.join("frontend", "pages", "api"));
+			fs.writeFileSync(path.join("frontend", ".gitignore"), ".env.local");
 
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
@@ -62,6 +67,7 @@ export const getProjectFiles = ({
 				path.join(resolvedProjectPath, "backend"),
 				false
 			);
+			fs.writeFileSync(path.join("backend", ".gitignore"), ".env.local");
 		}
 
 		createEnv(

@@ -169,7 +169,7 @@ export const smartContractWizard = async (): Promise<
 				const hasCompleted = await prompts({
 					type: "toggle",
 					name: "hasCompleted",
-					message: "Have you finished selecting features?",
+					message: "Are you done selecting contract features?",
 					initial: true,
 					active: "yes",
 					inactive: "no",

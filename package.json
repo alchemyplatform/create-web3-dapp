@@ -1,6 +1,6 @@
 {
 	"name": "create-web3-dapp",
-	"version": "0.2.34",
+	"version": "0.2.35",
 	"keywords": [
 		"create-web3-dapp",
 		"create web3 dapp",
@@ -46,6 +46,7 @@
 		"fs-extra": "^10.1.0",
 		"open": "^8.4.0",
 		"prompts": "^2.4.2",
+		"std-pour": "^1.1.0",
 		"typescript": "^4.7.4",
 		"yargs": "^17.6.0"
 	},

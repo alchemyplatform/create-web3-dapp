@@ -7,7 +7,7 @@ import context from "../context.js";
 import { generateDapp } from "../generateDapp.js";
 import { selfDestroy, setRoot } from "../selfDestroy.js";
 
-export async function startTemplatesWorkflow(useBackend = false) {
+export async function startTemplatesWorkflow(useBackend = false, projectName?) {
 	context.dappInfo.isTemplate = true;
 	context.dappInfo.useBackend = useBackend;
 	context.dappInfo.backendProvider = "hardhat-template";
@@ -19,7 +19,7 @@ export async function startTemplatesWorkflow(useBackend = false) {
 		switch (step) {
 			case 0:
 				try {
-					context.projectName = "";
+					context.projectName = projectName;
 					while (!context.projectName?.length) {
 						if (exit >= 2) {
 							kill();

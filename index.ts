@@ -55,7 +55,7 @@ async function main() {
 		case "backpack":
 			startSmartContractFlow();
 			break;
-		case "nft-gallery":
+		case "nft-explorer":
 			context.dappInfo.template = 0;
 			startTemplatesWorkflow(false);
 			break;
