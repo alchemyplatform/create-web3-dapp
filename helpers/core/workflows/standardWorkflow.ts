@@ -91,7 +91,7 @@ export async function startStandardWorkflow() {
 							choices: [
 								{
 									title: "NFT Explorer",
-									value: "0",
+									value: 0,
 									message:
 										"Compatible with: Ethereum, Polygon, etc.",
 								},
@@ -108,7 +108,7 @@ export async function startStandardWorkflow() {
 						);
 						if (template == "back") {
 							break;
-						} else if (template == "0") {
+						} else if (template == 0) {
 							startTemplatesWorkflow(false, context.projectName);
 							return;
 						}
