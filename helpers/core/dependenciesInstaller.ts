@@ -34,7 +34,7 @@ export const installDependencies = async ({
 		);
 		if (useBackend) {
 			process.chdir("backend");
-			execSync("npx npm-check-updates -u");
+			execSync("npx npm-check-updates --loglevel=error");
 			execSync("npm install");
 		}
 
@@ -44,7 +44,7 @@ export const installDependencies = async ({
 			process.chdir(resolvedProjectPath);
 		}
 
-		execSync("npx npm-check-updates -u");
+		execSync("npx npm-check-updates --loglevel=error");
 		execSync("npm install");
 		process.chdir(resolvedProjectPath);
 	} catch (e) {

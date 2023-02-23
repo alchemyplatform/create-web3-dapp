@@ -108,7 +108,7 @@ export async function startStandardWorkflow() {
 						);
 						if (template == "back") {
 							break;
-						} else if (template == 0) {
+						} else if (template == "0") {
 							startTemplatesWorkflow(false, context.projectName);
 							return;
 						}
