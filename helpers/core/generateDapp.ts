@@ -37,7 +37,7 @@ export const generateDapp = async () => {
 		);
 		console.log(
 			chalk.blue(
-				`\n📘 Visit the docs: https://docs.alchemy.com/?a=create-web3-dapp\n🎨 Check out the components: https://createweb3dapp.com/\n`
+				`\n📘 Visit the docs: https://docs.alchemy.com/docs/create-web3-dapp\n🎨 Check out the components: https://createweb3dapp.alchemy.com/\n`
 			)
 		);
 		currentStep++;
