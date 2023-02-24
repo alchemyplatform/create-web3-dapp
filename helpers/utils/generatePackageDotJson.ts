@@ -28,7 +28,7 @@ export const generatePackageDotJson = (
 	frontEndPackageJson["scripts"]["dev"] = "next dev";
 	frontEndPackageJson["scripts"]["build"] = "next build";
 	frontEndPackageJson["scripts"]["start"] = "next start";
-	frontEndPackageJson["scripts"]["lint"] = "next link";
+	frontEndPackageJson["scripts"]["lint"] = "next lint";
 	frontEndPackageJson["scripts"]["marketplace"] =
 		"npx create-web3-dapp marketplace";
 	frontEndPackageJson["devDependencies"]["eslint"] = "8.20.0";
