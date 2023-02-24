@@ -188,7 +188,7 @@ Check out [Expo CLI](https://github.com/expo/expo-cli).
 
 ## Contributing
 
-We'd love to have your helping hand on `create-web3-dapp`! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on what we're looking for and how to get started.
+We'd love to have your helping hand on `create-web3-dapp`! See [contributing.md](/contributing.md) for more information on what we're looking for and how to get started.
 
 ## Supporting Create Web3 DApp
 
@@ -196,7 +196,7 @@ Create Web3 DApp is a community maintained project and all contributors are volu
 
 ## Credits
 
-This project exists thanks to all the people who [contribute](CONTRIBUTING.md).<br>
+This project exists thanks to all the people who [contribute](/contributing.md).<br>
 
 <a href="https://github.com/alchemyplatform/Create-web3-dapp/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=alchemyplatform/Create-web3-dapp" />
