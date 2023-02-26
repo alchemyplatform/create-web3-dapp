@@ -15,7 +15,7 @@ From your command line, run:
 
 `npx create-web3-dapp@latest`
 
-For more details and instrucitns, check out the [docs](https://docs.alchemy.com/docs/create-web3-dapp).
+For more details and instructions, check out the [docs](https://docs.alchemy.com/docs/create-web3-dapp).
 
 ## Demo Video
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/r3DP64sg8Mo/0.jpg)](https://www.youtube.com/watch?v=r3DP64sg8Mo)
