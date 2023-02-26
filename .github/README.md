@@ -17,13 +17,16 @@ From your command line, run:
 
 For more details and instrucitns, check out the [docs](https://docs.alchemy.com/docs/create-web3-dapp).
 
+## Demo Video
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/r3DP64sg8Mo/0.jpg)](https://www.youtube.com/watch?v=r3DP64sg8Mo)
+
 ## Resources
 
-1. [Documentation](https://docs.alchemy.com/docs/create-web3-dapp)
-2. [Website](createweb3dapp.alchemy.com)
-3. [Templates](createweb3dapp.alchemy.com#templates)  
-4. [Component code](createweb3dapp.alchemy.com#components)
-5. [Community](t.me/createweb3dapp)
+1. [Documentation](https://docs.alchemy.com/docs/create-web3-dapp): Everything you need to know when using CW3D
+2. [Website](createweb3dapp.alchemy.com): Learn more about CW3D and add components to your project
+3. [Templates](createweb3dapp.alchemy.com#templates): Check out the pre-built project templates 
+4. [Component code](createweb3dapp.alchemy.com#components): Add features directly to your project through components 
+5. [Community](t.me/createweb3dapp): Meet other builders, get support, and give feedback!
 
 ## Pre-requisites 
 You’ll need to have Node 14.0.0 or later version on your local development machine (but it’s not required on the server). We recommend using the latest LTS version. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
