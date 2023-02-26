@@ -8,7 +8,7 @@ import { cleanUpFiles } from "../utils/cleanUpFiles.js";
 import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
 import { mkdir } from "../utils/mkdir.js";
-import fs from "fs";
+import fs, { existsSync } from "fs";
 export const getProjectFiles = ({
 	resolvedProjectPath,
 	dappInfo,
@@ -44,13 +44,15 @@ export const getProjectFiles = ({
 
 			fse.copySync(frontend, process.cwd());
 
-			if (!dappInfo.isTemplate) mkdir(path.join("pages", "api"));
+			if (!existsSync(path.join("pages", "api")))
+				mkdir(path.join("pages", "api"));
 
 			fs.writeFileSync(".gitignore", ".env");
 		}
 		if (dappInfo.useBackend) {
-			if (!dappInfo.isTemplate)
+			if (!existsSync(path.join("pages", "api")))
 				mkdir(path.join("frontend", "pages", "api"));
+
 			fs.writeFileSync(path.join("frontend", ".gitignore"), ".env.local");
 
 			switch (dappInfo.backendProvider) {
