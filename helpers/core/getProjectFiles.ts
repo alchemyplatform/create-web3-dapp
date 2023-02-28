@@ -76,6 +76,7 @@ export const getProjectFiles = ({
 			{
 				...dappInfo.apiKeys,
 				ALCHEMY_NETWORK: dappInfo.chain,
+				NEXT_PUBLIC_ALCHEMY_NETWORK: dappInfo.chain,
 				NEXT_PUBLIC_DEFAULT_CHAIN: getDefaultRainbowkitChain(
 					dappInfo.isTestnet ? dappInfo.testnet! : dappInfo.chain
 				),

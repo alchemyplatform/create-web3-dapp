@@ -30,9 +30,8 @@ const dappInfo: DappInfo = {
 	hasSmartContract: false,
 	modules: null,
 	apiKeys: {
-		ALCHEMY_API_KEY: "demo"
-		
-	}
+		ALCHEMY_API_KEY: "",
+	},
 };
 
 const projectName = "";
@@ -45,4 +44,4 @@ const context: BuilderContext = {
 	resolvedProjectPath,
 };
 
-export default context
+export default context;
