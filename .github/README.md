@@ -85,11 +85,16 @@ If you prefer configuring the build yourself, [follow this guide](https://reactj
 
 ## Contributing
 
-We'd love to have your helping hand on `create-web3-dapp`! We'll release more details on how to contribute soon!
+We'd love to have your helping hand on `create-web3-dapp`! See [contributing.md](/contributing.md) for more information on what we're looking for and how to get started.
+
+## Supporting Create Web3 DApp
+
+Create Web3 DApp is a community maintained project and all contributors are volunteers. If you'd like to support the future development of Create React App then please consider donating to our [Open Collective](https://opencollective.com/create-react-app).
+
 
 ## Credits
 
-This project exists thanks to all the people who [contribute](CONTRIBUTING.md).<br>
+This project exists thanks to all the people who [contribute](/contributing.md).<br>
 
 <a href="https://github.com/alchemyplatform/Create-web3-dapp/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=alchemyplatform/Create-web3-dapp" />
