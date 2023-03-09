@@ -105,7 +105,6 @@ This project exists thanks to all the people who [contribute](/contributing.md).
 We are grateful to the authors of existing related projects for their ideas and collaboration:
 
 -   [@vittorivabella](https://github.com/eversmile12)
--   [@alberthu](https://github.com/thatguyintech)
 
 ## License
 
