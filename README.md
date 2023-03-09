@@ -122,5 +122,5 @@ You will see the build errors and lint warnings in the console.
 
 
 ## EVM Components
-You can find detailed instructions on implmenting the React components downloaded through the Components Marketplace in [the official documentation](#)
+You can find detailed instructions on implementing the React components downloaded through the Components Marketplace in [the official documentation](#)
 
