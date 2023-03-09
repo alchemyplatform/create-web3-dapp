@@ -9,7 +9,7 @@
    Everything you need to create Web3 Dapps.
 
 -   [Creating an App](#creating-an-app) – How to create a new app.
--   [Docs](https://www.alchemy.com/dapps/create-web3-dapp) – How to develop apps bootstrapped with Create Web3 Dapp
+-   [Docs](https://docs.alchemy.com/docs/create-web3-dapp) – How to develop apps bootstrapped with Create Web3 Dapp
 
 Create Web3 DApp works on macOS, Windows, and Linux.<br>
 If something doesn’t work, please [file an issue](https://github.com/alchemyplatform/create-web3-dapp/issues/new).<br>
