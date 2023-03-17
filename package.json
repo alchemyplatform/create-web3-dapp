@@ -40,8 +40,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@openzeppelin/contracts": "^4.7.3",
-		"@openzeppelin/wizard": "^0.2.0",
+		"@openzeppelin/wizard": "^0.2.2",
 		"chalk": "^5.0.1",
 		"cli-progress": "^3.11.2",
 		"death": "^1.1.0",
