@@ -53,7 +53,9 @@ export const getProjectFiles = ({
 			if (!existsSync(path.join("pages", "api")))
 				mkdir(path.join("frontend", "pages", "api"));
 
-			fs.writeFileSync(path.join("frontend", ".gitignore"), ".env.local");
+			fs.writeFileSync(path.join("frontend", ".gitignore"), 
+			"# dotenv environment variables file\n .env.local\n\n# Dependency directories\n node_modules\n\n# Lock files\n package-lock.json\n"
+			);
 
 			switch (dappInfo.backendProvider) {
 				case "hardhat":
@@ -69,7 +71,9 @@ export const getProjectFiles = ({
 				path.join(resolvedProjectPath, "backend"),
 				false
 			);
-			fs.writeFileSync(path.join("backend", ".gitignore"), ".env.local");
+			fs.writeFileSync(path.join("backend", ".gitignore"), 
+			"# dotenv environment variables file\n .env.local\n\n# Dependency directories\n node_modules\n\n# Lock files\n package-lock.json\n"
+			);
 		}
 
 		createEnv(
