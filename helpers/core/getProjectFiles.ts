@@ -9,6 +9,7 @@ import BuilderContext from "../../interfaces/BuilderContext.js";
 import { getDefaultRainbowkitChain } from "../utils/getDefaultRainbowkitChain.js";
 import { mkdir } from "../utils/mkdir.js";
 import fs, { existsSync } from "fs";
+import { gitIgnoreTemplate } from "../utils/gitignore.template.js";
 export const getProjectFiles = ({
 	resolvedProjectPath,
 	dappInfo,
@@ -47,14 +48,16 @@ export const getProjectFiles = ({
 			if (!existsSync(path.join("pages", "api")))
 				mkdir(path.join("pages", "api"));
 
-			fs.writeFileSync(".gitignore", ".env");
+			fs.writeFileSync(".gitignore", gitIgnoreTemplate);
 		}
 		if (dappInfo.useBackend) {
 			if (!existsSync(path.join("pages", "api")))
 				mkdir(path.join("frontend", "pages", "api"));
 
-			fs.writeFileSync(path.join("frontend", ".gitignore"), 
-			"# dotenv environment variables file\n .env.local\n\n# Dependency directories\n node_modules\n\n# Lock files\n package-lock.json\n"
+
+			fs.writeFileSync(
+				path.join("frontend", ".gitignore"),
+				gitIgnoreTemplate
 			);
 
 			switch (dappInfo.backendProvider) {
@@ -71,8 +74,10 @@ export const getProjectFiles = ({
 				path.join(resolvedProjectPath, "backend"),
 				false
 			);
-			fs.writeFileSync(path.join("backend", ".gitignore"), 
-			"# dotenv environment variables file\n .env.local\n\n# Dependency directories\n node_modules\n\n# Lock files\n package-lock.json\n"
+
+			fs.writeFileSync(
+				path.join("backend", ".gitignore"),
+				gitIgnoreTemplate
 			);
 		}
 
