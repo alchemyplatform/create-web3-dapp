@@ -1,10 +1,6 @@
-import fs, { access, existsSync } from "fs";
-import { generateERC721Template } from "./ERC721Template.js";
+import fs, { existsSync } from "fs";
 import path from "path";
 import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
-import { getSmartContractDependencies } from "./utils/getSmartContractDependencies.js";
-import { getSmartContractSuperClasses } from "./utils/getSmartContractSuperClasses.js";
-import { isERC721 } from "./utils/isERC721.js";
 import { mkdir } from "../utils/mkdir.js";
 import { createDeployScript } from "./createDeployScript.js";
 import { erc20, erc721, erc1155 } from "@openzeppelin/wizard";

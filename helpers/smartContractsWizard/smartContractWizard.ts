@@ -10,6 +10,7 @@ import kill from "../utils/kill.js";
 import { existsSync } from "fs";
 import path from "path";
 import { SmartContractStandard } from "./utils/smartContractStandards.js";
+
 export const smartContractWizard = async (): Promise<
 	SmartContractInfo | undefined
 > => {
