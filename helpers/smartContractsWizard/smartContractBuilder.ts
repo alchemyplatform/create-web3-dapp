@@ -1,4 +1,6 @@
-import fs, { existsSync } from "fs";
+
+import fs, { access, existsSync } from "fs";
+import { generateERC721Template } from "./ERC721Template.js";
 import path from "path";
 import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
 import { mkdir } from "../utils/mkdir.js";
