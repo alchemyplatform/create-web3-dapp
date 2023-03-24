@@ -45,7 +45,7 @@ export const smartContractWizard = async (): Promise<
 							title: "ERC1155",
 							value: SmartContractStandard.ERC1155,
 							description:
-								"Coming fungible agnosting smart contract",
+								"Create fungible agnosting smart contract",
 						},
 						{
 							title: "ERC721A",

@@ -1,13 +1,12 @@
 {
-	"name": "create-web3-dapp-2",
+	"name": "my-create-web3-dapp0",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"build": "npx hardhat compile",
-		"deploy-testnet": "npx hardhat run ./scripts/Test_deploy.js --network ETH_GOERLI",
-		"deploy": "npx hardhat run ./scripts/Test_deploy.js --network ETH_MAINNET",
+		"deploy": "npx hardhat run ./scripts/MyContract_deploy.js --network ETH_MAINNET",
 		"node": "npx hardhat node",
-		"deploy-local": "npx hardhat run ./scripts/Test_deploy.js --network localhost"
+		"deploy-local": "npx hardhat run ./scripts/MyContract_deploy.js --network localhost"
 	},
 	"dependencies": {
 		"dotenv": "^16.0.2",
