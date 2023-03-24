@@ -24,7 +24,7 @@ For more details and instructions, check out the [docs](https://docs.alchemy.com
 
 1. [Documentation](https://docs.alchemy.com/docs/create-web3-dapp): Everything you need to know when using CW3D
 2. [Website](createweb3dapp.alchemy.com): Learn more about CW3D and add components to your project
-3. [Templates](createweb3dapp.alchemy.com#templates): Check out the pre-built project templates 
+3. [Templates](https://docs.alchemy.com/docs/create-web3-dapp-templates): Check out the pre-built project templates 
 4. [Component code](createweb3dapp.alchemy.com#components): Add features directly to your project through components 
 5. [Community](t.me/createweb3dapp): Meet other builders, get support, and give feedback!
 
