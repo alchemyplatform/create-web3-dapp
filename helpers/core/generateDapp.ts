@@ -44,7 +44,6 @@ export const generateDapp = async () => {
 		currentStep++;
 		await installDependencies(context);
 
-		logInstructions(context.dappInfo);
 	} catch (e) {
 		selfDestroy(e);
 	}

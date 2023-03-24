@@ -21,4 +21,6 @@ export const logInstructions = (dappInfo: DappInfo) => {
 			} && npm run dev`
 		)}`
 	);
+
+	process.exit(0)
 };
