@@ -9,6 +9,7 @@ import checkIfQuit from "../utils/checkIfQuit.js";
 import kill from "../utils/kill.js";
 import { existsSync } from "fs";
 import path from "path";
+import { SmartContractStandard } from "./utils/smartContractStandards.js";
 export const smartContractWizard = async (): Promise<
 	SmartContractInfo | undefined
 > => {
@@ -30,24 +31,22 @@ export const smartContractWizard = async (): Promise<
 					choices: [
 						{
 							title: "ERC721",
-							value: "ERC721",
+							value: SmartContractStandard.ERC721,
 							description: "Create a NFTs Smart Contract",
 						},
 						{
-							title: "ERC721A",
-							value: "ERC721A",
-							disabled: true,
+							title: "ERC20",
+							value: SmartContractStandard.ERC20,
 							description: "Coming soon",
 						},
 						{
 							title: "ERC1155",
-							value: "ERC1155",
-							disabled: true,
+							value: SmartContractStandard.ERC1155,
 							description: "Coming soon",
 						},
 						{
-							title: "ERC20",
-							value: "ERC20",
+							title: "ERC721A",
+							value: "ERC721A",
 							disabled: true,
 							description: "Coming soon",
 						},
@@ -163,6 +162,7 @@ export const smartContractWizard = async (): Promise<
 					standard,
 					selectedLibraries
 				);
+				console.log(contractInfo);
 				step++;
 				break;
 			case 4:
