@@ -4,7 +4,8 @@ import path from "path";
 import { generatePackageDotJson } from "../utils/generatePackageDotJson.js";
 import { BuilderContext } from "../../interfaces/BuilderContext";
 import { logInstructions } from "./logInstructions.js";
-import ora from "ora";
+import cli from "cli-progress";
+
 export const installDependencies = async ({
 	dappInfo,
 	contractInfo,
@@ -44,32 +45,43 @@ export const installDependencies = async ({
 			"--color",
 			"--no-audit",
 			"--progress",
+			"--verbose",
 		]);
-		const spinner = ora("Installing frontend dependencies").start();
+		const bar1 = new cli.SingleBar(
+			{
+				format:
+					"Frontend dependencies |" +
+					"{bar}" +
+					"| {percentage}% || {filename}",
+			},
+			cli.Presets.shades_classic
+		);
+		bar1.start(3500, 0);
 
+		let frontendDependenciesProgress = 0;
 		const sentences = [
 			"Initializing the environment",
-			"Cloning the repository",
+			"Setting up your Next project",
 			"Configuring the settings",
 			"Preparing the workbench",
 			"Building the foundation",
-			"Pouring the concrete",
-			"Laying the bricks",
-			"Cutting the wood",
-			"Measuring twice, cutting once",
-			"Checking the blueprints",
+			"Installing wagmi hooks",
+			"Installing Alchemy SDK",
+			"Installing Rainbow kit",
+			"Creating your environment files",
+			"Adding your API Keys",
+			"Now we install the dependencies",
 			"Digging the trench",
-			"Deploying the application",
+			"Setting up OpenZeppelin",
+			"Optimizing the user experience",
+			"Learn web3 for free at university.alchemy.com",
 			"Scaling the infrastructure",
 			"Monitoring the system",
-			"Securing the network",
 			"Updating the dependencies",
 			"Analyzing the data",
-			"Designing the user interface",
-			"Optimizing the user experience",
+			"Join discord on alchemy.com/discord",
 			"Creating the documentation",
-			"Collaborating with the team",
-			"Reviewing the code",
+			"Follow us on Twitter @alchemyplatform",
 			"Migrating the data",
 			"Backing up the files",
 			"Almost there",
@@ -82,15 +94,23 @@ export const installDependencies = async ({
 			"Here we go",
 		];
 		let index = 0;
-		setInterval(() => {
-			spinner.text = sentences[index];
-			index += 1;
-		}, Math.floor(Math.random() * 7000) + 3000);
-		npmInstall.stderr.on("data", (data) => {});
+
+		npmInstall.stderr.on("data", (data) => {
+			bar1.update(frontendDependenciesProgress, {
+				filename: sentences[index],
+			});
+			const random = Math.floor(Math.random() * 250) + 30;
+			if (frontendDependenciesProgress % random == 0) {
+				index += 1;
+			}
+			frontendDependenciesProgress += 2;
+		});
 
 		npmInstall.on("close", (code) => {
-			spinner.text = "Installation complete!";
-			spinner.stop();
+			bar1.update(3500, {
+				filename: "Finalised",
+			});
+			bar1.stop();
 			if (useBackend) {
 				installBackendDependencies(dappInfo, resolvedProjectPath);
 			} else {
@@ -112,27 +132,39 @@ const installBackendDependencies = (dappInfo, resolvedProjectPath) => {
 		"--color",
 		"--no-audit",
 		"--progress",
+		"--verbose",
 	]);
-	const spinner = ora("Installing backend dependencies").start();
+	const bar2 = new cli.SingleBar(
+		{
+			format:
+				"Backend dependencies |" +
+				"{bar}" +
+				"| {percentage}% || {filename}  ",
+		},
+		cli.Presets.shades_classic
+	);
+	bar2.start(4500, 0);
+
+	let backendDependenciesProgress = 0;
+
 	const sentences = [
 		"Mining the blocks",
-		"Verifying the transactions",
+		"Creating your smart contract",
 		"Synchronizing with the chain",
 		"Validating the smart contracts",
-		"Configuring the nodes",
+		"Configuring the RPC",
 		"Encrypting the data",
 		"Hashing the blocks",
-		"Signing the transactions",
 		"Broadcasting the messages",
-		"Consensus achieved",
+		"Installing Rainbowkit",
 		"Generating the keys",
 		"Assembling the parts",
-		"Testing the circuits",
 		"Polishing the surface",
 		"Adding the finishing touches",
 		"Double-checking the details",
-		"Aligning the elements",
-		"Inspecting the work",
+		"Creating the env file",
+		"Setting up your Alchemy API Key",
+		"Installing",
 		"Cleaning the workspace",
 		"Removing the debris",
 		"Almost there",
@@ -146,17 +178,24 @@ const installBackendDependencies = (dappInfo, resolvedProjectPath) => {
 		"Here we go",
 	];
 	let index = 0;
-	setInterval(() => {
-		spinner.text = sentences[index];
-		index += 1;
-	}, Math.floor(Math.random() * 7500) + 3000);
+
 	npmInstall.stderr.on("data", (data) => {
-		// console.log("backend",data.toString());
+		bar2.update(backendDependenciesProgress, {
+			filename: sentences[index],
+		});
+		const random = Math.floor(Math.random() * 250) + 30;
+		if (backendDependenciesProgress % random == 0) {
+			index += 1;
+		}
+		backendDependenciesProgress += 2;
 	});
 
 	npmInstall.on("close", (code) => {
-		spinner.stop();
-		spinner.text = "Installation complete!";
+		bar2.update(4500, {
+			filename: "Finalised",
+		});
+		bar2.stop();
+		console.log("\n")
 		logInstructions(dappInfo);
 	});
 };

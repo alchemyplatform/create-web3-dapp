@@ -1,0 +1,19 @@
+{
+	"name": "89",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"build": "npx hardhat compile",
+		"deploy": "npx hardhat run ./scripts/MyContract_deploy.js --network ETH_MAINNET",
+		"node": "npx hardhat node",
+		"deploy-local": "npx hardhat run ./scripts/MyContract_deploy.js --network localhost"
+	},
+	"dependencies": {
+		"dotenv": "^16.0.2",
+		"@openzeppelin/contracts": "^4.7.3"
+	},
+	"devDependencies": {
+		"@nomicfoundation/hardhat-toolbox": "^1.0.2",
+		"hardhat": "^2.10.1"
+	}
+}
