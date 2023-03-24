@@ -33,17 +33,19 @@ export const smartContractWizard = async (): Promise<
 						{
 							title: "ERC721",
 							value: SmartContractStandard.ERC721,
-							description: "Create a NFTs Smart Contract",
+							description: "Create a NFTs smart contract",
 						},
 						{
 							title: "ERC20",
 							value: SmartContractStandard.ERC20,
-							description: "Coming soon",
+							description:
+								"Create a crypto currency smart contract",
 						},
 						{
 							title: "ERC1155",
 							value: SmartContractStandard.ERC1155,
-							description: "Coming soon",
+							description:
+								"Coming fungible agnosting smart contract",
 						},
 						{
 							title: "ERC721A",
@@ -163,7 +165,6 @@ export const smartContractWizard = async (): Promise<
 					standard,
 					selectedLibraries
 				);
-				console.log(contractInfo);
 				step++;
 				break;
 			case 4:

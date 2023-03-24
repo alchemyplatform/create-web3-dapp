@@ -87,7 +87,7 @@ const libraries = {
 			title: "Snapshot",
 			value: "isEnumerable",
 			description:
-				"Token level support for flash loans through minting and burning of ephemeral tokens",
+				"When a snapshot is created, the balances and total supply at the time are recorded for later access.",
 		},
 		{
 			title: "Ownable",

@@ -105,9 +105,6 @@ export const buildSmartContract = (
 			});
 			break;
 	}
-
-	console.log("Smart contract:", smartcontractTemplate);
-
 	writeStream.write(smartcontractTemplate);
 
 	writeStream.end();

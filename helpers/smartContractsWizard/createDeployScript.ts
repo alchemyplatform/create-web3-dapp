@@ -2,7 +2,6 @@ import path from "path";
 import fs, { existsSync } from "fs";
 import { mkdir } from "../utils/mkdir.js";
 import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
-import { isERC721 } from "./utils/isERC721.js";
 import {
 	generateDeploymentScript,
 } from "./generateDeploymentScript.js";
