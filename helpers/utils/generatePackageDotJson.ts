@@ -10,8 +10,7 @@ export const generatePackageDotJson = (
 	backendProvider,
 	hasSmartContract,
 	chain,
-	contractName?,
-	
+	contractName?
 ) => {
 	const packageJsonTemplate = {
 		name: projectName,
@@ -31,25 +30,16 @@ export const generatePackageDotJson = (
 	frontEndPackageJson["scripts"]["lint"] = "next lint";
 	frontEndPackageJson["scripts"]["marketplace"] =
 		"npx create-web3-dapp marketplace";
-	frontEndPackageJson["devDependencies"]["eslint"] = "8.20.0";
-	frontEndPackageJson["devDependencies"]["eslint-config-next"] = "12.2.3";
+	frontEndPackageJson["devDependencies"]["eslint"] = "8.36.0";
+	frontEndPackageJson["devDependencies"]["eslint-config-next"] = "13.2.4";
 
 	if (isEVM) {
-		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.3.0";
+		frontEndPackageJson["dependencies"]["alchemy-sdk"] = "^2.6.2";
 		frontEndPackageJson["dependencies"]["@rainbow-me/rainbowkit"] =
-			"^0.8.1";
-		frontEndPackageJson["dependencies"]["wagmi"] = "^0.11.5";
+			"^0.12.4";
+		frontEndPackageJson["dependencies"]["wagmi"] = "^0.12.6";
 	} else {
 		frontEndPackageJson["dependencies"]["@project-serum/borsh"] = "^0.2.5";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react-ui"] =
-			"^0.9.19-rc.4";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-phantom"] =
-			"^0.9.8";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-react"] =
-			"^0.15.21-rc.4";
-		frontEndPackageJson["dependencies"]["@solana/wallet-adapter-base"] =
-			"^0.9.9";
-		frontEndPackageJson["dependencies"]["@solana/web3.js"] = "^1.58.0";
 	}
 	if (useBackend) {
 		fs.writeFileSync(
@@ -76,28 +66,24 @@ export const generatePackageDotJson = (
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
 				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
 				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
-				if(isTestnet)
-				backendPackageJson["scripts"][
-					"deploy-testnet"
-				] = `npx hardhat run ./scripts/${
-					hasSmartContract
-						? `${contractName}_deploy.js`
-						: "deploy.js"
-				} --network ${testnet}`;
+				if (isTestnet)
+					backendPackageJson["scripts"][
+						"deploy-testnet"
+					] = `npx hardhat run ./scripts/${
+						hasSmartContract
+							? `${contractName}_deploy.js`
+							: "deploy.js"
+					} --network ${testnet}`;
 				backendPackageJson["scripts"][
 					"deploy"
 				] = `npx hardhat run ./scripts/${
-					hasSmartContract
-						? `${contractName}_deploy.js`
-						: "deploy.js"
+					hasSmartContract ? `${contractName}_deploy.js` : "deploy.js"
 				} --network ${chain}`;
 				backendPackageJson["scripts"]["node"] = `npx hardhat node`;
 				backendPackageJson["scripts"][
 					"deploy-local"
 				] = `npx hardhat run ./scripts/${
-					hasSmartContract
-						? `${contractName}_deploy.js`
-						: "deploy.js"
+					hasSmartContract ? `${contractName}_deploy.js` : "deploy.js"
 				} --network localhost`;
 
 				break;

@@ -1,4 +1,4 @@
-import fs, { existsSync } from "fs";
+import fs, { access, existsSync } from "fs";
 import { generateERC721Template } from "./ERC721Template.js";
 import path from "path";
 import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
@@ -7,33 +7,112 @@ import { getSmartContractSuperClasses } from "./utils/getSmartContractSuperClass
 import { isERC721 } from "./utils/isERC721.js";
 import { mkdir } from "../utils/mkdir.js";
 import { createDeployScript } from "./createDeployScript.js";
-export const buildSmartContract = (smartContractInfo: SmartContractInfo, backendFolder: string) => {
-	const contractsFolder = path.join(backendFolder, "contracts")
-	if (!existsSync(contractsFolder))
-		mkdir(contractsFolder);
+import { erc20, erc721, erc1155 } from "@openzeppelin/wizard";
+import { CommonOptions } from "@openzeppelin/wizard/dist/common-options.js";
+import { SmartContractStandard } from "./utils/smartContractStandards.js";
+import { ERC721smartContractInfo } from "../../interfaces/ERC721smartContractInfo.js";
+import { ERC20smartContractInfo } from "../../interfaces/ERC20smartContractInfo.js";
+
+export interface ERC20Options extends CommonOptions {
+	name: string;
+	symbol: string;
+	burnable?: boolean;
+	snapshots?: boolean;
+	pausable?: boolean;
+	premint?: string;
+	mintable?: boolean;
+	permit?: boolean;
+	votes?: boolean;
+	flashmint?: boolean;
+}
+
+export interface ERC721Options extends CommonOptions {
+	name: string;
+	symbol: string;
+	baseUri?: string;
+	enumerable?: boolean;
+	uriStorage?: boolean;
+	burnable?: boolean;
+	pausable?: boolean;
+	mintable?: boolean;
+	incremental?: boolean;
+	votes?: boolean;
+}
+
+export interface ERC1155Options extends CommonOptions {
+	name: string;
+	uri: string;
+	burnable?: boolean;
+	pausable?: boolean;
+	mintable?: boolean;
+	supply?: boolean;
+	updatableUri?: boolean;
+}
+
+export const buildSmartContract = (
+	smartContractInfo:
+		| SmartContractInfo
+		| ERC721smartContractInfo
+		| ERC20smartContractInfo,
+	backendFolder: string
+) => {
+	const contractsFolder = path.join(backendFolder, "contracts");
+	if (!existsSync(contractsFolder)) mkdir(contractsFolder);
 	const writeStream = fs.createWriteStream(
-		path.join(
-			contractsFolder,
-			`${smartContractInfo.name}.sol`
-		)
+		path.join(contractsFolder, `${smartContractInfo.name}.sol`)
 	);
+	let smartcontractTemplate;
+	switch (smartContractInfo.standard) {
+		case SmartContractStandard.ERC20:
+			smartcontractTemplate = erc20.print({
+				name: smartContractInfo.name,
+				symbol: smartContractInfo.symbol,
+				burnable: smartContractInfo.isBurnable,
+				pausable: smartContractInfo.isPausable,
+				// permint:"",
+				mintable: smartContractInfo.isMintable,
+				flashmint: (smartContractInfo as ERC20smartContractInfo)
+					.isFlashMint,
+				votes: smartContractInfo.isVotes,
+				access: smartContractInfo.isOwnable ? "ownable" : "roles",
+			});
 
-	const dependencies = getSmartContractDependencies(smartContractInfo);
-	const licenseIdentifier = "//SPDX-License-Identifier: MIT";
-	const pragmaDeclaration = "pragma solidity ^0.8.4;";
+			break;
+		case SmartContractStandard.ERC721:
+			smartcontractTemplate = erc721.print({
+				name: smartContractInfo.name,
+				symbol: smartContractInfo.symbol,
+				// baseUri?: string;
+				enumerable: (smartContractInfo as ERC721smartContractInfo)
+					.isEnumerable,
+				uriStorage: (smartContractInfo as ERC721smartContractInfo)
+					.isURIStorage,
+				burnable: smartContractInfo.isBurnable,
+				pausable: smartContractInfo.isPausable,
+				mintable: smartContractInfo.isMintable,
+				incremental: true,
+				votes: smartContractInfo.isVotes,
+				access: smartContractInfo.isOwnable ? "ownable" : "roles",
+			});
 
-	if (isERC721(smartContractInfo)) {
-		const smartContractTemplate = generateERC721Template(
-			smartContractInfo,
-			getSmartContractSuperClasses(smartContractInfo)
-		);
-		writeStream.write(`${licenseIdentifier}
-${pragmaDeclaration}
-${dependencies.join("\n")}
-
-${smartContractTemplate}
-    `);
+			break;
+		case SmartContractStandard.ERC1155:
+			smartcontractTemplate = erc1155.print({
+				name: smartContractInfo.name,
+				uri: "",
+				burnable: smartContractInfo.isBurnable,
+				pausable: smartContractInfo.isPausable,
+				mintable: smartContractInfo.isMintable,
+				supply: true,
+				access: smartContractInfo.isOwnable ? "ownable" : "roles",
+			});
+			break;
 	}
+
+	console.log("Smart contract:", smartcontractTemplate);
+
+	writeStream.write(smartcontractTemplate);
+
 	writeStream.end();
 
 	createDeployScript(smartContractInfo, backendFolder);

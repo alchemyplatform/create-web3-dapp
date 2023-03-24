@@ -1,8 +1,7 @@
 import { SmartContractInfo } from "./SmartContractInfo.js";
 
 export interface ERC20smartContractInfo extends SmartContractInfo {
-	premint: number;
-	isPermit: boolean;
-	isFlashMinting: boolean;
+	isFlashMint: boolean;
 	isSnapshots: boolean;
+	// supplyCap: number;
 }

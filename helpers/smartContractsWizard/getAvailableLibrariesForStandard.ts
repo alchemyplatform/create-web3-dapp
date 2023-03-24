@@ -35,16 +35,6 @@ const libraries = {
 			description: "Support voting and delegation",
 		},
 		{
-			title: "Ownable",
-			value: "isOwnable",
-			description: "Provides a basic access control mechanism",
-		},
-		{
-			title: "Roles",
-			value: "isRoles",
-			description: "Implements role-based access control ",
-		},
-		{
 			title: "Auto Increment",
 			value: "isAutoIncrement",
 			description: "Adds auto incremint token IDs",
@@ -60,5 +50,77 @@ const libraries = {
 			value: "isURIStorage",
 			description: "Adds storage based token URI management.",
 		},
+		{
+			title: "Ownable",
+			value: "isOwnable",
+			description: "Provides a basic access control mechanism",
+		},
+		{
+			title: "Roles",
+			value: "isRoles",
+			description: "Implements role-based access control ",
+		},
+	],
+	ERC20: [
+		{
+			title: "Burnable",
+			value: "isBurnable",
+			description: "ERC721 Token that can be burned (destroyed).",
+		},
+		{
+			title: "Pausable",
+			value: "isPausable",
+			description: "Adds pausable token transfers, minting and burning.",
+		},
+		{
+			title: "Votes",
+			value: "isVotes",
+			description: "Support voting and delegation",
+		},
+		{
+			title: "Flash Mint",
+			value: "isFlashMint",
+			description:
+				"Token level support for flash loans through minting and burning of ephemeral tokens",
+		},
+		{
+			title: "Snapshot",
+			value: "isEnumerable",
+			description:
+				"Token level support for flash loans through minting and burning of ephemeral tokens",
+		},
+		{
+			title: "Ownable",
+			value: "isOwnable",
+			description: "Provides a basic access control mechanism",
+		},
+		{
+			title: "Roles",
+			value: "isRoles",
+			description: "Implements role-based access control ",
+		},
+	],
+	ERC1155: [
+		{
+			title: "Burnable",
+			value: "isBurnable",
+			description: "ERC721 Token that can be burned (destroyed).",
+		},
+		{
+			title: "Pausable",
+			value: "isPausable",
+			description: "Adds pausable token transfers, minting and burning.",
+		},
+		{
+			title: "Ownable",
+			value: "isOwnable",
+			description: "Provides a basic access control mechanism",
+		},
+		{
+			title: "Roles",
+			value: "isRoles",
+			description: "Implements role-based access control ",
+		},
+		
 	],
 };
