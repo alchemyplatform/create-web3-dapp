@@ -324,9 +324,7 @@ This project exists thanks to all the people who [contribute](/contributing.md).
 
 </br>
 
-## Acknowledgements
-
-We are grateful to the authors of existing related projects for their ideas and collaboration:
+## Maintainers
 
 -   [@vittorivabella](https://github.com/eversmile12)
 
