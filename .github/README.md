@@ -19,7 +19,7 @@
 
 </center>
 
-<p><strong>No need to clone: Run "npx create-web3-dapp@latest" in your terminal to get started</strong></p>
+<p><strong>No need to clone: run "npx create-web3-dapp@latest" in your terminal to get started</strong></p>
 
 This package includes the global command to start the Create Web3 DApp CLI builder.
 
