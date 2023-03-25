@@ -9,7 +9,7 @@
 <h1 align="center"><a href='https://createweb3dapp.alchemy.com/'>create-web3-dapp</a> </h1>
 <p align="center"><strong>Everything you need to create Web3 Dapps in 4 minutes.
 </strong></p>
-
+<p>🟡 No need to clone: run "npx create-web3-dapp@latest" in your terminal to get started</p>
 <center>
 
 [![Stargazers][stars-shield]][stars-url] [![Forks][forks-shield]][forks-url]
@@ -19,7 +19,6 @@
 
 </center>
 
-<p><strong>No need to clone: run "npx create-web3-dapp@latest" in your terminal to get started</strong></p>
 
 This package includes the global command to start the Create Web3 DApp CLI builder.
 
