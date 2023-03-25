@@ -41,6 +41,8 @@ The dapp created with create-web3-dapp are NextJS-based, and **compatible with t
 
 No complicated configuration or folder structures, only the files you need to build your Dapp.
 
+![templates](.github/images/builder_cli.gif)
+
 ---
 
 </br>
@@ -177,7 +179,7 @@ Use the following links to **learn how to kickstart your dapp using the template
 
 </br>
 
-## ![templates](.github/images/templates.png)
+![templates](.github/images/templates.png)
 
 </br>
 
