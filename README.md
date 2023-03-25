@@ -1,7 +1,7 @@
 <p align="center">
     <br />
     <a href="https://createweb3dapp.alchemy.com">
-        <img src=".github/images/cw3d-logo_w.png" width="200" alt=""/></a>
+        <img src=".github/images/cw3d-logo.png" width="200" alt=""/></a>
     <br />
 </p>
 
