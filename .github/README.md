@@ -9,7 +9,7 @@
 <h1 align="center"><a href='https://createweb3dapp.alchemy.com/'>create-web3-dapp</a> </h1>
 <p align="center"><strong>Everything you need to create Web3 Dapps in 4 minutes.
 </strong></p>
-	<p align"center">🟡 No need to clone: run "npx create-web3-dapp@latest" in your terminal to get started</p>
+
 
 <center>
 
@@ -33,6 +33,8 @@ Please refer to this package's documentation and the following links for an in d
 -   [Examples](https://github.com/alchemyplatform/create-web3-dapp-examples) - See the components implemented in a real world dapp
 -   [Community](https://t.me/createweb3dapp) - Meet other builders, get support, and give feedback!
 
+<p align"center">🟡 No need to clone: run "npx create-web3-dapp@latest" in your terminal to get started</p>
+
 </br>
 
 ## What is create-web3-dapp?
@@ -45,7 +47,6 @@ No complicated configuration or folder structures, only the files you need to bu
 
 ![templates](images/builder_cli.gif)
 
----
 
 </br>
 
@@ -85,7 +86,7 @@ If you've previously installed `create-web3-dapp` globally via `npx create-web3-
 
 _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher, see [instructions for older npm versions](https://gist.github.com/gaearon/4064d3c23a77c74a3614c498a8bb1c5f))_
 
----
+
 
 </br>
 
@@ -115,7 +116,7 @@ Now navigate on [http://localhost:3000/](http://localhost:3000/) to see your dap
 
 Next, learn how to add a web3 ready component from the create-web3-dapp library.
 
----
+
 
 </br>
 
@@ -133,7 +134,6 @@ The smart contracts backpack can create audited smart contracts, deployment scri
 
 Learn more on how to create, build and deploy, the smart contracts backpack in the [docs](https://docs.alchemy.com/docs/build-and-deploy-smart-contracts).
 
----
 
 </br>
 
@@ -187,7 +187,6 @@ export default function Home() {
 
 More components? Check detailed instructions on the [Docs]().
 
----
 
 </br>
 
@@ -211,7 +210,6 @@ Use the following links to **learn how to kickstart your dapp using the template
 
 </br>
 
----
 
 </br>
 
