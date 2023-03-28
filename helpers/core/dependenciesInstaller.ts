@@ -110,7 +110,7 @@ export const installDependencies = async ({
 
 		execSync("npx npm-check-updates  --silent");
 		const npmInstall = spawn(
-			/^win/.test(process.platform) ? "npm.cmd" : "npm",
+			process.platform === "win32" ? "npm.cmd" : "npm",
 			["install", "--color", "--no-audit", "--progress", "--verbose"]
 		);
 
