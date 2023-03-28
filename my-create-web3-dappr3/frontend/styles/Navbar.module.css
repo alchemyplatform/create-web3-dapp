@@ -1,0 +1,17 @@
+
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 2rem 4rem 0.8rem 4rem;
+	gap: 2rem;
+	margin-bottom: 4rem;
+}
+
+
+.alchemy_logo{
+	width: 6rem;
+	cursor: pointer;
+}

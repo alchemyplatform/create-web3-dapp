@@ -1,0 +1,95 @@
+.container{
+	color: white;
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	width: 100%;
+	align-items: center;
+}
+
+.header_container{
+	margin-bottom: 6rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.header_container h1{
+	font-size: 64px;
+
+}
+
+
+.header_container h1 span{
+	background: linear-gradient(140deg, rgba(54,190,255,1) 0%, rgba(115,63,241,1) 100%);
+	background-clip: text;
+	color: transparent;
+}
+
+.header_container p{
+	font-size: 20px;
+
+}
+
+.header_container p span{
+	color: #D73719;
+	width: 197px;
+height: 36px;
+
+
+background: rgba(255, 255, 255, 0.08);
+border-radius: 8px;
+	padding: .5rem 1rem .5rem .5rem;
+	margin-left: .3rem;
+}
+
+
+
+
+.buttons_container{
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	width: 100%;
+	align-content: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.button{
+	display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+
+padding: 24px 32px;
+gap: 12px;
+
+width: 392px;
+height: 76px;
+
+background: rgba(0, 0, 0, 0.8);
+/* Grayscale/Metal */
+
+border: 1px solid #4E4E4E;
+border-radius: 12px;
+cursor: pointer;
+}
+
+.button p {
+
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 28px;
+}
+.footer{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.icons_container{
+	display: flex;
+	gap: 2rem;
+	margin-bottom: .5rem;
+}
