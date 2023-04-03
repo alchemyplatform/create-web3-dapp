@@ -4,7 +4,6 @@ import fs from "fs";
 export const generatePackageDotJson = (
 	projectName,
 	isEVM,
-	isTestnet,
 	testnet,
 	useBackend,
 	backendProvider,
@@ -66,7 +65,7 @@ export const generatePackageDotJson = (
 				backendPackageJson["devDependencies"]["hardhat"] = "^2.10.1";
 				backendPackageJson["dependencies"]["dotenv"] = "^16.0.2";
 				backendPackageJson["scripts"]["build"] = "npx hardhat compile";
-				if (isTestnet)
+				if (hasSmartContract)
 					backendPackageJson["scripts"][
 						"deploy-testnet"
 					] = `npx hardhat run ./scripts/${

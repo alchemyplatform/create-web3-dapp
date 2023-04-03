@@ -5,8 +5,7 @@ export interface DappInfo {
 	isTemplate: boolean;
 	template: number;
 	isEVM: boolean;
-	isTestnet: boolean;
-	testnet?: string;
+	testnet: string;
 	useBackend: boolean;
 	backendProvider?: string;
 	hasSmartContract: boolean;

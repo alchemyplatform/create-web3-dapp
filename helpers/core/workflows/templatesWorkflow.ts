@@ -78,60 +78,28 @@ export async function startTemplatesWorkflow(useBackend = false, projectName?) {
 					context.dappInfo.chain == "SOL_MAINNET"
 						? true
 						: false;
+
+				switch (context.dappInfo.chain) {
+					case "ETH_MAINNET":
+						context.dappInfo.testnet = "ETH_GOERLI";
+						break;
+
+					case "MATIC_MAINNET":
+						context.dappInfo.testnet = "MATIC_MUMBAI";
+						break;
+					case "ARB_MAINNET":
+						context.dappInfo.testnet = "ARB_GOERLI";
+						break;
+					case "OPT_MAINNET":
+						context.dappInfo.testnet = "OPT_GOERLI";
+						break;
+				}
 				step++;
 				break;
 
+				
+
 			case 2:
-				try {
-					const isTestnet: boolean | string = await prompts({
-						type: "select",
-						name: "testnet",
-						message: "Choose your network",
-						choices: [
-							{
-								title: "Mainnet",
-								value: false,
-							},
-							{ title: "Testnet", value: true },
-							{ title: "Back", value: "back" },
-						],
-						initial: 0,
-						hint: "- You can change this later",
-					}).then((data) => data.testnet);
-					if (typeof isTestnet == "string") {
-						step--;
-						break;
-					} else if (typeof isTestnet == "boolean") {
-						context.dappInfo.isTestnet = isTestnet;
-						if (isTestnet) {
-							switch (context.dappInfo.chain) {
-								case "ETH_MAINNET":
-									context.dappInfo.testnet = "ETH_GOERLI";
-									break;
-
-								case "MATIC_MAINNET":
-									context.dappInfo.testnet = "MATIC_MUMBAI";
-									break;
-								case "ARB_MAINNET":
-									context.dappInfo.testnet = "ARB_GOERLI";
-									break;
-								case "OPT_MAINNET":
-									context.dappInfo.testnet = "OPT_GOERLI";
-									break;
-							}
-						}
-					} else {
-						kill();
-					}
-
-					step++;
-				} catch (e) {
-					selfDestroy(e);
-				}
-
-				break;
-
-			case 3:
 				try {
 					const hasAccount: string = await prompts({
 						type: "toggle",
@@ -153,7 +121,7 @@ export async function startTemplatesWorkflow(useBackend = false, projectName?) {
 				}
 				break;
 
-			case 4:
+			case 3:
 				try {
 					const alchemyAPIKey: string = await prompts({
 						type: "text",

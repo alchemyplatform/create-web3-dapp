@@ -24,7 +24,7 @@ const dappInfo: DappInfo = {
 	isTemplate: false,
 	template: 0,
 	isEVM: true,
-	isTestnet: false,
+	testnet: "",
 	useBackend: false,
 	backendProvider: "",
 	hasSmartContract: false,

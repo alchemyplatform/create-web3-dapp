@@ -89,13 +89,11 @@ export const installDependencies = async ({
 			useBackend,
 			backendProvider,
 			hasSmartContract,
-			isTestnet,
 		} = dappInfo;
 
 		generatePackageDotJson(
 			projectName,
 			isEVM,
-			isTestnet,
 			testnet,
 			useBackend,
 			backendProvider,

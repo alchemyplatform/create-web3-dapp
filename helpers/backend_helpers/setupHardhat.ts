@@ -34,6 +34,10 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 					accounts: "[`${process.env.PRIVATE_KEY}`]",
 					url: generateAlchemyURL(dappInfo.chain),
 				},
+				[dappInfo.testnet]: {
+					accounts: "[`${process.env.PRIVATE_KEY}`]",
+					url: generateAlchemyURL(dappInfo.testnet),
+				},
 			},
 			etherscan: {
 				apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
@@ -41,12 +45,7 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 		},
 	};
 
-	if (dappInfo.isTestnet && dappInfo.testnet) {
-		modules.solidity.networks[dappInfo.testnet] = {
-			accounts: "[`${process.env.PRIVATE_KEY}`]",
-			url: generateAlchemyURL(dappInfo.testnet),
-		};
-	}
+
 
 	writeStream.write(
 		`module.exports = ${JSON.stringify(modules, null, "\t").replace(

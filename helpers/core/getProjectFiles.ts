@@ -82,10 +82,10 @@ export const getProjectFiles = ({
 		createEnv(
 			{
 				...dappInfo.apiKeys,
-				ALCHEMY_NETWORK: dappInfo.chain,
-				NEXT_PUBLIC_ALCHEMY_NETWORK: dappInfo.chain,
+				ALCHEMY_NETWORK: dappInfo.testnet,
+				NEXT_PUBLIC_ALCHEMY_NETWORK: dappInfo.testnet,
 				NEXT_PUBLIC_DEFAULT_CHAIN: getDefaultRainbowkitChain(
-					dappInfo.isTestnet ? dappInfo.testnet! : dappInfo.chain
+					dappInfo.testnet
 				),
 			},
 			dappInfo.useBackend
