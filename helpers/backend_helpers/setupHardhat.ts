@@ -11,7 +11,6 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	mkdirSync(path.join(process.cwd(), "backend", "contracts"));
 	mkdirSync(path.join(process.cwd(), "backend", "scripts"));
 	mkdirSync(path.join(process.cwd(), "backend", "test"));
-	
 
 	const writeStream = createWriteStream(
 		path.join(projectPath, "backend", "hardhat.config.js")
@@ -21,21 +20,29 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	writeStream.write("require('dotenv').config()\n\n");
 
 	const modules = {
-		solidity: "0.8.9",
-		networks: {
-			hardhat: {},
-			[dappInfo.chain]: {
-				accounts: "[`${process.env.PRIVATE_KEY}`]",
-				url: generateAlchemyURL(dappInfo.chain),
+		solidity: {
+			version: "0.8.9",
+			settings: {
+				optimizer: {
+					enabled: true,
+				},
 			},
-		},
-		etherscan: {
-			apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
+			allowUnlimitedContractSize: true,
+			networks: {
+				hardhat: {},
+				[dappInfo.chain]: {
+					accounts: "[`${process.env.PRIVATE_KEY}`]",
+					url: generateAlchemyURL(dappInfo.chain),
+				},
+			},
+			etherscan: {
+				apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
+			},
 		},
 	};
 
 	if (dappInfo.isTestnet && dappInfo.testnet) {
-		modules.networks[dappInfo.testnet] = {
+		modules.solidity.networks[dappInfo.testnet] = {
 			accounts: "[`${process.env.PRIVATE_KEY}`]",
 			url: generateAlchemyURL(dappInfo.testnet),
 		};

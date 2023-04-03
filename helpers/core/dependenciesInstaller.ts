@@ -109,10 +109,13 @@ export const installDependencies = async ({
 		}
 
 		execSync("npx npm-check-updates  --silent");
-		const npmInstall = spawn(
-			process.platform === "win32" ? "npm.cmd" : "npm",
-			["install", "--color", "--no-audit", "--progress", "--verbose"]
-		);
+		const npmInstall = spawn("npm", [
+			"install",
+			"--color",
+			"--no-audit",
+			"--progress",
+			"--verbose",
+		]);
 
 		bar.start(useBackend ? 8000 : 3500, 0);
 		npmInstall.stderr.on("data", (data) => {
@@ -147,7 +150,7 @@ export const installDependencies = async ({
 const installBackendDependencies = (dappInfo, resolvedProjectPath) => {
 	process.chdir(path.join(resolvedProjectPath, "backend"));
 	execSync("npx npm-check-updates --silent");
-	const npmInstall = spawn(process.platform === "win32" ? "npm.cmd" : "npm", [
+	const npmInstall = spawn("npm", [
 		"install",
 		"--color",
 		"--no-audit",
