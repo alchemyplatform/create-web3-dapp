@@ -37,6 +37,17 @@ Please refer to this package's documentation and the following links for an in d
 
 </br>
 
+## What's included?
+Your environment will have everything you need to start building a dapp:
+
+- [x] Next.js
+- [x] Wagmi Hooks
+- [x] Ethers.js
+- [x] Rainbowkit
+- [x] Alchemy SDK
+
+</br>
+
 ## What is create-web3-dapp?
 
 create-web3-dapp is an npx tool that allows developers to **create web3 applications in ~4 minutes.**
@@ -50,14 +61,6 @@ No complicated configuration or folder structures, only the files you need to bu
 
 </br>
 
-## What's included
-
-[x] Next.js
-[x] Wagmi Hooks
-[x] Ethers.js
-[x] Rainbowkit
-[x] Alchemy SDK
-
 
 ## Philosophy
 
@@ -67,12 +70,6 @@ No complicated configuration or folder structures, only the files you need to bu
 
 -   **No Lock-In:** You can “eject” to a custom setup at any time. Run a single command, and all the configuration and build dependencies will be moved directly into your project, so you can pick up right where you left off.
 
-## What’s Included?
-
-Your environment will have everything you need to start building a dapp:
-
--  NextJS, Alchemy, Alchemy SDK, Rainbowkit, Wagmi hooks, ethers.
--  Hassle-free updates for the above tools with a single dependency.
 
 ## When to use CW3D
 
