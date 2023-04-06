@@ -50,6 +50,13 @@ No complicated configuration or folder structures, only the files you need to bu
 
 </br>
 
+## What's included
+
+[x] Next.js
+[x] Wagmi Hooks
+[x] Ethers.js
+[x] Rainbowkit
+[x] Alchemy SDK
 
 
 ## Philosophy
