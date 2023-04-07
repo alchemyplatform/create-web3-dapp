@@ -48,6 +48,20 @@ Your environment will have everything you need to start building a dapp:
 
 </br>
 
+
+## Supported chains
+With create-web3-dapp you can create multi-chain dapps supporting all of the major EVM based chains:
+
+- [x] Ethereum
+- [x] Polygon
+- [x] Arbitrum
+- [x] Optimism
+
+Support for non EVM chains is in the roadmap
+
+</br>
+
+
 ## What is create-web3-dapp?
 
 create-web3-dapp is an npx tool that allows developers to **create web3 applications in ~4 minutes.**
