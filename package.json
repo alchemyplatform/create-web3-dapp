@@ -14,6 +14,7 @@
 		"foundry",
 		"ethereum",
 		"polygon",
+		"polygon-zkevm",
 		"solana",
 		"optimism",
 		"arbitrum",

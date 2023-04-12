@@ -18,6 +18,14 @@ export const generateAlchemyURL = (chain): string => {
 			rpcUrl =
 				"`https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
+		case "POLYGON_ZKEVM_MAINNET":
+			rpcUrl =
+				"`https://polygonzkevm-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
+			break;
+		case "POLYGON_ZKEVM_TESTNET":
+			rpcUrl =
+				"`https://polygonzkevm-testnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
+			break;
 		case "ARB_MAINNET":
 			rpcUrl =
 				"`https://arb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";

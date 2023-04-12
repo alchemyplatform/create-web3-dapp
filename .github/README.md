@@ -54,6 +54,7 @@ With create-web3-dapp you can create multi-chain dapps supporting all of the maj
 
 - [x] Ethereum
 - [x] Polygon
+- [x] Polygon zkEVM
 - [x] Arbitrum
 - [x] Optimism
 

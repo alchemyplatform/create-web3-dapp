@@ -55,6 +55,7 @@ export async function startTemplatesWorkflow(useBackend = false, projectName?) {
 					choices: [
 						{ title: "Ethereum", value: "ETH_MAINNET" },
 						{ title: "Polygon", value: "MATIC_MAINNET" },
+						{ title: "Polygon zkEVM", value: "POLYGON_ZKEVM_MAINNET" },
 						{ title: "Arbitrum", value: "ARB_MAINNET" },
 						{ title: "Optimism", value: "OPT_MAINNET" },
 						{ title: "Back", value: "back" },

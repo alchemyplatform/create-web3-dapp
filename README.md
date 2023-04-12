@@ -37,7 +37,7 @@ Please refer to this package's documentation and the following links for an in d
 
 create-web3-dapp is an npx tool that allows developers to **create web3 applications in ~4 minutes.**
 
-The dapp created with create-web3-dapp are NextJS-based, and **compatible with the most used blockchains such as Ethereum, Polygon, Optimism, Arbitrum, and Solana**. Create-web3-dapp allows web3 developers to build production-ready decentralized applications at lightning speed, using pre-made React components, webhooks, and APIs.
+The dapp created with create-web3-dapp are NextJS-based, and **compatible with the most used blockchains such as Ethereum, Polygon, Polygon zkEVM, Optimism, Arbitrum, and Solana**. Create-web3-dapp allows web3 developers to build production-ready decentralized applications at lightning speed, using pre-made React components, webhooks, and APIs.
 
 No complicated configuration or folder structures, only the files you need to build your Dapp.
 
