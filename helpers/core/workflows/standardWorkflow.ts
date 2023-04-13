@@ -130,7 +130,10 @@ export async function startStandardWorkflow() {
 					choices: [
 						{ title: "Ethereum", value: "ETH_MAINNET" },
 						{ title: "Polygon", value: "MATIC_MAINNET" },
-						{ title: "Polygon zkEVM", value: "POLYGON_ZKEVM_MAINNET" },
+						{
+							title: "Polygon zkEVM",
+							value: "POLYGON_ZKEVM_MAINNET",
+						},
 						{ title: "Arbitrum", value: "ARB_MAINNET" },
 						{ title: "Optimism", value: "OPT_MAINNET" },
 						{ title: "Back", value: "back" },
@@ -151,6 +154,7 @@ export async function startStandardWorkflow() {
 					context.dappInfo.chain == "MATIC_MAINNET" ||
 					context.dappInfo.chain == "ARB_MAINNET" ||
 					context.dappInfo.chain == "OPT_MAINNET" ||
+					context.dappInfo.chain == "POLYGON_ZKEVM_MAINNET" ||
 					context.dappInfo.chain == "SOL_MAINNET"
 						? true
 						: false;
@@ -159,7 +163,6 @@ export async function startStandardWorkflow() {
 					case "ETH_MAINNET":
 						context.dappInfo.testnet = "ETH_GOERLI";
 						break;
-
 					case "MATIC_MAINNET":
 						context.dappInfo.testnet = "MATIC_MUMBAI";
 						break;
@@ -168,6 +171,9 @@ export async function startStandardWorkflow() {
 						break;
 					case "OPT_MAINNET":
 						context.dappInfo.testnet = "OPT_GOERLI";
+						break;
+					case "POLYGON_ZKEVM_MAINNET":
+						context.dappInfo.testnet = "POLYGON_ZKEVM_TESTNET";
 						break;
 				}
 				step++;
@@ -263,7 +269,7 @@ export async function startStandardWorkflow() {
 					}
 				}
 				step++;
-				
+
 				break;
 			case 5:
 				try {
