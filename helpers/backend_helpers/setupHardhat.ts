@@ -27,25 +27,23 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 					enabled: true,
 				},
 			},
-			allowUnlimitedContractSize: true,
-			networks: {
-				hardhat: {},
-				[dappInfo.chain]: {
-					accounts: "[`${process.env.PRIVATE_KEY}`]",
-					url: generateAlchemyURL(dappInfo.chain),
-				},
-				[dappInfo.testnet]: {
-					accounts: "[`${process.env.PRIVATE_KEY}`]",
-					url: generateAlchemyURL(dappInfo.testnet),
-				},
+		},
+		allowUnlimitedContractSize: true,
+		networks: {
+			hardhat: {},
+			[dappInfo.chain]: {
+				accounts: "[`${process.env.PRIVATE_KEY}`]",
+				url: generateAlchemyURL(dappInfo.chain),
 			},
-			etherscan: {
-				apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
+			[dappInfo.testnet]: {
+				accounts: "[`${process.env.PRIVATE_KEY}`]",
+				url: generateAlchemyURL(dappInfo.testnet),
 			},
 		},
+		etherscan: {
+			apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
+		},
 	};
-
-
 
 	writeStream.write(
 		`module.exports = ${JSON.stringify(modules, null, "\t").replace(
