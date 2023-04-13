@@ -208,7 +208,7 @@ export async function startStandardWorkflow() {
 					} else if (backendProvider == "skip") {
 						context.dappInfo.useBackend = false;
 						context.dappInfo.backendProvider = undefined;
-						step = 6;
+						step = 5;
 						break;
 					} else if (typeof backendProvider == "string") {
 						context.dappInfo.useBackend = true;
@@ -263,6 +263,7 @@ export async function startStandardWorkflow() {
 					}
 				}
 				step++;
+				
 				break;
 			case 5:
 				try {
