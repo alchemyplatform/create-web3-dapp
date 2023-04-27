@@ -24,15 +24,14 @@ const dappInfo: DappInfo = {
 	isTemplate: false,
 	template: 0,
 	isEVM: true,
-	isTestnet: false,
+	testnet: "",
 	useBackend: false,
 	backendProvider: "",
 	hasSmartContract: false,
 	modules: null,
 	apiKeys: {
-		ALCHEMY_API_KEY: "demo"
-		
-	}
+		ALCHEMY_API_KEY: "",
+	},
 };
 
 const projectName = "";
@@ -45,4 +44,4 @@ const context: BuilderContext = {
 	resolvedProjectPath,
 };
 
-export default context
+export default context;

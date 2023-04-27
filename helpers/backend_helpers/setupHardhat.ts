@@ -7,15 +7,10 @@ import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 import { execSync } from "child_process";
 
 export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
-	mkdirSync(path.join(process.cwd(), "tempBackend"));
-	execSync(
-		`git clone --quiet ${"https://github.com/alchemyplatform/cw3d-hardhat-boilerplates.git"} ./tempBackend`,
-		{ stdio: "inherit" }
-	);
-	const hardhatTemplate = path.join(process.cwd(), "tempBackend");
-	fse.copySync(hardhatTemplate, projectPath);
-
-	
+	mkdirSync(path.join(process.cwd(), "backend"));
+	mkdirSync(path.join(process.cwd(), "backend", "contracts"));
+	mkdirSync(path.join(process.cwd(), "backend", "scripts"));
+	mkdirSync(path.join(process.cwd(), "backend", "test"));
 
 	const writeStream = createWriteStream(
 		path.join(projectPath, "backend", "hardhat.config.js")
@@ -25,25 +20,30 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 	writeStream.write("require('dotenv').config()\n\n");
 
 	const modules = {
-		solidity: "0.8.9",
+		solidity: {
+			version: "0.8.9",
+			settings: {
+				optimizer: {
+					enabled: true,
+				},
+			},
+		},
+		allowUnlimitedContractSize: true,
 		networks: {
 			hardhat: {},
 			[dappInfo.chain]: {
 				accounts: "[`${process.env.PRIVATE_KEY}`]",
 				url: generateAlchemyURL(dappInfo.chain),
 			},
+			[dappInfo.testnet]: {
+				accounts: "[`${process.env.PRIVATE_KEY}`]",
+				url: generateAlchemyURL(dappInfo.testnet),
+			},
 		},
 		etherscan: {
 			apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
 		},
 	};
-
-	if (dappInfo.isTestnet && dappInfo.testnet) {
-		modules.networks[dappInfo.testnet] = {
-			accounts: "[`${process.env.PRIVATE_KEY}`]",
-			url: generateAlchemyURL(dappInfo.testnet),
-		};
-	}
 
 	writeStream.write(
 		`module.exports = ${JSON.stringify(modules, null, "\t").replace(

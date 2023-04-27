@@ -112,6 +112,6 @@ Here’s an example workflow to create a new Pull Request. Your username is your
 
 To speed up the process and avoid version clashes, is higly suggested to ask other contributors to see if no one has taken the issue yet. If you're interested in tackling such a feature and it's still available, we will assign you to the task. 
 
-To do so, make sure to join our community on [Discord](alchemy.com/discord).
+To do so, make sure to join our community on [Discord](https://alchemy.com/discord).
 
 Feel free to add new issues as you read the code and find inconsistencies and/or possible features that may add up to the website. Follow the labeling standards to make it easier to understand what you're proposing.

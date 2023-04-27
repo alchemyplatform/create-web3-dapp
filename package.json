@@ -1,6 +1,6 @@
 {
 	"name": "create-web3-dapp",
-	"version": "0.2.31",
+	"version": "0.2.62",
 	"keywords": [
 		"create-web3-dapp",
 		"create web3 dapp",
@@ -14,6 +14,7 @@
 		"foundry",
 		"ethereum",
 		"polygon",
+		"polygon-zkevm",
 		"solana",
 		"optimism",
 		"arbitrum",
@@ -40,14 +41,15 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@openzeppelin/wizard": "^0.2.3",
 		"chalk": "^5.0.1",
 		"cli-progress": "^3.11.2",
-		"death": "^1.1.0",
+		"commander": "^10.0.0",
+		"figlet": "^1.5.2",
 		"fs-extra": "^10.1.0",
 		"open": "^8.4.0",
 		"prompts": "^2.4.2",
-		"typescript": "^4.7.4",
-		"yargs": "^17.6.0"
+		"typescript": "^4.7.4"
 	},
 	"repository": {
 		"type": "git",

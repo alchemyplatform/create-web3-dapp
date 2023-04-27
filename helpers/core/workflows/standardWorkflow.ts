@@ -5,13 +5,12 @@ import prompts from "prompts";
 import context from "../../core/context.js";
 import { selfDestroy, setRoot } from "../../core/selfDestroy.js";
 import { smartContractWizard } from "../../smartContractsWizard/smartContractWizard.js";
-import { checkNewPackageUpdates } from "../../utils/checkNewPackageUpdates.js";
 import kill from "../../utils/kill.js";
 import { generateDapp } from "../generateDapp.js";
 import { validateProjectName } from "../../utils/validation.js";
+import { startTemplatesWorkflow } from "./templatesWorkflow.js";
 
 export async function startStandardWorkflow() {
-	await checkNewPackageUpdates();
 	let step = 0;
 	let quit = false;
 	let projectPath = "";
@@ -21,30 +20,33 @@ export async function startStandardWorkflow() {
 			case 0:
 				try {
 					projectPath = "";
-					// Checks if project name is provided
 					if (typeof projectPath === "string") {
 						projectPath = projectPath.trim();
 					}
-					while (!projectPath) {
+					context.projectName = "";
+					while (!context.projectName?.length) {
 						if (exit >= 2) {
 							kill();
 						}
 						exit++;
-						projectPath = await prompts({
+						const projectPath = await prompts({
 							type: "text",
 							name: "projectPath",
-							message: "Please, insert a project name",
+							message: "Project name",
 							initial: "my-create-web3-dapp",
 							validate: (value: string) =>
 								validateProjectName(value),
-						}).then((data) => data.projectPath);
+						}).then((data) => data.projectPath.trim());
+						if (projectPath) {
+							context.resolvedProjectPath =
+								path.resolve(projectPath);
+							context.projectName = path.basename(
+								context.resolvedProjectPath
+							);
+
+							setRoot(context.resolvedProjectPath);
+						}
 					}
-					// projectPath.trim().replace(/[\W_]+/g, "-");
-					context.resolvedProjectPath = path.resolve(projectPath);
-					context.projectName = path.basename(
-						context.resolvedProjectPath
-					);
-					setRoot(context.resolvedProjectPath);
 				} catch (e) {
 					selfDestroy(e);
 				}
@@ -53,23 +55,19 @@ export async function startStandardWorkflow() {
 			case 1:
 				try {
 					context.dappInfo.isTemplate = false;
-
 					const builderTemplate: string = await prompts({
 						type: "select",
 						name: "builderTemplate",
 						message: "Choose how to start:",
 						choices: [
 							{
-								title: "Create a new application",
+								title: "Create default full-stack dapp",
 								value: "new",
-								message:
-									"Compatible with: Ethereum, Polygon, etc.",
 							},
 							{
-								title: "Start from a template",
+								title: "Create pre-built template",
 								value: "template",
-								message:
-									"Compatible with: Ethereum, Polygon, etc.",
+								message: "- select to see options",
 							},
 
 							{
@@ -78,7 +76,7 @@ export async function startStandardWorkflow() {
 							},
 						],
 						initial: 0,
-						hint: "- Create a default app ",
+						hint: "Create a new dapp ",
 					}).then((data) => data.builderTemplate);
 
 					if (builderTemplate == "new") {
@@ -86,13 +84,13 @@ export async function startStandardWorkflow() {
 						break;
 					} else if (builderTemplate == "template") {
 						context.dappInfo.isTemplate = true;
-						const template: string = await prompts({
+						const template: Number | String = await prompts({
 							type: "select",
 							name: "template",
 							message: "Select a template",
 							choices: [
 								{
-									title: "NFT Gallery",
+									title: "NFT Explorer",
 									value: 0,
 									message:
 										"Compatible with: Ethereum, Polygon, etc.",
@@ -110,9 +108,9 @@ export async function startStandardWorkflow() {
 						);
 						if (template == "back") {
 							break;
-						} else {
-							step++;
-							break;
+						} else if (template == 0) {
+							startTemplatesWorkflow(false, context.projectName);
+							return;
 						}
 					} else if (builderTemplate == "back") {
 						step--;
@@ -128,16 +126,20 @@ export async function startStandardWorkflow() {
 				await prompts({
 					type: "select",
 					name: "chain",
-					message: "Which chain do you want to use?",
+					message: "Choose your chain",
 					choices: [
 						{ title: "Ethereum", value: "ETH_MAINNET" },
 						{ title: "Polygon", value: "MATIC_MAINNET" },
+						{
+							title: "Polygon zkEVM",
+							value: "POLYGON_ZKEVM_MAINNET",
+						},
 						{ title: "Arbitrum", value: "ARB_MAINNET" },
 						{ title: "Optimism", value: "OPT_MAINNET" },
 						{ title: "Back", value: "back" },
 					],
 					initial: 0,
-					hint: "- We’ll make sure all the right dependencies are installed for you :)",
+					hint: "- You can change this later",
 				}).then((data) => (context.dappInfo.chain = data.chain));
 				if (context.dappInfo.chain == "back") {
 					step--;
@@ -152,75 +154,45 @@ export async function startStandardWorkflow() {
 					context.dappInfo.chain == "MATIC_MAINNET" ||
 					context.dappInfo.chain == "ARB_MAINNET" ||
 					context.dappInfo.chain == "OPT_MAINNET" ||
+					context.dappInfo.chain == "POLYGON_ZKEVM_MAINNET" ||
 					context.dappInfo.chain == "SOL_MAINNET"
 						? true
 						: false;
+
+				switch (context.dappInfo.chain) {
+					case "ETH_MAINNET":
+						context.dappInfo.testnet = "ETH_GOERLI";
+						break;
+					case "MATIC_MAINNET":
+						context.dappInfo.testnet = "MATIC_MUMBAI";
+						break;
+					case "ARB_MAINNET":
+						context.dappInfo.testnet = "ARB_GOERLI";
+						break;
+					case "OPT_MAINNET":
+						context.dappInfo.testnet = "OPT_GOERLI";
+						break;
+					case "POLYGON_ZKEVM_MAINNET":
+						context.dappInfo.testnet = "POLYGON_ZKEVM_TESTNET";
+						break;
+				}
 				step++;
 				break;
 
 			case 3:
 				try {
-					const isTestnet: boolean | string = await prompts({
-						type: "select",
-						name: "testnet",
-						message:
-							"Do you want to configure with the mainnet or testnet?",
-						choices: [
-							{
-								title: "Mainnet",
-								value: false,
-							},
-							{ title: "Testnet", value: true },
-							{ title: "Back", value: "back" },
-						],
-						initial: 0,
-						hint: "- You can change it later",
-					}).then((data) => data.testnet);
-					if (typeof isTestnet == "string") {
-						step--;
-						break;
-					} else if (typeof isTestnet == "boolean") {
-						context.dappInfo.isTestnet = isTestnet;
-						if (isTestnet) {
-							switch (context.dappInfo.chain) {
-								case "ETH_MAINNET":
-									context.dappInfo.testnet = "ETH_GOERLI";
-									break;
-
-								case "MATIC_MAINNET":
-									context.dappInfo.testnet = "MATIC_MUMBAI";
-									break;
-								case "ARB_MAINNET":
-									context.dappInfo.testnet = "ARB_GOERLI";
-									break;
-								case "OPT_MAINNET":
-									context.dappInfo.testnet = "OPT_GOERLI";
-									break;
-							}
-						}
-					} else {
-						kill();
-					}
-
-					step++;
-				} catch (e) {
-					selfDestroy(e);
-				}
-
-				break;
-
-			case 4:
-				try {
-					let useBackend;
-
 					const backendProvider = await prompts({
 						type: "select",
 						name: "backendProvider",
 						message:
-							"Select your blockchain development environment or skip:",
-						hint: "- This will allow you to create, build, deploy and test smart contracts",
+							"[Optional] Choose your blockchain development environment:",
+						hint: "- Used to create, build, deploy and test smart contracts",
 						choices: [
-							{ title: "Hardhat", value: "hardhat" },
+							{
+								title: "Hardhat",
+								message: "- Learn more at hardhat.org",
+								value: "hardhat",
+							},
 							{
 								title: "Foundry (coming soon)",
 								value: "foundry",
@@ -229,6 +201,8 @@ export async function startStandardWorkflow() {
 							{
 								title: "Skip",
 								value: "skip",
+								message:
+									"- If you're not creating smart contracts",
 							},
 							{ title: "Back", value: "back" },
 						],
@@ -240,7 +214,7 @@ export async function startStandardWorkflow() {
 					} else if (backendProvider == "skip") {
 						context.dappInfo.useBackend = false;
 						context.dappInfo.backendProvider = undefined;
-						step = 6;
+						step = 5;
 						break;
 					} else if (typeof backendProvider == "string") {
 						context.dappInfo.useBackend = true;
@@ -254,12 +228,12 @@ export async function startStandardWorkflow() {
 				}
 				break;
 
-			case 5:
+			case 4:
 				if (context.dappInfo.useBackend) {
 					const hasContract: boolean = await prompts({
 						type: "select",
 						name: "hasContract",
-						message: "Do you want to create a new contract?",
+						message: "Do you want to create a smart contract?",
 						choices: [
 							{
 								title: "Yes",
@@ -267,7 +241,12 @@ export async function startStandardWorkflow() {
 									"This will start the smart contract creation wizard",
 								value: true,
 							},
-							{ title: "No", value: false },
+							{
+								title: "No",
+								value: false,
+								message:
+									"You can always create custom smart contracts later ",
+							},
 							{ title: "Back", value: "back" },
 						],
 						initial: 0,
@@ -290,8 +269,9 @@ export async function startStandardWorkflow() {
 					}
 				}
 				step++;
+
 				break;
-			case 6:
+			case 5:
 				try {
 					const hasAccount: string = await prompts({
 						type: "toggle",
@@ -302,11 +282,7 @@ export async function startStandardWorkflow() {
 						inactive: "no",
 					}).then((data) => data.hasAccount);
 					if (typeof hasAccount == "boolean") {
-						if (!hasAccount) {
-							open(
-								"https://auth.alchemy.com/?a=create-web3-dapp "
-							);
-						}
+						open("https://auth.alchemy.com/?a=create-web3-dapp");
 						step++;
 						break;
 					} else {
@@ -317,13 +293,13 @@ export async function startStandardWorkflow() {
 				}
 				break;
 
-			case 7:
+			case 6:
 				try {
 					const alchemyAPIKey: string = await prompts({
 						type: "text",
 						name: "apiKey",
 						message:
-							"Insert your Alchemy API Key (create an account at https://auth.alchemy.com/?a=create-web3-dapp):",
+							"Insert your Alchemy API Key (Copy from https://auth.alchemy.com/?a=create-web3-dapp):",
 						initial: "",
 					}).then((data) => data.apiKey);
 					if (
@@ -347,5 +323,5 @@ export async function startStandardWorkflow() {
 				break;
 		}
 	}
-	generateDapp(projectPath);
+	generateDapp();
 }
