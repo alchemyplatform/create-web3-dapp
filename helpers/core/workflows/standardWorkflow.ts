@@ -84,7 +84,7 @@ export async function startStandardWorkflow() {
 						break;
 					} else if (builderTemplate == "template") {
 						context.dappInfo.isTemplate = true;
-						const template: Number | String = await prompts({
+						const template: number | string = await prompts({
 							type: "select",
 							name: "template",
 							message: "Select a template",
