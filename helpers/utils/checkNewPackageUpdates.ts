@@ -11,7 +11,7 @@ export const checkNewPackageUpdates = async () => {
 		// console.log(error.stdout.toString())	
 		if (error.stdout.toString().includes("create-web3-dapp")) {
 			console.log(
-				"\nThe version of create-web3-dapp installed is outdated.\nRun npx create-web3-dapp@latest to always use the latest version. Ignore this message if already used."
+				"\nThe version of create-web3-dapp installed is outdated.\nRun npx create-web3-dapp@latest to always use the latest version. Ignore this message if already used.\n"
 			);
 		}
 	}

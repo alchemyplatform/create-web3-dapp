@@ -22,8 +22,9 @@ const contractInfo:
 const dappInfo: DappInfo = {
 	chain: "",
 	isTemplate: false,
-	template: 0,
+	template: "",
 	isEVM: true,
+	isTypescript: false,
 	testnet: "",
 	useBackend: false,
 	backendProvider: "",

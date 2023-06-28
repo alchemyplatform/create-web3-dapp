@@ -7,10 +7,15 @@ import { generateAlchemyURL } from "../utils/generateAlchemyUrl.js";
 import { execSync } from "child_process";
 
 export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
-	mkdirSync(path.join(process.cwd(), "backend"));
-	mkdirSync(path.join(process.cwd(), "backend", "contracts"));
-	mkdirSync(path.join(process.cwd(), "backend", "scripts"));
-	mkdirSync(path.join(process.cwd(), "backend", "test"));
+	if (
+		!dappInfo.isTemplate ||
+		dappInfo.backendProvider != "hardhat-template"
+	) {
+		mkdirSync(path.join(process.cwd(), "backend"));
+		mkdirSync(path.join(process.cwd(), "backend", "contracts"));
+		mkdirSync(path.join(process.cwd(), "backend", "scripts"));
+		mkdirSync(path.join(process.cwd(), "backend", "test"));
+	}
 
 	const writeStream = createWriteStream(
 		path.join(projectPath, "backend", "hardhat.config.js")
@@ -31,7 +36,7 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 		allowUnlimitedContractSize: true,
 		networks: {
 			hardhat: {},
-			[dappInfo.chain]: {
+			[dappInfo.chain!]: {
 				accounts: "[`${process.env.PRIVATE_KEY}`]",
 				url: generateAlchemyURL(dappInfo.chain),
 			},
@@ -42,6 +47,9 @@ export const setUpHardhat = (dappInfo: DappInfo, projectPath) => {
 		},
 		etherscan: {
 			apiKey: "`${process.env.ETHERSCAN_API_KEY}`",
+		},
+		paths: {
+			artifacts: "'../fronted/artifacts'",
 		},
 	};
 

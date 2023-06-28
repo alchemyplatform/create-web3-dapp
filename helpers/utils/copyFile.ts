@@ -1,6 +1,6 @@
 import path from "path";
 import fse from "fs-extra";
-import { selfDestroy } from "../core/selfDestroy.js";
+import { LogLevel, selfDestroy } from "../core/selfDestroy.js";
 
 export const copyFile = (folder, filename, destination) => {
 	try {
@@ -13,6 +13,6 @@ export const copyFile = (folder, filename, destination) => {
 
 		fse.copySync(file, destination);
 	} catch (e) {
-		selfDestroy(e);
+		selfDestroy(e, LogLevel.ERROR);
 	}
 };

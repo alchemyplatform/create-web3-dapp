@@ -1,5 +1,5 @@
 import { execSync, spawn } from "child_process";
-import { selfDestroy } from "./selfDestroy.js";
+import { LogLevel, selfDestroy } from "./selfDestroy.js";
 import path from "path";
 import { generatePackageDotJson } from "../utils/generatePackageDotJson.js";
 import { BuilderContext } from "../../interfaces/BuilderContext";
@@ -89,20 +89,22 @@ export const installDependencies = async ({
 			useBackend,
 			backendProvider,
 			hasSmartContract,
+			isTemplate,
 		} = dappInfo;
+		if (!isTemplate) {
+			generatePackageDotJson(
+				projectName,
+				isEVM,
+				testnet,
+				useBackend,
+				backendProvider,
+				hasSmartContract,
+				chain,
+				contractInfo?.name
+			);
+		}
 
-		generatePackageDotJson(
-			projectName,
-			isEVM,
-			testnet,
-			useBackend,
-			backendProvider,
-			hasSmartContract,
-			chain,
-			contractInfo?.name
-		);
-
-		if (useBackend) {
+		if (useBackend && resolvedProjectPath) {
 			process.chdir(path.join(resolvedProjectPath, "frontend"));
 		}
 
@@ -135,10 +137,9 @@ export const installDependencies = async ({
 				logInstructions(dappInfo);
 			}
 		});
-
-		process.chdir(resolvedProjectPath);
+		if (resolvedProjectPath) process.chdir(resolvedProjectPath);
 	} catch (e) {
-		selfDestroy(e);
+		selfDestroy(e, LogLevel.ERROR);
 	}
 };
 

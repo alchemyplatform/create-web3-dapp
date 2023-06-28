@@ -2,9 +2,8 @@ import path from "path";
 import { installDependencies } from "./dependenciesInstaller.js";
 import { mkdir } from "../utils/mkdir.js";
 import { getProjectFiles } from "./getProjectFiles.js";
-import { logInstructions } from "./logInstructions.js";
 import context from "./context.js";
-import { selfDestroy } from "./selfDestroy.js";
+import { LogLevel, selfDestroy } from "./selfDestroy.js";
 import chalk from "chalk";
 
 import { buildSmartContract } from "../smartContractsWizard/smartContractBuilder.js";
@@ -14,7 +13,7 @@ export const generateDapp = async () => {
 		let currentStep = 1;
 		console.log(`[0/${steps}] 🚀 Creating your dapp boilerplates`);
 		console.log(`[${currentStep}/${steps}] 🗂 Setting up the directory...`);
-		mkdir(context.resolvedProjectPath);
+		if (context.resolvedProjectPath) mkdir(context.resolvedProjectPath);
 		currentStep++;
 		console.log(`[${currentStep}/${steps}] 💾 Dowloading project files...`);
 		getProjectFiles(context);
@@ -40,11 +39,10 @@ export const generateDapp = async () => {
 				`\n📘 Visit the docs: https://docs.alchemy.com/docs/create-web3-dapp\n🎨 Check out the components: https://createweb3dapp.alchemy.com/\n`
 			)
 		);
-		
+
 		currentStep++;
 		await installDependencies(context);
-
 	} catch (e) {
-		selfDestroy(e);
+		selfDestroy(e, LogLevel.ERROR);
 	}
 };

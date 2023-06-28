@@ -5,4 +5,5 @@ export interface APIKeys {
 	ALCHEMY_NETWORK?: string | null;
 	NEXT_PUBLIC_ALCHEMY_NETWORK?: string | null;
 	NEXT_PUBLIC_DEFAULT_CHAIN?: string | null;
+	[key: string]: string | null | undefined;
 }

@@ -42,14 +42,17 @@
 	"type": "module",
 	"dependencies": {
 		"@openzeppelin/wizard": "^0.2.3",
+		"axios": "^1.4.0",
 		"chalk": "^5.0.1",
 		"cli-progress": "^3.11.2",
-		"commander": "^10.0.0",
+		"commander": "^10.0.1",
 		"figlet": "^1.5.2",
 		"fs-extra": "^10.1.0",
 		"open": "^8.4.0",
 		"prompts": "^2.4.2",
-		"typescript": "^4.7.4"
+		"typescript": "^4.7.4",
+		"uuid": "^9.0.0",
+		"yargs": "^17.7.2"
 	},
 	"repository": {
 		"type": "git",

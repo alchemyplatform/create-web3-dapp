@@ -7,16 +7,16 @@ export const validateProjectName = (projectPath: string) => {
 	context.resolvedProjectPath = path.resolve(tempPath);
 	const dirExists: boolean = existsSync(context.resolvedProjectPath);
 	if (!tempPath.length) {
-		return "Invalid directory name length: name can't be empty";
+		return "Error: invalid directory name length: name can't be empty\n";
 	}
 	if (dirExists) {
-		return "Directory already exists: a directory with this name already exists, please use a different name";
+		return "Error: directory already exists: a directory with this name already exists, please use a different name\n";
 	}
 	if (projectPath.length >= 214) {
-		return "Invalid directory name length: name must contain less than 214 characters";
+		return "Error: invalid directory name length: name must contain less than 214 characters\n";
 	}
 	if (containsInvalidChars(projectPath)) {
-		return "Invalid directory name: name must only include URL-friendly characters";
+		return "Error: invalid directory name: name must only include URL-friendly characters\n";
 	}
 
 	return true;
@@ -26,3 +26,5 @@ const containsInvalidChars = (path: string) => {
 	const regex = /[.~:/#[\]@$&'()*+,;=%]/g;
 	return regex.test(path);
 };
+
+

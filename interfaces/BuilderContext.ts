@@ -11,12 +11,10 @@ export interface BuilderContext {
 		| ERC20smartContractInfo
 		| undefined;
 	dappInfo: DappInfo;
-	projectName: string;
-	resolvedProjectPath: string;
+	projectName: string | null;
+	resolvedProjectPath: string | null;
 }
 
-export interface ContractInfo{
-	
-}
+export interface ContractInfo {}
 
 export default BuilderContext;
