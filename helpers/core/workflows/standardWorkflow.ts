@@ -74,7 +74,7 @@ export async function startStandardWorkflow() {
 							message: "Choose how to start",
 							choices: [
 								{
-									title: "Create default full-stack dapp",
+									title: "Boilerplates dapp",
 									value: "new",
 									message:
 										"Start building your application from scratch",
@@ -121,8 +121,8 @@ export async function startStandardWorkflow() {
 										message:
 											"Do you want to use Typescript?",
 										initial: true,
-										active: "yes",
-										inactive: "no",
+										active: "Typescript",
+										inactive: "Javascript",
 									}).then(
 										(data) =>
 											(context.dappInfo.isTypescript =

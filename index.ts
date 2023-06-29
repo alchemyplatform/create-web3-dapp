@@ -28,7 +28,7 @@ program
 		"select the chain on which your application will run"
 	)
 	.option(
-		"-b, --backend [value]",
+		"-b, --bde [value]",
 		"select the blockchain development environment to integrate"
 	)
 	.option(
