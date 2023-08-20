@@ -78,6 +78,8 @@ Create web3 dapp will then create a directory containing the files to kickstart 
 ```sh
 npx create-web3-dapp@latest
 cd my-create-web3-dapp
+cd fontend
+npx install next
 npm run dev
 ```
 
