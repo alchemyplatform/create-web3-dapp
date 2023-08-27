@@ -21,13 +21,13 @@ const templates: { [key: string]: Template } = {
 		id: "nft-explorer",
 		hasTypescript: false,
 		repository: "https://github.com/alchemyplatform/cw3d-nft-explorer.git",
-		// extraSteps: [
-		// 	{
-		// 		question: "Enter the API key for the template",
-		// 		contextKey: "NFT-Explorer",
-		// 		open: "https://alchemy.com",
-		// 	},
-		// ],
+		extraSteps: [
+			{
+				question: "Enter the ProjectId for the WalletConnect v2",
+				contextKey: "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
+				open: "https://cloud.walletconnect.com/app",
+			},
+		],
 	},
 };
 
