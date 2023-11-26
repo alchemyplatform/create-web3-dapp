@@ -1,0 +1,256 @@
+mkdir alchemy-nft-api
+cd alchemy-nft-api
+npm init --yes
+mkdir alchemy-nft-api
+cd alchemy-nft-api
+yarn init --yes
+// package.json
+{
+  ...
+  "type": "module"
+}
+node alchemy-sdk-script.js
+node alchemy-sdk-script.js   ✔  4s
+fetching NFTs for address: vitalik.eth
+...
+number of NFTs found: 516
+...
+===
+contract address: 0x000386e3f7559d9b6a2f5c46b4ad1a9587d59dc3
+token ID: 29
+===
+contract address: 0x8D53485cE4bf6dbAcbC4eD9e1CE3c88649423450
+token ID: 238
+===
+...........
+===
+fetching metadata for a Crypto Coven NFT...
+NFT name:  balsa vault
+token type:  ERC721
+tokenUri:  https://alchemy.mypinata.cloud/ipfs/QmaXzZhcYnsisuue5WRdQDH6FDvqkLQX1NckLqBYeYYEfm/1590.json
+image url:  https://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png
+time last updated:  2022-06-23T06:48:33.229Z
+===
+touch fetch-script.js
+// alchemy-nft-api/fetch-script.js
+import fetch from 'node-fetch';
+
+// Setup request options:
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+// Replace with your Alchemy API key:
+const apiKey = "demo";
+const baseURL = `https://eth-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner/`;
+// Replace with the wallet address you want to query:
+const ownerAddr = "0x8D53485cE4bf6dbAcbC4eD9e1CE3c88649423450";
+const pageSize = 2;
+const fetchURL = `${baseURL}?owner=${ownerAddr}&pageSize=${pageSize}`;
+node fetch-script.js
+{
+	"ownedNfts": [
+		{
+			"contract": {
+				"address": "0x8D53485cE4bf6dbAcbC4eD9e1CE3c88649423450",
+				"name": "Bored Ape Nike Club",
+				"symbol": "BANC",
+				"totalSupply": null,
+				"tokenType": "ERC721",
+				"contractDeployer": "0x8D53485cE4bf6dbAcbC4eD9e1CE3c88649423450",
+				"deployedBlockNumber": 14276343,
+				"openSeaMetadata": {
+					"floorPrice": null,
+					"collectionName": "BoredApeNikeClub",
+					"collectionSlug": "bored-ape-nike-club-v2",
+					"safelistRequestStatus": "not_requested",
+					"imageUrl": "https://i.seadn.io/gae/yJ9DgXqjRwgdCkrQmHj7krCbixM8fPVAyYJWJ5NHXap1L0c3QL5MPvrNT0QDINIStGOK857lOvab8MpNQS9X4pkHPktmhVmN82qoVw?w=500&auto=format",
+					"description": "COUNTDOWN OVER. MINTING LIVE.\n\n[Mint on the website.](https://nikemetaverse.xyz)\n",
+					"externalUrl": "https://nikemetaverse.xyz",
+					"twitterUsername": null,
+					"discordUrl": null,
+					"bannerImageUrl": "https://i.seadn.io/gae/i84LsC2dtbF5I3YiuaXzzfvSijlBI-ZJ8UEta04Ukl4V57Uoj0ZGw8tNyuPdwrF7N5pclyzdqSJjxHZ65z4G5jQrVRK_DHUMVrzTYQ?w=500&auto=format",
+					"lastIngestedAt": "2023-10-30T07:13:52.000Z"
+				},
+				"isSpam": true,
+				"spamClassifications": [
+					"OwnedByMostHoneyPots",
+					"Erc721TooManyOwners",
+					"Erc721TooManyTokens",
+					"NoSalesActivity",
+					"HighAirdropPercent",
+					"HighHoneyPotPercent",
+					"HoneyPotsOwnMultipleTokens"
+				]
+			},
+			"tokenId": "1",
+			"tokenType": "ERC721",
+			"name": null,
+			"description": null,
+			"tokenUri": "http://api.nikeapenft.xyz/ipfs/1",
+			"image": {
+				"cachedUrl": null,
+				"thumbnailUrl": null,
+				"pngUrl": null,
+				"contentType": null,
+				"size": null,
+				"originalUrl": null
+			},
+			"raw": {
+				"tokenUri": "http://api.nikeapenft.xyz/ipfs/1",
+				"metadata": {},
+				"error": null
+			},
+			"collection": {
+				"name": "BoredApeNikeClub",
+				"slug": "bored-ape-nike-club-v2",
+				"externalUrl": "https://nikemetaverse.xyz",
+				"bannerImageUrl": "https://i.seadn.io/gae/i84LsC2dtbF5I3YiuaXzzfvSijlBI-ZJ8UEta04Ukl4V57Uoj0ZGw8tNyuPdwrF7N5pclyzdqSJjxHZ65z4G5jQrVRK_DHUMVrzTYQ?w=500&auto=format"
+			},
+			"mint": {
+				"mintAddress": null,
+				"blockNumber": null,
+				"timestamp": null,
+				"transactionHash": null
+			},
+			"owners": null,
+			"timeLastUpdated": "2023-11-06T04:34:38.880Z",
+			"balance": "26",
+			"acquiredAt": {
+				"blockTimestamp": null,
+				"blockNumber": null
+			}
+		},
+		{
+			"contract": {
+				"address": "0x8D53485cE4bf6dbAcbC4eD9e1CE3c88649423450",
+				"name": "Bored Ape Nike Club",
+				"symbol": "BANC",
+				"totalSupply": null,
+				"tokenType": "ERC721",
+				"contractDeployer": "0x8D53485cE4bf6dbAcbC4eD9e1CE3c88649423450",
+				"deployedBlockNumber": 14276343,
+				"openSeaMetadata": {
+					"floorPrice": null,
+					"collectionName": "BoredApeNikeClub",
+					"collectionSlug": "bored-ape-nike-club-v2",
+					"safelistRequestStatus": "not_requested",
+					"imageUrl": "https://i.seadn.io/gae/yJ9DgXqjRwgdCkrQmHj7krCbixM8fPVAyYJWJ5NHXap1L0c3QL5MPvrNT0QDINIStGOK857lOvab8MpNQS9X4pkHPktmhVmN82qoVw?w=500&auto=format",
+					"description": "COUNTDOWN OVER. MINTING LIVE.\n\n[Mint on the website.](https://nikemetaverse.xyz)\n",
+					"externalUrl": "https://nikemetaverse.xyz",
+					"twitterUsername": null,
+					"discordUrl": null,
+					"bannerImageUrl": "https://i.seadn.io/gae/i84LsC2dtbF5I3YiuaXzzfvSijlBI-ZJ8UEta04Ukl4V57Uoj0ZGw8tNyuPdwrF7N5pclyzdqSJjxHZ65z4G5jQrVRK_DHUMVrzTYQ?w=500&auto=format",
+					"lastIngestedAt": "2023-10-30T07:13:52.000Z"
+				},
+				"isSpam": true,
+				"spamClassifications": [
+					"OwnedByMostHoneyPots",
+					"Erc721TooManyOwners",
+					"Erc721TooManyTokens",
+					"NoSalesActivity",
+					"HighAirdropPercent",
+					"HighHoneyPotPercent",
+					"HoneyPotsOwnMultipleTokens"
+				]
+			},
+			"tokenId": "2",
+			"tokenType": "ERC721",
+			"name": null,
+			"description": null,
+			"tokenUri": "http://api.nikeapenft.xyz/ipfs/2",
+			"image": {
+				"cachedUrl": null,
+				"thumbnailUrl": null,
+				"pngUrl": null,
+				"contentType": null,
+				"size": null,
+				"originalUrl": null
+			},
+			"raw": {
+				"tokenUri": "http://api.nikeapenft.xyz/ipfs/2",
+				"metadata": {},
+				"error": null
+			},
+			"collection": {
+				"name": "BoredApeNikeClub",
+				"slug": "bored-ape-nike-club-v2",
+				"externalUrl": "https://nikemetaverse.xyz",
+				"bannerImageUrl": "https://i.seadn.io/gae/i84LsC2dtbF5I3YiuaXzzfvSijlBI-ZJ8UEta04Ukl4V57Uoj0ZGw8tNyuPdwrF7N5pclyzdqSJjxHZ65z4G5jQrVRK_DHUMVrzTYQ?w=500&auto=format"
+			},
+			"mint": {
+				"mintAddress": null,
+				"blockNumber": null,
+				"timestamp": null,
+				"transactionHash": null
+			},
+			"owners": null,
+			"timeLastUpdated": "2023-11-06T11:46:38.867Z",
+			"balance": "31",
+			"acquiredAt": {
+				"blockTimestamp": null,
+				"blockNumber": null
+			}
+		}
+	],
+	"totalCount": 26620,
+	"validAt": {
+		"blockNumber": 18513471,
+		"blockHash": "0x49376e3ea0d07b4b557521832ac2f52213b12bf912087ac1fe9f04c9899d221b",
+		"blockTimestamp": "2023-11-06T14:15:23Z"
+	},
+	"pageKey": "MHgwMDAzODZlM2Y3NTU5ZDliNmEyZjVjNDZiNGFkMWE5NTg3ZDU5ZGMzOjB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMjpmYWxzZQ=="
+}
+// Make the request and print the formatted response:
+fetch(fetchURL, requestOptions)
+  .then(response => response.json())
+  .then(response => JSON.stringify(response, null, 2))
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+// This script demonstrates access to the NFT API via the Alchemy SDK.
+import { Network, Alchemy } from "alchemy-sdk";
+
+// Optional Config object, but defaults to demo api-key and eth-mainnet.
+const settings = {
+  apiKey: "demo", // Replace with your Alchemy API Key.
+  network: Network.ETH_MAINNET, // Replace with your network.
+};
+
+const alchemy = new Alchemy(settings);
+
+// Print owner's wallet address:
+const ownerAddr = "vitalik.eth";
+console.log("fetching NFTs for address:", ownerAddr);
+console.log("...");
+
+// Print total NFT count returned in the response:
+const nftsForOwner = await alchemy.nft.getNftsForOwner("vitalik.eth");
+console.log("number of NFTs found:", nftsForOwner.totalCount);
+console.log("...");
+
+// Print contract address and tokenId for each NFT:
+for (const nft of nftsForOwner.ownedNfts) {
+  console.log("===");
+  console.log("contract address:", nft.contract.address);
+  console.log("token ID:", nft.tokenId);
+}
+console.log("===");
+
+// Fetch metadata for a particular NFT:
+console.log("fetching metadata for a Crypto Coven NFT...");
+const response = await alchemy.nft.getNftMetadata(
+  "0x4B53Fa863df089cEF60C3F39f95811718DAe451b",
+  "1590"
+);
+
+// Uncomment this line to see the full api response:
+// console.log(response);
+
+// Print some commonly used fields:
+console.log("NFT name: ", response.title);
+console.log("token type: ", response.tokenType);
+console.log("tokenUri: ", response.tokenUri.gateway);
+console.log("image url: ", response.rawMetadata.image);
+console.log("time last updated: ", response.timeLastUpdated);
+console.log("===");
