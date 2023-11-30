@@ -1,0 +1,29 @@
+{
+  "name": "new-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "connectkit": "^1.4.0",
+    "encoding": "^0.1.13",
+    "eslint": "8.42.0",
+    "eslint-config-next": "13.4.4",
+    "fs": "^0.0.1-security",
+    "lokijs": "^1.5.12",
+    "next": "13.4.4",
+    "pino-pretty": "^10.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tls": "^0.0.1",
+    "viem": "^0.3.50",
+    "wagmi": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.14"
+  }
+}
