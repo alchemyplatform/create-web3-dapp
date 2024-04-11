@@ -110,7 +110,7 @@ Here’s an example workflow to create a new Pull Request. Your username is your
 3. In the description field, write down issue number (if submitting code fixing an existing issue) or describe the issue + your fix (if submitting a wholly new bugfix).
 4. Hit ‘submit’! And please be patient - the maintainers will get to you when they can.
 
-To speed up the process and avoid version clashes, is higly suggested to ask other contributors to see if no one has taken the issue yet. If you're interested in tackling such a feature and it's still available, we will assign you to the task. 
+To speed up the process and avoid version clashes, is highly suggested to ask other contributors to see if no one has taken the issue yet. If you're interested in tackling such a feature and it's still available, we will assign you to the task. 
 
 To do so, make sure to join our community on [Discord](https://alchemy.com/discord).
 

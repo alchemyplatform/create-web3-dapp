@@ -37,7 +37,7 @@ const libraries = {
 		{
 			title: "Auto Increment",
 			value: "isAutoIncrement",
-			description: "Adds auto incremint token IDs",
+			description: "Adds auto increment token IDs",
 		},
 		{
 			title: "Enumerable",
