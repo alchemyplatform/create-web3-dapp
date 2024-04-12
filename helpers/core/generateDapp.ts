@@ -15,7 +15,7 @@ export const generateDapp = async () => {
 		console.log(`[${currentStep}/${steps}] 🗂 Setting up the directory...`);
 		if (context.resolvedProjectPath) mkdir(context.resolvedProjectPath);
 		currentStep++;
-		console.log(`[${currentStep}/${steps}] 💾 Dowloading project files...`);
+		console.log(`[${currentStep}/${steps}] 💾 Downloading project files...`);
 		getProjectFiles(context);
 		currentStep++;
 
