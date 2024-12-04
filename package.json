@@ -18,45 +18,61 @@
 		"solana",
 		"optimism",
 		"arbitrum",
+		"base",
+		"zksync",
 		"anchor",
 		"tailwind",
 		"metaplex",
-		"chakra-ui"
+		"chakra-ui",
+		"viem"
 	],
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "eslint . --ext .ts && yarn prettier --write .",
-		"start": "npx tsc && npm link && npx create-web3-dapp"
+		"test": "vitest",
+		"lint": "eslint . --ext .ts && prettier --write .",
+		"start": "npx tsc && npm link && npx create-web3-dapp",
+		"build": "tsup src/index.ts --format cjs,esm --dts",
+		"release": "pnpm run build && changeset publish",
+		"typecheck": "tsc --noEmit"
 	},
 	"bin": {
 		"create-web3-dapp": "./dist/index.js"
 	},
 	"devDependencies": {
-		"@types/node": "^18.6.4",
-		"@typescript-eslint/eslint-plugin": "^5.32.0",
-		"@typescript-eslint/parser": "^5.32.0",
-		"eslint": "^8.21.0",
-		"eslint-config-next": "12.2.3",
-		"prettier": "^2.7.1"
+		"@changesets/cli": "^2.26.2",
+		"@types/fs-extra": "^11.0.1",
+		"@types/node": "^20.17.9",
+		"@types/open": "^6.2.1",
+		"@types/prompts": "^2.4.9",
+		"@types/uuid": "^10.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.4.0",
+		"@typescript-eslint/parser": "^6.4.0",
+		"eslint": "^8.47.0",
+		"eslint-config-next": "13.4.19",
+		"prettier": "^3.0.2",
+		"tsup": "^7.2.0",
+		"typescript": "^5.1.6",
+		"vitest": "^0.34.2"
 	},
 	"type": "module",
 	"dependencies": {
-		"@openzeppelin/wizard": "^0.2.3",
+		"@openzeppelin/wizard": "^0.3.0",
 		"axios": "^1.4.0",
-		"chalk": "^5.0.1",
-		"cli-progress": "^3.11.2",
-		"commander": "^10.0.1",
-		"figlet": "^1.5.2",
-		"fs-extra": "^10.1.0",
-		"open": "^8.4.0",
+		"chalk": "^5.3.0",
+		"cli-progress": "^3.12.0",
+		"commander": "^11.0.0",
+		"figlet": "^1.6.0",
+		"fs-extra": "^11.1.1",
+		"open": "^9.1.0",
 		"prompts": "^2.4.2",
-		"typescript": "^4.7.4",
 		"uuid": "^9.0.0",
-		"yargs": "^17.7.2"
+		"viem": "^1.6.0"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/eversmile12/create-web3-dapp.git"
 	},
-	"homepage": "https://github.com/Eversmile12/create-web3-dapp/blob/main/README.md"
+	"homepage": "https://github.com/Eversmile12/create-web3-dapp/blob/main/README.md",
+	"engines": {
+		"node": ">=18.0.0"
+	}
 }

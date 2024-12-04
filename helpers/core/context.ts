@@ -1,48 +1,27 @@
-import { SmartContractStandard } from "../smartContractsWizard/utils/smartContractStandards.js";
-import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
-import { ERC721smartContractInfo } from "../../interfaces/ERC721smartContractInfo.js";
-import { ERC20smartContractInfo } from "../../interfaces/ERC20smartContractInfo.js";
-import { BuilderContext } from "../../interfaces/BuilderContext.js";
-import { DappInfo } from "../../interfaces/DappInfo.js";
-const contractInfo:
-	| SmartContractInfo
-	| ERC721smartContractInfo
-	| ERC20smartContractInfo
-	| undefined = {
-	name: "",
-	symbol: "",
-	standard: SmartContractStandard.ERC721,
-	isMintable: true,
-	isBurnable: false,
-	isPausable: false,
-	isVotes: false,
-	isOwnable: false,
-	isRoles: false,
-};
-const dappInfo: DappInfo = {
-	chain: "",
-	isTemplate: false,
-	template: "",
-	isEVM: true,
-	isTypescript: false,
-	testnet: "",
-	useBackend: false,
-	backendProvider: "",
-	hasSmartContract: false,
-	modules: null,
-	apiKeys: {
-		ALCHEMY_API_KEY: "",
-	},
-};
+import { DappInfo, createDefaultDappInfo } from "../../interfaces/dappInfo.js";
 
-const projectName = "";
-const resolvedProjectPath = "";
+interface Context {
+	projectName: string | null;
+	resolvedProjectPath: string | null;
+	dappInfo: DappInfo;
+	contractInfo?: {
+		name: string;
+		symbol: string;
+		standard: string;
+		isMintable: boolean;
+		isBurnable: boolean;
+		isPausable: boolean;
+		isVotes: boolean;
+		isOwnable: boolean;
+		isRoles: boolean;
+		[key: string]: unknown;
+	};
+}
 
-const context: BuilderContext = {
-	contractInfo,
-	dappInfo,
-	projectName,
-	resolvedProjectPath,
+const context: Context = {
+	projectName: null,
+	resolvedProjectPath: null,
+	dappInfo: createDefaultDappInfo()
 };
 
 export default context;

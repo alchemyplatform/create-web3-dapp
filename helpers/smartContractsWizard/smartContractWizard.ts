@@ -2,8 +2,9 @@ import {
 	getAvailableLibrariesForStandard,
 	selectLibrariesForStandard,
 } from "./getAvailableLibrariesForStandard.js";
-import { SmartContractInfo } from "../../interfaces/SmartContractInfo.js";
+import type { SmartContractInfo } from "../../interfaces/smartContractInfo.js";
 import { generateContractInfo } from "./generateContractInfo.js";
+import type { PromptObject } from "prompts";
 import prompts from "prompts";
 import checkIfQuit from "../utils/checkIfQuit.js";
 import kill from "../utils/kill.js";
@@ -11,80 +12,67 @@ import { existsSync } from "fs";
 import path from "path";
 import { SmartContractStandard } from "./utils/smartContractStandards.js";
 
-export const smartContractWizard = async (): Promise<
-	SmartContractInfo | undefined
-> => {
-	let step = 0;
-	let contractInfo;
-	let contractName;
-	let standard;
-	let symbol;
+interface ContractPromptResponse {
+	contractStandard?: SmartContractStandard;
+	contractName?: string;
+	contractSymbol?: string;
+	selectedLibraries?: string[];
+	hasCompleted?: boolean;
+}
+
+export const smartContractWizard = async (): Promise<SmartContractInfo | undefined> => {
 	let quit = false;
+	let step = 0;
+	let standard: SmartContractStandard | undefined;
+	let contractName = "";
+	let contractSymbol = "";
+	let selectedLibraries: string[] = [];
 
 	while (!quit) {
 		switch (step) {
 			case 0:
-				standard = await prompts({
+				const standardResponse = await prompts<ContractPromptResponse>({
 					type: "select",
 					name: "contractStandard",
-					message:
-						"What kind of smart contract do you want to create?",
+					message: "Choose your smart contract standard",
 					choices: [
-						{
-							title: "ERC721",
-							value: SmartContractStandard.ERC721,
-							description: "Create a NFTs smart contract",
-						},
-						{
-							title: "ERC20",
-							value: SmartContractStandard.ERC20,
-							description:
-								"Create a crypto currency smart contract",
-						},
-						{
-							title: "ERC1155",
-							value: SmartContractStandard.ERC1155,
-							description:
-								"Create fungible agnosting smart contract",
-						},
-						{
-							title: "ERC721A",
-							value: "ERC721A",
-							disabled: true,
-							description: "Coming soon",
-						},
-						{
-							title: "Quit",
-							value: "quit",
-							description: "Quit smart contract wizard",
-						},
+						{ title: "ERC721", value: SmartContractStandard.ERC721 },
+						{ title: "ERC20", value: SmartContractStandard.ERC20 },
+						{ title: "ERC1155", value: SmartContractStandard.ERC1155 },
+						{ title: "Quit", value: "quit" },
 					],
 					hint: "- Space to select. Return to submit",
-				}).then((data) => data.contractStandard);
+				});
+
+				standard = standardResponse.contractStandard;
 				if (await checkIfQuit(standard, null)) {
 					quit = true;
 					return;
-				} else if (!standard) {
-					kill();
 				}
 
+				if (!standard) {
+					kill();
+					return;
+				}
 				step++;
 				break;
+
 			case 1:
-				contractName = await prompts({
+				const nameResponse = await prompts<ContractPromptResponse>({
 					type: "text",
 					name: "contractName",
-					initial: `MyContract`,
-					message: "Name for you contract",
-				}).then((data) => {
-					if (data.contractName) {
-						return data.contractName.trim().replace(/[\W_]+/g, "-");
-					} else {
-						kill();
-					}
+					initial: "MyContract",
+					message: "Name for your contract",
 				});
-				const contractIndex = 1;
-				while (
+
+				if (!nameResponse.contractName) {
+					kill();
+					return;
+				}
+
+				contractName = nameResponse.contractName.trim().replace(/[\W_]+/g, "-");
+
+				if (
 					existsSync(
 						path.join(
 							process.cwd(),
@@ -93,97 +81,92 @@ export const smartContractWizard = async (): Promise<
 						)
 					)
 				) {
-					contractName = await prompts({
+					const retryResponse = await prompts<ContractPromptResponse>({
 						type: "text",
 						name: "contractName",
-						initial: `MyContract_${contractIndex}`,
-						message:
-							"A contract with this name already exists, insert a different name.",
-					}).then((data) => {
-						if (data.contractName) {
-							return data.contractName
-								.trim()
-								.replace(/[\W_]+/g, "-");
-						} else {
-							kill();
-						}
+						message: "A contract with this name already exists, insert a different name.",
 					});
+
+					if (!retryResponse.contractName) {
+						kill();
+						return;
+					}
+
+					contractName = retryResponse.contractName.trim().replace(/[\W_]+/g, "-");
 				}
 				step++;
 				break;
+
 			case 2:
-				symbol = await prompts({
+				const symbolResponse = await prompts<ContractPromptResponse>({
 					type: "text",
 					name: "contractSymbol",
-					initial: contractName.slice(0, 3).toUpperCase(),
 					message: "Symbol for your contract",
 					hint: "- typically short version of contract name",
-				}).then((data) => {
-					if (data.contractSymbol) {
-						return data.contractSymbol
-							.trim()
-							.replace(/[\W_]+/g, "-");
-					}
 				});
-				while (!symbol || !symbol.length || symbol.length < 3) {
-					symbol = await prompts({
+
+				if (!symbolResponse.contractSymbol) {
+					kill();
+					return;
+				}
+
+				contractSymbol = symbolResponse.contractSymbol.trim().replace(/[\W_]+/g, "");
+
+				if (contractSymbol.length < 3) {
+					const retryResponse = await prompts<ContractPromptResponse>({
 						type: "text",
 						name: "contractSymbol",
-						initial: contractName.slice(0, 3).toUpperCase(),
-						message:
-							"A short version of the name of your smart contract",
+						message: "A short version of the name of your smart contract",
 						hint: "- symbol should be 3 or more characters",
-					}).then((data) => {
-						if (data.contractSymbol) {
-							return data.contractSymbol
-								.trim()
-								.replace(/[\W_]+/g, "-");
-						} else {
-							kill();
-						}
 					});
-				}
 
+					if (!retryResponse.contractSymbol) {
+						kill();
+						return;
+					}
+
+					contractSymbol = retryResponse.contractSymbol.trim().replace(/[\W_]+/g, "");
+				}
 				step++;
 				break;
+
 			case 3:
-				const librariesForStandard =
-					getAvailableLibrariesForStandard(standard);
-				const selectedLibraries = await prompts({
+				const librariesForStandard = getAvailableLibrariesForStandard(standard);
+				const librariesResponse = await prompts<ContractPromptResponse>({
 					type: "multiselect",
 					name: "selectedLibraries",
-					message: "Smart contract features to implement",
+					message: "Select the features you want to add to your contract",
 					choices: [...librariesForStandard],
 					hint: "- You can select multiple features. Click space to select, return to submit",
-				}).then((data) => data.selectedLibraries);
+				});
 
+				selectedLibraries = librariesResponse.selectedLibraries || [];
 				selectLibrariesForStandard(standard, selectedLibraries);
-
-				contractInfo = generateContractInfo(
-					contractName,
-					symbol,
-					standard,
-					selectedLibraries
-				);
 				step++;
 				break;
+
 			case 4:
-				const hasCompleted = await prompts({
+				const completionResponse = await prompts<ContractPromptResponse>({
 					type: "toggle",
 					name: "hasCompleted",
-					message: "Are you done selecting contract features?",
-					initial: true,
+					message: "Do you want to create another contract?",
+					initial: false,
 					active: "yes",
 					inactive: "no",
-				}).then((data) => data.hasCompleted);
-				if (hasCompleted) {
+				});
+
+				if (completionResponse.hasCompleted) {
 					quit = true;
 					break;
-				} else {
-					step--;
-					break;
 				}
+				step = 0;
+				break;
 		}
 	}
-	return contractInfo;
+
+	if (!standard || !contractName || !contractSymbol) {
+		return undefined;
+	}
+
+	return generateContractInfo(contractName, contractSymbol, standard, selectedLibraries);
 };

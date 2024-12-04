@@ -1,16 +1,22 @@
-import { APIKeys } from "./ApiKeys";
+import { ChainType } from "../helpers/core/workflows/templatesWorkflow.js";
 
 export interface DappInfo {
-	chain: string;
 	isTemplate: boolean;
-	template: string;
-	isEVM: boolean;
-	isTypescript: boolean;
-	testnet: string;
+	template?: string;
+	chain?: string;
+	chainType?: ChainType;
+	testnet?: string;
 	useBackend: boolean;
-	backendProvider?: string;
+	backendProvider?: "foundry" | "hardhat";
+	isTypescript: boolean;
 	hasSmartContract: boolean;
-	modules: string[] | null;
-	apiKeys: APIKeys;
-	storeAnonymisedData?: boolean;
+	apiKeys: Record<string, string>;
 }
+
+export const createDefaultDappInfo = (): DappInfo => ({
+	isTemplate: false,
+	useBackend: false,
+	isTypescript: true, // Default to TypeScript
+	hasSmartContract: false,
+	apiKeys: {}
+});

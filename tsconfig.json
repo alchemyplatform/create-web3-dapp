@@ -1,27 +1,17 @@
 {
 	"compilerOptions": {
-		"target": "es6",
+		"target": "ES2020",
+		"module": "ESNext",
 		"moduleResolution": "node",
-		"noImplicitAny": false,
-		"removeComments": true,
-		"preserveConstEnums": true,
-		"sourceMap": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"outDir": "dist",
-		"declaration": true,
-		"allowSyntheticDefaultImports": true,
-		"strict": true
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"types": ["node", "prompts", "open"]
 	},
-	"include": [
-		"./index.ts",
-		"./helpers/*",
-		"helpers/backend_helpers/setupHardhat.ts",
-		"helpers/utils/cleanUpFiles.ts",
-		"helpers/utils/mkdir.ts",
-		"helpers/utils/generateAlchemyUrl.ts",
-		"helpers/utils/createEnv.ts",
-		"helpers/utils/createReadme.ts",
-		"helpers/core/getProjectFiles.ts"
-, "helpers/utils/copyFile.ts"	],
-	"exclude": ["src/**/*.spec.ts", "node_modules"]
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
 }

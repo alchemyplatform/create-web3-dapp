@@ -1,4 +1,4 @@
-export const generateAlchemyURL = (chain): string => {
+export const generateAlchemyURL = (chain: string): string => {
 	let rpcUrl = "";
 
 	switch (chain) {
@@ -42,11 +42,17 @@ export const generateAlchemyURL = (chain): string => {
 			rpcUrl =
 				"`https://opt-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
+		case "AVAX_MAINNET":
+			rpcUrl = "https://api.avax.network/ext/bc/C/rpc";
+			break;
+		case "AVAX_FUJI":
+			rpcUrl = "https://api.avax-test.network/ext/bc/C/rpc";
+			break;
 		case "SOL_MAINNET":
 			rpcUrl =
 				"`https://solana-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
-		case "SOL_MAINNET":
+		case "SOL_DEVNET":
 			rpcUrl =
 				"`https://solana-devnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`";
 			break;
