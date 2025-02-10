@@ -1,6 +1,6 @@
 {
 	"name": "create-web3-dapp",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"keywords": [
 		"create-web3-dapp",
 		"create web3 dapp",
@@ -15,26 +15,20 @@
 		"ethereum",
 		"polygon",
 		"polygon-zkevm",
-		"solana",
 		"optimism",
 		"arbitrum",
-		"anchor",
 		"tailwind",
-		"metaplex",
 		"chakra-ui"
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "eslint . --ext .ts && yarn prettier --write .",
-		"start": "npx tsc && npm link && npx create-web3-dapp"
+		"lint": "eslint . --ext .js && yarn prettier --write .",
+		"start": "npm link && npx create-web3-dapp"
 	},
 	"bin": {
 		"create-web3-dapp": "./dist/index.js"
 	},
 	"devDependencies": {
-		"@types/node": "^18.6.4",
-		"@typescript-eslint/eslint-plugin": "^5.32.0",
-		"@typescript-eslint/parser": "^5.32.0",
 		"eslint": "^8.21.0",
 		"eslint-config-next": "12.2.3",
 		"prettier": "^2.7.1"
@@ -42,21 +36,16 @@
 	"type": "module",
 	"dependencies": {
 		"@openzeppelin/wizard": "^0.2.3",
-		"axios": "^1.4.0",
-		"chalk": "^5.0.1",
-		"cli-progress": "^3.11.2",
+		"chalk": "^5.4.1",
 		"commander": "^10.0.1",
-		"figlet": "^1.5.2",
+		"figlet": "^1.8.0",
 		"fs-extra": "^10.1.0",
-		"open": "^8.4.0",
-		"prompts": "^2.4.2",
-		"typescript": "^4.7.4",
-		"uuid": "^9.0.0",
-		"yargs": "^17.7.2"
+		"git-clone": "^0.2.0",
+		"inquirer": "^12.4.1",
+		"ora": "^8.2.0"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/eversmile12/create-web3-dapp.git"
-	},
-	"homepage": "https://github.com/Eversmile12/create-web3-dapp/blob/main/README.md"
+		"url": "https://github.com/alchemyplatform/create-web3-dapp"
+	}
 }
