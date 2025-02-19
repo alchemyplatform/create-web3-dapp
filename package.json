@@ -1,6 +1,6 @@
 {
 	"name": "create-web3-dapp",
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"keywords": [
 		"create-web3-dapp",
 		"create web3 dapp",
@@ -26,7 +26,7 @@
 		"start": "npm link && npx create-web3-dapp"
 	},
 	"bin": {
-		"create-web3-dapp": "./dist/index.js"
+		"create-web3-dapp": "./index.js"
 	},
 	"devDependencies": {
 		"eslint": "^8.21.0",

@@ -3,14 +3,11 @@ import ora from "ora";
 import figlet from "figlet";
 
 export async function printOutroMessage(projectName) {
-	// Create a loading spinner
 	const spinner = ora("Creating magic...").start();
 
-	// Simulate some loading time
-	await new Promise((resolve) => setTimeout(resolve, 1500));
+	await new Promise((resolve) => setTimeout(resolve, 250));
 	spinner.succeed("Project created successfully!");
 
-	// Create ASCII art with rainbow effect
 	const text = figlet.textSync("Congrats!", {
 		font: "Standard",
 		horizontalLayout: "full",
@@ -37,8 +34,10 @@ export async function printOutroMessage(projectName) {
 
     ${chalk.bold("Next steps:")}
 
-    ${chalk.dim("1.")} ${chalk.bold("Follow the alchemy account setup")} 📖
-       go to https://docs.alchemy.com/docs/scaffold-alchemy/account-setup
+    ${chalk.dim("1.")} ${chalk.bold(
+		"Follow the scaffold-alchemy quickstart"
+	)} 📖
+       go to https://docs.alchemy.com/docs/scaffold-alchemy
 
     ${chalk.dim("2.")} ${chalk.bold("Navigate to your project")} 🏃
        cd ${projectName}
