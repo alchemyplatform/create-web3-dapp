@@ -1,11 +1,6 @@
-# 🏗 scaffold-alchemy
+# create-web3-dapp
 
-CLI to create decentralized applications (dapps) using Scaffold Alchemy.
-
-<h4 align="center">
-  <a href="https://docs.alchemy.com/docs/scaffold-alchemy">Scaffold Alchemy Documentation</a> |
-  <a href="https://createweb3dapp.alchemy.com">Scaffold Alchemy Website</a>
-</h4>
+CLI to create decentralized applications (dapps) using [Scaffold Alchemy](https://github.com/alchemyplatform/scaffold-alchemy).
 
 ## Requirements
 
@@ -17,45 +12,25 @@ Before you begin, you need to install the following tools:
 
 ## Quickstart
 
-To get started with Scaffold Alchemy, follow the steps below:
-
-1. Install the latest version of Scaffold Alchemy
+To create a new web3 dapp simply run:
 
 ```
 npx create-web3-dapp@latest
 ```
 
-2. On a second terminal, deploy the test contract:
+This will have you fill out a few prompts on the CLI. Once you have completed those you will have yourself a new web3 dapp! 🎉
 
-```
-npm run deploy
-```
-
-This command deploys a test smart contract to the local network. You can find more information about how to customize your contract and deployment script in our [documentation](https://docs.alchemy.com/docs/scaffold-alchemy/smart-contracts).
-
-3. On a third terminal, start your NextJS app:
-
-```
-npm run dev
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the contract components. You can tweak the app config in your project settings.
-
-**What's next**:
-
-Visit the [What's next section of our docs](https://docs.alchemy.com/docs/scaffold-alchemy/whats-next) to learn how to customize your contracts, frontend, and more.
+From there, jump into the [scaffold alchemy quickstart](https://docs.alchemy.com/docs/scaffold-alchemy-quickstart) to learn how to setup your environment and project!
 
 ## Documentation
 
 Visit our [docs](https://docs.alchemy.com/docs/scaffold-alchemy) to learn all the technical details and guides of Scaffold Alchemy.
 
-To know more about its features, check out our [website](https://createweb3dapp.alchemy.com).
-
 Watch [Alchemy University](https://university.alchemy.com) - our educational platform for building with Scaffold Alchemy.
 
 ## Contributing
 
-Built by [Alchemy](https://alchemy.com), we welcome contributions to Scaffold Alchemy!
+We welcome contributions!
 
 For more information and guidelines for contributing, please see [contributing.md](https://github.com/alchemyplatform/create-web3-dapp/blob/main/contributing.md)
 
@@ -63,6 +38,5 @@ For more information and guidelines for contributing, please see [contributing.m
 
 <h4 align="center">
   <a href="https://twitter.com/AlchemyPlatform">Alchemy Twitter</a> |
-  <a href="https://discord.gg/alchemyplatform">Alchemy Discord</a> |
-  <a href="https://t.me/createweb3dapp">Scaffold Alchemy Chat</a>
+  <a href="https://discord.gg/alchemyplatform">Alchemy Discord</a> 
 </h4>
