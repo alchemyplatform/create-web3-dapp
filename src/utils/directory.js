@@ -2,8 +2,9 @@ import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 import clone from "git-clone/promise.js";
+import { CHAIN_CONFIGS } from "../config/chains.js";
 
-export async function setupProjectDirectory(projectName, inquirer) {
+export async function setupProjectDirectory(projectName, chain, inquirer) {
 	const currentDir = process.cwd();
 	const projectDir = path.join(currentDir, projectName);
 
@@ -29,17 +30,48 @@ export async function setupProjectDirectory(projectName, inquirer) {
 
 	try {
 		console.log(chalk.cyan("\nCloning scaffold-alchemy template..."));
+
+		const chainConfig = CHAIN_CONFIGS.find((c) => c.id === chain);
+
 		await clone(
 			"https://github.com/alchemyplatform/scaffold-alchemy",
 			projectDir,
 			{ shallow: true }
 		);
 
-		// Remove .git folder to start fresh
 		fs.rmSync(path.join(projectDir, ".git"), {
 			recursive: true,
 			force: true,
 		});
+
+		const hardhatConfigPath = path.join(
+			projectDir,
+			"packages/hardhat/hardhat.config.ts"
+		);
+		if (fs.existsSync(hardhatConfigPath)) {
+			let hardhatConfig = fs.readFileSync(hardhatConfigPath, "utf8");
+			hardhatConfig = hardhatConfig.replace(
+				/defaultNetwork:\s*["'].*["']/,
+				`defaultNetwork: "${chainConfig.scaffoldConfigId}"`
+			);
+			fs.writeFileSync(hardhatConfigPath, hardhatConfig);
+		}
+
+		const nextjsScaffoldConfigPath = path.join(
+			projectDir,
+			"packages/nextjs/scaffold.config.ts"
+		);
+		if (fs.existsSync(nextjsScaffoldConfigPath)) {
+			let nextjsConfig = fs.readFileSync(
+				nextjsScaffoldConfigPath,
+				"utf8"
+			);
+			nextjsConfig = nextjsConfig.replace(
+				/targetNetworks:\s*\[chains\.[^\]]+\]/,
+				`targetNetworks: [chains.${chainConfig.scaffoldConfigId}]`
+			);
+			fs.writeFileSync(nextjsScaffoldConfigPath, nextjsConfig);
+		}
 	} catch (error) {
 		console.error(chalk.red("\nFailed to clone template:"), error);
 		process.exit(1);
