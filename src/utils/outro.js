@@ -51,7 +51,7 @@ export async function printOutroMessage(projectName) {
        yarn deploy
 
     ${chalk.dim("5.")} ${chalk.bold("Start the frontend")} 🌟
-       yarn dev
+       yarn start
 
     ${chalk.bold.green(
 		"Thanks for using Scaffold Alchemy! Let's build something amazing! 🙏 ✨"
