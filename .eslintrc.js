@@ -7,4 +7,5 @@ module.exports = {
 		ecmaVersion: 2022,
 		sourceType: "module",
 	},
+	ignorePatterns: ["src/templates/**/*"],
 };

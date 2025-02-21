@@ -3,6 +3,10 @@ import path from "path";
 import chalk from "chalk";
 import clone from "git-clone/promise.js";
 import { CHAIN_CONFIGS } from "../config/chains.js";
+import { fileURLToPath } from "url";
+
+// Get directory name in ESM
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export async function setupProjectDirectory(projectName, chain, inquirer) {
 	const currentDir = process.cwd();
@@ -31,7 +35,7 @@ export async function setupProjectDirectory(projectName, chain, inquirer) {
 	try {
 		console.log(chalk.cyan("\nCloning scaffold-alchemy template..."));
 
-		const chainConfig = CHAIN_CONFIGS.find((c) => c.id === chain);
+		const chainConfig = CHAIN_CONFIGS.find((c) => c.mainnetName === chain);
 
 		await clone(
 			"https://github.com/alchemyplatform/scaffold-alchemy",
@@ -44,34 +48,29 @@ export async function setupProjectDirectory(projectName, chain, inquirer) {
 			force: true,
 		});
 
+		const templatePath = path.join(
+			__dirname,
+			"../templates/cw3d.config.template"
+		);
+		const template = fs.readFileSync(templatePath, "utf8");
+
+		const configContent = template
+			.replace("{{mainnetName}}", chainConfig.mainnetName)
+			.replace("{{mainnetChainId}}", chainConfig.mainnetChainId)
+			.replace("{{testnetChainId}}", chainConfig.testnetChainId)
+			.replace("{{testnetChainName}}", chainConfig.testnetChainName);
+
 		const hardhatConfigPath = path.join(
 			projectDir,
-			"packages/hardhat/hardhat.config.ts"
+			"packages/hardhat/cw3d.config.ts"
 		);
-		if (fs.existsSync(hardhatConfigPath)) {
-			let hardhatConfig = fs.readFileSync(hardhatConfigPath, "utf8");
-			hardhatConfig = hardhatConfig.replace(
-				/defaultNetwork:\s*["'].*["']/,
-				`defaultNetwork: "${chainConfig.scaffoldConfigId}"`
-			);
-			fs.writeFileSync(hardhatConfigPath, hardhatConfig);
-		}
+		fs.writeFileSync(hardhatConfigPath, configContent);
 
-		const nextjsScaffoldConfigPath = path.join(
+		const nextjsConfigPath = path.join(
 			projectDir,
-			"packages/nextjs/scaffold.config.ts"
+			"packages/nextjs/cw3d.config.ts"
 		);
-		if (fs.existsSync(nextjsScaffoldConfigPath)) {
-			let nextjsConfig = fs.readFileSync(
-				nextjsScaffoldConfigPath,
-				"utf8"
-			);
-			nextjsConfig = nextjsConfig.replace(
-				/targetNetworks:\s*\[chains\.[^\]]+\]/,
-				`targetNetworks: [chains.${chainConfig.scaffoldConfigId}]`
-			);
-			fs.writeFileSync(nextjsScaffoldConfigPath, nextjsConfig);
-		}
+		fs.writeFileSync(nextjsConfigPath, configContent);
 	} catch (error) {
 		console.error(chalk.red("\nFailed to clone template:"), error);
 		process.exit(1);
