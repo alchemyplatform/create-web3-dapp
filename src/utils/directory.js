@@ -35,7 +35,7 @@ export async function setupProjectDirectory(projectName, chain, inquirer) {
 	try {
 		console.log(chalk.cyan("\nCloning scaffold-alchemy template..."));
 
-		const chainConfig = CHAIN_CONFIGS.find((c) => c.mainnetName === chain);
+		const chainConfig = CHAIN_CONFIGS.find((c) => c.shortName === chain);
 
 		await clone(
 			"https://github.com/alchemyplatform/scaffold-alchemy",
