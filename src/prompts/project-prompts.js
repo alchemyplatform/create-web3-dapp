@@ -18,7 +18,7 @@ export const chainPrompt = {
 	message: "Which chain would you like to use?",
 	choices: CHAIN_CONFIGS.map((chain) => ({
 		name: chalk[chain.color](chain.displayName),
-		value: chain.mainnetName,
+		value: chain.shortName,
 	})),
 };
 

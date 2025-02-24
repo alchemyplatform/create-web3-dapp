@@ -11,6 +11,7 @@ import {
 	VALID_CHAINS,
 } from "./src/prompts/project-prompts.js";
 import { printOutroMessage } from "./src/utils/outro.js";
+import { checkNodeVersion } from "./src/utils/version-check.js";
 
 console.log(chalk.blue(logo));
 
@@ -58,7 +59,9 @@ async function main() {
 		)
 	);
 
-	printOutroMessage(projectName);
+	await printOutroMessage(projectName);
+
+	checkNodeVersion();
 }
 
 main().catch((error) => {
