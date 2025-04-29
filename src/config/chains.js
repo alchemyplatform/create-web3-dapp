@@ -80,14 +80,14 @@ export const CHAIN_CONFIGS = [
 		testnetChainId: 421614,
 		testnetChainName: "arb-sepolia",
 	},
-	// {
-	// 	mainnetName: "monad-mainnet",
-	// 	mainnetChainId: 143,
-	// 	shortName: "monad",
-	// 	color: "magentaBright",
-	// 	testnetChainId: 10143,
-	// 	testnetChainName: "monad-testnet",
-	// },
+	{
+		mainnetName: "monad-mainnet",
+		mainnetChainId: 143,
+		shortName: "monad",
+		color: "magentaBright",
+		testnetChainId: 10143,
+		testnetChainName: "monad-testnet",
+	},
 	{
 		shortName: "opbnb",
 		displayName: "opBNB",
