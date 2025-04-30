@@ -81,9 +81,10 @@ export const CHAIN_CONFIGS = [
 		testnetChainName: "arb-sepolia",
 	},
 	{
+		shortName: "monad",
+		displayName: "Monad",
 		mainnetName: "monad-mainnet",
 		mainnetChainId: 143,
-		shortName: "monad",
 		color: "magentaBright",
 		testnetChainId: 10143,
 		testnetChainName: "monad-testnet",
