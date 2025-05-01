@@ -41,7 +41,7 @@ export const CHAIN_CONFIGS = [
 		mainnetName: "ink-mainnet",
 		mainnetChainId: 57073,
 		color: "cyan",
-		testnetChainId: 57073,
+		testnetChainId: 763373,
 		testnetChainName: "ink-sepolia",
 	},
 	{
@@ -68,8 +68,8 @@ export const CHAIN_CONFIGS = [
 		mainnetName: "polygon-mainnet",
 		mainnetChainId: 137,
 		color: "magentaBright",
-		testnetChainId: 80001,
-		testnetChainName: "polygon-mumbai",
+		testnetChainId: 80002,
+		testnetChainName: "polygon-amoy",
 	},
 	{
 		shortName: "arb",
