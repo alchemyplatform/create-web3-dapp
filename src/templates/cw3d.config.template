@@ -7,11 +7,9 @@ export type CW3DConfig = {
 	testnetChainName: string;
 };
 
-const config = {
+export const chainConfig = {
 	mainnetName: "{{mainnetName}}",
 	mainnetChainId: {{mainnetChainId}},
 	testnetChainId: {{testnetChainId}},
 	testnetChainName: "{{testnetChainName}}",
 } as const satisfies CW3DConfig;
-
-export default config; 

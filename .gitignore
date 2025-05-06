@@ -113,3 +113,6 @@ package-lock.json
 yarn.lock
 
 templates/evm/core/pages/api
+
+# used for testing
+my-web3-dapp/
