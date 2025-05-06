@@ -8,24 +8,23 @@ import { fileURLToPath } from "url";
 // Get directory name in ESM
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Default packages configuration
-export const DEFAULT_PACKAGES = ["hardhat", "nextjs"];
+/**
+ * Gets the path to the cw3d.config.ts file
+ * @param {string} baseDir The base directory to start from
+ * @returns {string} The full path to the config file
+ */
+function getConfigPath(baseDir) {
+	return path.join(baseDir, "packages", "shared", "src", "cw3d.config.ts");
+}
 
 /**
- * Writes the cw3d.config.ts file for multiple packages
+ * Writes the cw3d.config.ts file for the shared package
  * @param {string} projectDir The project root directory
  * @param {string} configContent The config content to write
  */
-function writePackageConfigs(projectDir, configContent) {
-	for (const packageName of DEFAULT_PACKAGES) {
-		const configPath = path.join(
-			projectDir,
-			"packages",
-			packageName,
-			"cw3d.config.ts"
-		);
-		fs.writeFileSync(configPath, configContent);
-	}
+function writePackageConfig(projectDir, configContent) {
+	const configPath = getConfigPath(projectDir);
+	fs.writeFileSync(configPath, configContent);
 }
 
 /**
@@ -53,25 +52,16 @@ export function isInsideScaffoldAlchemyProject() {
 		return false;
 	}
 
-	// Check for required workspace packages
-	for (const packageName of DEFAULT_PACKAGES) {
-		const packageDir = path.join(currentDir, "packages", packageName);
-		if (!fs.existsSync(packageDir)) {
-			return false;
-		}
+	// Check for shared package
+	const packageDir = path.join(currentDir, "packages", "shared");
+	if (!fs.existsSync(packageDir)) {
+		return false;
 	}
 
-	// Check for Scaffold Alchemy config files
-	for (const packageName of DEFAULT_PACKAGES) {
-		const configPath = path.join(
-			currentDir,
-			"packages",
-			packageName,
-			"cw3d.config.ts"
-		);
-		if (!fs.existsSync(configPath)) {
-			return false;
-		}
+	// Check for Scaffold Alchemy config file
+	const configPath = getConfigPath(currentDir);
+	if (!fs.existsSync(configPath)) {
+		return false;
 	}
 
 	return true;
@@ -129,7 +119,7 @@ export async function setupProjectDirectory(projectName, chain, inquirer) {
 			.replace("{{testnetChainId}}", chainConfig.testnetChainId)
 			.replace("{{testnetChainName}}", chainConfig.testnetChainName);
 
-		writePackageConfigs(projectDir, configContent);
+		writePackageConfig(projectDir, configContent);
 	} catch (error) {
 		console.error(chalk.red("\nFailed to clone template:"), error);
 		process.exit(1);
@@ -139,7 +129,7 @@ export async function setupProjectDirectory(projectName, chain, inquirer) {
 }
 
 /**
- * Updates the Scaffold Alchemy config files with a new chain configuration
+ * Updates the Scaffold Alchemy config file with a new chain configuration
  * @param {string} chain The chain short name to configure
  * @returns {void}
  */
@@ -159,5 +149,5 @@ export function updateProjectConfig(chain) {
 		.replace("{{testnetChainId}}", chainConfig.testnetChainId)
 		.replace("{{testnetChainName}}", chainConfig.testnetChainName);
 
-	writePackageConfigs(currentDir, configContent);
+	writePackageConfig(currentDir, configContent);
 }
