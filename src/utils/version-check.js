@@ -32,5 +32,10 @@ export function checkNodeVersion() {
 				"• n: npm install -g n        (https://www.npmjs.com/package/n)"
 			)
 		);
+		console.log(
+			chalk.yellow(
+				"• nvm: Check https://github.com/nvm-sh/nvm#installing-and-updating for the most up-to-date installation command."
+			)
+		);
 	}
 }
