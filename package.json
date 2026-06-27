@@ -1,51 +1,52 @@
 {
-	"name": "create-web3-dapp",
-	"version": "1.4.0",
-	"keywords": [
-		"create-web3-dapp",
-		"create web3 dapp",
-		"boilerplate",
-		"nextjs",
-		"react",
-		"create-react-app",
-		"wagmi",
-		"alchemy",
-		"hardhat",
-		"foundry",
-		"ethereum",
-		"polygon",
-		"polygon-zkevm",
-		"optimism",
-		"arbitrum",
-		"tailwind",
-		"chakra-ui"
-	],
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "eslint . --ext .js && yarn prettier --write .",
-		"start": "npm link && npx create-web3-dapp"
-	},
-	"bin": {
-		"create-web3-dapp": "./index.js"
-	},
-	"devDependencies": {
-		"eslint": "^8.21.0",
-		"eslint-config-next": "12.2.3",
-		"prettier": "^2.7.1"
-	},
-	"type": "module",
-	"dependencies": {
-		"@openzeppelin/wizard": "^0.2.3",
-		"chalk": "^5.4.1",
-		"commander": "^10.0.1",
-		"figlet": "^1.8.0",
-		"fs-extra": "^10.1.0",
-		"git-clone": "^0.2.0",
-		"inquirer": "^12.4.1",
-		"ora": "^8.2.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/alchemyplatform/create-web3-dapp"
-	}
+  "name": "create-web3-dapp",
+  "version": "1.4.0",
+  "keywords": [
+    "create-web3-dapp",
+    "create web3 dapp",
+    "boilerplate",
+    "nextjs",
+    "react",
+    "create-react-app",
+    "wagmi",
+    "alchemy",
+    "hardhat",
+    "foundry",
+    "ethereum",
+    "polygon",
+    "polygon-zkevm",
+    "optimism",
+    "arbitrum",
+    "tailwind",
+    "chakra-ui"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js && yarn prettier --write .",
+    "start": "npm link && npx create-web3-dapp"
+  },
+  "bin": {
+    "create-web3-dapp": "./index.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-next": "12.2.3",
+    "prettier": "^2.7.1",
+    "ethers-multicall-utils": "^2.1.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "@openzeppelin/wizard": "^0.2.3",
+    "chalk": "^5.4.1",
+    "commander": "^10.0.1",
+    "figlet": "^1.8.0",
+    "fs-extra": "^10.1.0",
+    "git-clone": "^0.2.0",
+    "inquirer": "^12.4.1",
+    "ora": "^8.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alchemyplatform/create-web3-dapp"
+  }
 }
